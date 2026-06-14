@@ -93,7 +93,7 @@ const KEY_H = 770;
 const SPACE_W = 11;
 const SPACE_H = KEY_H;
 const NOTE_W = 153;
-const LALA = [
+const BLACK_NOTES_X = [
         131, 407, 589, 868, 1036, 1203,
         1479, 1661, 1940, 2108, 2275,
         2551, 2733, 3012, 3180, 3347,
@@ -114,7 +114,7 @@ function drawBlackNote(ctx, x) {
 }
 
 function drawLA(ctx, x) {
-    LALA.forEach(function(x_offset) {
+    BLACK_NOTES_X.forEach(function(x_offset) {
         drawBlackNote(ctx, x_offset * scale);
     });
     // drawBlackNote(ctx, 131 * scale);
@@ -171,6 +171,26 @@ clearBtn.addEventListener('click', () => {
     synth.triggerAttackRelease("C3", "8n");
 });
 
+function getBlackNote(x,y) {
+    var x_ref = x / scale;
+    var y_ref = y / scale;
+    var i = 0;
+    var found = false;
+
+    for (i = 0; i< BLACK_NOTES_X.length; i++) {
+        var x_offset = BLACK_NOTES_X[i];
+        if ( x_ref > x_offset &&  x_ref < (x_offset + BLACK_NOTE_W) &&  y_ref < BLACK_NOTE_H) {
+            found = true;
+            break;
+        }
+    }
+
+    if (found) {
+        return i;
+    }
+    return -1;
+}
+
 function onNoteClicked() {
     const ctx = canvas_piano.getContext('2d');
     const rect = canvas_piano.getBoundingClientRect();
@@ -178,11 +198,11 @@ function onNoteClicked() {
     const y = Math.round(event.clientY - rect.top);
 
     console.log('Canvas click at', x, y);
-    //clickInfo.textContent = `Click Position: ${x}, ${y}`;
     current_note = x;
     statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px | Note: ${current_note}`;
 
-
+    var i = getBlackNote(x,y);
+    console.log("getBlackNote ret: " + i);
     // Draw a circle at the click location
     ctx.beginPath();
     ctx.arc(x, y, 10, 0, Math.PI * 2);
