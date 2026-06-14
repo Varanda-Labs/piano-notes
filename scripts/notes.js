@@ -104,6 +104,46 @@ const BLACK_NOTES_X = [
         // 7911
     ];
 
+const BLACK_SHARP_NOTE_NAMES = [
+    'A0#', 'C1#', 'D1#', 'F1#', 'G1#',
+    'A1#', 'C2#', 'D2#', 'F2#', 'G2#',
+    'A2#', 'C3#', 'D3#', 'F3#', 'G3#',
+    'A3#', 'C4#', 'D4#', 'F4#', 'G4#',
+    'A4#', 'C5#', 'D5#', 'F5#', 'G5#',
+    'A5#', 'C6#', 'D6#', 'F6#', 'G6#',
+    'A6#', 'C7#', 'D7#', 'F7#', 'G7#', 'A7#'
+]
+
+const BLACK_BEMOL_NOTE_NAMES = [
+    'B0b', 'D1b', 'E1b', 'G1b', 'A1b',
+    'B1b', 'D2b', 'E2b', 'G2b', 'A2b',
+    'B2b', 'D3b', 'E3b', 'G3b', 'A3b',
+    'B3b', 'D4b', 'E4b', 'G4b', 'A4b',
+    'B4b', 'D5b', 'E5b', 'G5b', 'A5b',
+    'B5b', 'D6b', 'E6b', 'G6b', 'A6b',
+    'B6b', 'D7b', 'E7b', 'G7b', 'A7b', 'B7b'
+]
+
+const BLACK_SHARP_NOTE_SOLFEGE_NAMES = [
+    'La0#', 'Do1#', 'Re1#', 'Fa1#', 'Sol1#',
+    'La1#', 'Do2#', 'Re2#', 'Fa2#', 'Sol2#',
+    'La2#', 'Do3#', 'Re3#', 'Fa3#', 'Sol3#',
+    'La3#', 'Do4#', 'Re4#', 'Fa4#', 'Sol4#',
+    'La4#', 'Do5#', 'Re5#', 'Fa5#', 'Sol5#',
+    'La5#', 'Do6#', 'Re6#', 'Fa6#', 'Sol6#',
+    'La6#', 'Do7#', 'Re7#', 'Fa7#', 'Sol7#', 'La7#'
+]
+
+const BLACK_BEMOL_NOTE_SOLFEGE_NAMES = [
+    'Si0b', 'Re1b', 'Mi1b', 'G1b', 'Sol1b',
+    'Si1b', 'Re2b', 'Mi2b', 'G2b', 'Sol2b',
+    'Si2b', 'Re3b', 'Mi3b', 'G3b', 'Sol3b',
+    'Si3b', 'Re4b', 'Mi4b', 'G4b', 'Sol4b',
+    'Si4b', 'Re5b', 'Mi5b', 'G5b', 'Sol5b',
+    'Si5b', 'Re6b', 'Mi6b', 'G6b', 'Sol6b',
+    'Si6b', 'Re7b', 'Mi7b', 'G7b', 'Sol7b', 'Si7b'
+]
+
 var scale;
 
 function drawBlackNote(ctx, x) {
