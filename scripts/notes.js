@@ -8,6 +8,7 @@ const circleBtn = document.getElementById('drawCircleBtn');
 const clearBtn = document.getElementById('clearBtn');
 
 const WH_RATIO = 10.3595;
+var current_note = "?"
 
 
 // Configuration for the "Piano" Synth
@@ -57,7 +58,7 @@ function resizeCanvases() {
     drawNote();
 
     // Update Status
-    statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px`;
+    statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px | Note: ${current_note}`;
 }
 
 // 4. Initialize on Load
@@ -171,20 +172,23 @@ clearBtn.addEventListener('click', () => {
 });
 
 function onNoteClicked() {
-  const ctx = canvas_piano.getContext('2d');
-  const rect = canvas_piano.getBoundingClientRect();
-  const x = Math.round(event.clientX - rect.left);
-  const y = Math.round(event.clientY - rect.top);
+    const ctx = canvas_piano.getContext('2d');
+    const rect = canvas_piano.getBoundingClientRect();
+    const x = Math.round(event.clientX - rect.left);
+    const y = Math.round(event.clientY - rect.top);
 
-  console.log('Canvas click at', x, y);
-  //clickInfo.textContent = `Click Position: ${x}, ${y}`;
+    console.log('Canvas click at', x, y);
+    //clickInfo.textContent = `Click Position: ${x}, ${y}`;
+    current_note = x;
+    statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px | Note: ${current_note}`;
 
-  // Draw a circle at the click location
-  ctx.beginPath();
-  ctx.arc(x, y, 10, 0, Math.PI * 2);
-  ctx.fillStyle = '#ff404088';
-  ctx.fill();
-  ctx.closePath();
+
+    // Draw a circle at the click location
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, Math.PI * 2);
+    ctx.fillStyle = '#ff404088';
+    ctx.fill();
+    ctx.closePath();
 }
 
 canvas_piano.addEventListener('click', onNoteClicked);
