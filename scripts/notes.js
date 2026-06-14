@@ -105,43 +105,43 @@ const BLACK_NOTES_X = [
     ];
 
 const BLACK_SHARP_NOTE_NAMES = [
-    'A0#', 'C1#', 'D1#', 'F1#', 'G1#',
-    'A1#', 'C2#', 'D2#', 'F2#', 'G2#',
-    'A2#', 'C3#', 'D3#', 'F3#', 'G3#',
-    'A3#', 'C4#', 'D4#', 'F4#', 'G4#',
-    'A4#', 'C5#', 'D5#', 'F5#', 'G5#',
-    'A5#', 'C6#', 'D6#', 'F6#', 'G6#',
-    'A6#', 'C7#', 'D7#', 'F7#', 'G7#', 'A7#'
+    'A#0', 'C#1', 'D#1', 'F#1', 'G#1',
+    'A#1', 'C#2', 'D#2', 'F#2', 'G#2',
+    'A#2', 'C#3', 'D#3', 'F#3', 'G#3',
+    'A#3', 'C#4', 'D#4', 'F#4', 'G#4',
+    'A#4', 'C#5', 'D#5', 'F#5', 'G#5',
+    'A#5', 'C#6', 'D#6', 'F#6', 'G#6',
+    'A#6', 'C#7', 'D#7', 'F#7', 'G#7', 'A#7'
 ]
 
 const BLACK_BEMOL_NOTE_NAMES = [
-    'B0b', 'D1b', 'E1b', 'G1b', 'A1b',
-    'B1b', 'D2b', 'E2b', 'G2b', 'A2b',
-    'B2b', 'D3b', 'E3b', 'G3b', 'A3b',
-    'B3b', 'D4b', 'E4b', 'G4b', 'A4b',
-    'B4b', 'D5b', 'E5b', 'G5b', 'A5b',
-    'B5b', 'D6b', 'E6b', 'G6b', 'A6b',
-    'B6b', 'D7b', 'E7b', 'G7b', 'A7b', 'B7b'
+    'Bb0', 'Db1', 'Eb1', 'Gb1', 'Ab1',
+    'Bb1', 'Db2', 'Eb2', 'Gb2', 'Ab2',
+    'Bb2', 'Db3', 'Eb3', 'Gb3', 'Ab3',
+    'Bb3', 'Db4', 'Eb4', 'Gb4', 'Ab4',
+    'Bb4', 'Db5', 'Eb5', 'Gb5', 'Ab5',
+    'Bb5', 'Db6', 'Eb6', 'Gb6', 'Ab6',
+    'Bb6', 'Db7', 'Eb7', 'Gb7', 'Ab7', 'Bb7'
 ]
 
 const BLACK_SHARP_NOTE_SOLFEGE_NAMES = [
-    'La0#', 'Do1#', 'Re1#', 'Fa1#', 'Sol1#',
-    'La1#', 'Do2#', 'Re2#', 'Fa2#', 'Sol2#',
-    'La2#', 'Do3#', 'Re3#', 'Fa3#', 'Sol3#',
-    'La3#', 'Do4#', 'Re4#', 'Fa4#', 'Sol4#',
-    'La4#', 'Do5#', 'Re5#', 'Fa5#', 'Sol5#',
-    'La5#', 'Do6#', 'Re6#', 'Fa6#', 'Sol6#',
-    'La6#', 'Do7#', 'Re7#', 'Fa7#', 'Sol7#', 'La7#'
+    'La#0', 'Do#1', 'Re#1', 'Fa#1', 'Sol#1',
+    'La#1', 'Do#2', 'Re#2', 'Fa#2', 'Sol#2',
+    'La#2', 'Do#3', 'Re#3', 'Fa#3', 'Sol#3',
+    'La#3', 'Do#4', 'Re#4', 'Fa#4', 'Sol#4',
+    'La#4', 'Do#5', 'Re#5', 'Fa#5', 'Sol#5',
+    'La#5', 'Do#6', 'Re#6', 'Fa#6', 'Sol#6',
+    'La#6', 'Do#7', 'Re#7', 'Fa#7', 'Sol#7', 'La#7'
 ]
 
 const BLACK_BEMOL_NOTE_SOLFEGE_NAMES = [
-    'Si0b', 'Re1b', 'Mi1b', 'G1b', 'Sol1b',
-    'Si1b', 'Re2b', 'Mi2b', 'G2b', 'Sol2b',
-    'Si2b', 'Re3b', 'Mi3b', 'G3b', 'Sol3b',
-    'Si3b', 'Re4b', 'Mi4b', 'G4b', 'Sol4b',
-    'Si4b', 'Re5b', 'Mi5b', 'G5b', 'Sol5b',
-    'Si5b', 'Re6b', 'Mi6b', 'G6b', 'Sol6b',
-    'Si6b', 'Re7b', 'Mi7b', 'G7b', 'Sol7b', 'Si7b'
+    'Sib0', 'Reb1', 'Mib1', 'Solb1', 'Lab1',
+    'Sib1', 'Reb2', 'Mib2', 'Solb2', 'Lab2',
+    'Sib2', 'Reb3', 'Mib3', 'Solb3', 'Lab3',
+    'Sib3', 'Reb4', 'Mib4', 'Solb4', 'Lab4',
+    'Sib4', 'Reb5', 'Mib5', 'Solb5', 'Lab5',
+    'Sib5', 'Reb6', 'Mib6', 'Solb6', 'Lab6',
+    'Sib6', 'Reb7', 'Mib7', 'Solb7', 'Lab7', 'Mib7'
 ]
 
 var scale;
