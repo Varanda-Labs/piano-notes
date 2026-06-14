@@ -52,7 +52,7 @@ function resizeCanvases() {
     canvasState.height = actualHeight;
 
     // update circle
-    drawCircle();
+    //drawCircle();
     drawPiano();
 
     // Update Status
@@ -90,7 +90,7 @@ const BLACK_NOTE_H = 513;
 const KEY_H = 770;
 const SPACE_W = 11;
 const SPACE_H = KEY_H;
-const NOTE_W = 153.4;
+const NOTE_W = 153;
 const LALA = [
         131, 407, 589, 868, 1036, 1203,
         1479, 1661, 1940, 2108, 2275,
