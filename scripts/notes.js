@@ -37,23 +37,24 @@ function resizeCanvases() {
     
     // If the canvas is inside a flex container, it might have 0 height initially.
     // We ensure height is at least the content or a minimum.
-    const minHeight = 200; 
+    const minHeight = 100; 
     const actualHeight = Math.max(cssHeight || minHeight, minHeight);
 
     // Update CSS width/height first (for immediate visual change)
     canvas_notes.width = cssWidth;
-    canvas_notes.height = actualHeight;
+    canvas_notes.height = actualHeight; // drawPiano overrides this
     
     canvas_piano.width = cssWidth;
     canvas_piano.height = actualHeight;
 
     // Store it
     canvasState.width = canvas_notes.width;
-    canvasState.height = actualHeight;
+    canvasState.height = 200; //actualHeight;
 
     // update circle
     //drawCircle();
     drawPiano();
+    drawNote();
 
     // Update Status
     statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px`;
@@ -127,11 +128,17 @@ function drawSpaces(ctx) {
     }
 }
 
+function drawNote() {
+    canvas_notes.height = 100; //h * 1.0;
+}
+
 function drawPiano () {
     const w = canvas_piano.width;
     const h = w / WH_RATIO;
+    canvas_piano.height = h * 1.0;
+
     scale = h /KEY_H;
-    const ctx = canvas_notes.getContext('2d');
+    const ctx = canvas_piano.getContext('2d');
     ctx.fillStyle = '#ffffff';
     ctx.beginPath();
     ctx.rect(0, 0, w, h);
@@ -162,6 +169,25 @@ clearBtn.addEventListener('click', () => {
     ctx.clearRect(0, 0, ctx.width, ctx.height);
     synth.triggerAttackRelease("C3", "8n");
 });
+
+function onNoteClicked() {
+  const ctx = canvas_piano.getContext('2d');
+  const rect = canvas_piano.getBoundingClientRect();
+  const x = Math.round(event.clientX - rect.left);
+  const y = Math.round(event.clientY - rect.top);
+
+  console.log('Canvas click at', x, y);
+  //clickInfo.textContent = `Click Position: ${x}, ${y}`;
+
+  // Draw a circle at the click location
+  ctx.beginPath();
+  ctx.arc(x, y, 10, 0, Math.PI * 2);
+  ctx.fillStyle = '#ff404088';
+  ctx.fill();
+  ctx.closePath();
+}
+
+canvas_piano.addEventListener('click', onNoteClicked);
 
 // Trigger initial draw
 resizeCanvases();
