@@ -1,3 +1,15 @@
+/***************************************************************
+ *
+ *           This code is part the Piano Notes WebApp
+ *
+ * Copyrights 2026 - Varanda Labs Inc.
+ *
+ * License: GPL-v3
+ *   https://www.gnu.org/licenses/gpl-3.0.en.html
+ *
+ *
+ ***************************************************************
+ */
 
 const canvas_notes = document.getElementById('canvas_notes');
 const canvas_piano = document.getElementById('canvas_piano');
@@ -309,10 +321,8 @@ function onNoteClicked() {
         flat_note_name = BLACK_FLAT_NOTE_NAMES[i];
         solfege_sharp_note_name = BLACK_SHARP_NOTE_SOLFEGE_NAMES[i];
         solfege_flat_note_name = BLACK_FLAT_NOTE_SOLFEGE_NAMES[i];
-        display_text =  sharp_note_name + ', ' + 
-                        flat_note_name + '  ' + 
-                        solfege_sharp_note_name + ', ' + 
-                        solfege_flat_note_name;
+        display_text =  `${sharp_note_name}, ${flat_note_name} (${solfege_sharp_note_name}, $${solfege_flat_note_name})`;
+
         note_pos_y = BLACK_NOTE_POS_Y * scale;
         note_pos_x = (BLACK_NOTES_X[i] + BALL/2 + 10) * scale;
 
@@ -323,9 +333,9 @@ function onNoteClicked() {
             console.log("getWhiteNote ret: " + i);
             solfege_note_name = WHITE_SOLFEGE_NOTE_NAMES[i];
             note_name = WHITE_NOTE_NAMES[i];
-            display_text =  note_name + ', ' +  solfege_note_name;
+            display_text =  `${note_name} (${solfege_note_name})`;
             note_pos_y = WHITE_NOTE_POS_Y * scale;
-            note_pos_x = i * ratio + ((BALL/2 + 36) * scale); //(i * SPACE_H + 0 + (BALL / 2)) * scale;
+            note_pos_x = i * ratio + ((BALL/2 + 36) * scale);
         }
     }
     statusDisplay.innerText = display_text;
