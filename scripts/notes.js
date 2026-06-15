@@ -108,6 +108,8 @@ const BLACK_FLAT_NOTE_SOLFEGE_NAMES = [
 
 var scale;
 var current_note = "?"
+var noteAudioSample;
+var audioSynth;
 
 
 // Configuration for the "Piano" Synth
@@ -126,6 +128,11 @@ const canvasState = {
     width: 0,
     height: 0
 };
+
+async function loadNotes() {
+    noteAudioSample = await Tone.ToneAudioBuffer.fromUrl('res/A3v16.mp3');
+    audioSynth = new Tone.Player(noteAudioSample).toDestination();
+}
 
 function resizeCanvases() {
     // Get CSS display width/height (in pixels)
@@ -249,7 +256,8 @@ clearBtn.addEventListener('click', () => {
 });
 
 function playNote(n) {
-    synth.triggerAttackRelease(n, "8n");
+    //synth.triggerAttackRelease(n, "8n");
+    audioSynth.start('0.5s', undefined, 1.0);
 }
 
 function getBlackNote(x,y) {
@@ -357,4 +365,5 @@ function onNoteClicked() {
 canvas_piano.addEventListener('click', onNoteClicked);
 
 // Trigger initial draw
+loadNotes();
 resizeCanvases();
