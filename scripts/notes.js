@@ -37,7 +37,7 @@ const BLACK_SHARP_NOTE_NAMES = [
     'A#6', 'C#7', 'D#7', 'F#7', 'G#7', 'A#7'
 ];
 
-const BLACK_BEMOL_NOTE_NAMES = [
+const BLACK_FLAT_NOTE_NAMES = [
     'Bb0', 'Db1', 'Eb1', 'Gb1', 'Ab1',
     'Bb1', 'Db2', 'Eb2', 'Gb2', 'Ab2',
     'Bb2', 'Db3', 'Eb3', 'Gb3', 'Ab3',
@@ -81,7 +81,7 @@ const BLACK_SHARP_NOTE_SOLFEGE_NAMES = [
     'La#6', 'Do#7', 'Re#7', 'Fa#7', 'Sol#7', 'La#7'
 ];
 
-const BLACK_BEMOL_NOTE_SOLFEGE_NAMES = [
+const BLACK_FLAT_NOTE_SOLFEGE_NAMES = [
     'Sib0', 'Reb1', 'Mib1', 'Solb1', 'Lab1',
     'Sib1', 'Reb2', 'Mib2', 'Solb2', 'Lab2',
     'Sib2', 'Reb3', 'Mib3', 'Solb3', 'Lab3',
@@ -274,20 +274,44 @@ function onNoteClicked() {
     const x = Math.round(event.clientX - rect.left);
     const y = Math.round(event.clientY - rect.top);
 
+    var note_name = "";
+    var solfege_note_name = "";
+
+    var sharp_note_name = "";
+    var flat_note_name = "";
+
+    var solfege_sharp_note_name = "";
+    var solfege_flat_note_name = "";
+
+    var display_text = "";
+
     console.log('Canvas click at', x, y);
     current_note = x;
-    statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px | Note: ${current_note}`;
+    // statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px | Note: ${current_note}`;
 
     var i = getBlackNote(x,y);
     if (i >= 0) {
         console.log("getBlackNote ret: " + i);
+        sharp_note_name = BLACK_SHARP_NOTE_NAMES[i];
+        flat_note_name = BLACK_FLAT_NOTE_NAMES[i];
+        solfege_sharp_note_name = BLACK_SHARP_NOTE_SOLFEGE_NAMES[i];
+        solfege_flat_note_name = BLACK_FLAT_NOTE_SOLFEGE_NAMES[i];
+        display_text =  sharp_note_name + ', ' + 
+                        flat_note_name + '  ' + 
+                        solfege_sharp_note_name + ', ' + 
+                        solfege_flat_note_name;
     }
     else {
         i = getWhiteNote(x,y);
         if (i >= 0) {
             console.log("getWhiteNote ret: " + i);
+            solfege_note_name = WHITE_SOLFEGE_NOTE_NAMES[i];
+            note_name = WHITE_NOTE_NAMES[i];
+        display_text =  note_name + ', ' +  solfege_note_name;
         }
     }
+    statusDisplay.innerText = display_text;
+
     // Draw a circle at the click location
     ctx.beginPath();
     ctx.arc(x, y, BALL * scale, 0, Math.PI * 2);
