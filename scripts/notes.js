@@ -9,6 +9,9 @@
  *
  *
  ***************************************************************
+
+ Credits: Audio samples from https://github.com/tambien/Piano
+
  */
 
 const canvas_notes = document.getElementById('canvas_notes');
@@ -106,6 +109,112 @@ const BLACK_FLAT_NOTE_SOLFEGE_NAMES = [
     'Sib6', 'Reb7', 'Mib7', 'Solb7', 'Lab7', 'Mib7'
 ];
 
+var audioSamples = {
+    //------ 0 --------------------------
+    'A0': {'file': 'aaa', 'synth': null},
+    'A#0': {'file': 'aaa', 'synth': null},
+    'B0': {'file': 'aaa', 'synth': null},
+
+    //------ 1 --------------------------
+    'C1': {'file': 'aaa', 'synth': null}, 
+    'C#1': {'file': 'aaa', 'synth': null}, 
+    'D1': {'file': 'aaa', 'synth': null},
+    'D#1': {'file': 'aaa', 'synth': null}, 
+    'E1': {'file': 'aaa', 'synth': null}, 
+    'F1': {'file': 'aaa', 'synth': null}, 
+    'F#1': {'file': 'aaa', 'synth': null}, 
+    'G1': {'file': 'aaa', 'synth': null}, 
+    'G#1': {'file': 'aaa', 'synth': null}, 
+    'A1': {'file': 'aaa', 'synth': null}, 
+    'A#1': {'file': 'aaa', 'synth': null}, 
+    'B1': {'file': 'aaa', 'synth': null},
+
+    //------ 2 --------------------------
+    'C2': {'file': 'aaa', 'synth': null}, 
+    'C#2': {'file': 'aaa', 'synth': null}, 
+    'D2': {'file': 'aaa', 'synth': null},
+    'D#2': {'file': 'aaa', 'synth': null}, 
+    'E2': {'file': 'aaa', 'synth': null}, 
+    'F2': {'file': 'aaa', 'synth': null}, 
+    'F#2': {'file': 'aaa', 'synth': null}, 
+    'G2': {'file': 'aaa', 'synth': null}, 
+    'G#2': {'file': 'aaa', 'synth': null}, 
+    'A2': {'file': 'aaa', 'synth': null}, 
+    'A#2': {'file': 'aaa', 'synth': null}, 
+    'B2': {'file': 'aaa', 'synth': null},
+
+    //------ 3 --------------------------
+    'C3': {'file': 'aaa', 'synth': null}, 
+    'C#3': {'file': 'aaa', 'synth': null}, 
+    'D3': {'file': 'aaa', 'synth': null},
+    'D#3': {'file': 'aaa', 'synth': null}, 
+    'E3': {'file': 'aaa', 'synth': null}, 
+    'F3': {'file': 'aaa', 'synth': null}, 
+    'F#3': {'file': 'aaa', 'synth': null}, 
+    'G3': {'file': 'aaa', 'synth': null}, 
+    'G#3': {'file': 'aaa', 'synth': null}, 
+    'A3': {'file': 'aaa', 'synth': null}, 
+    'A#3': {'file': 'aaa', 'synth': null}, 
+    'B3': {'file': 'aaa', 'synth': null},
+
+    //------ 4 --------------------------
+    'C4': {'file': 'aaa', 'synth': null}, 
+    'C#4': {'file': 'aaa', 'synth': null}, 
+    'D4': {'file': 'aaa', 'synth': null},
+    'D#4': {'file': 'aaa', 'synth': null}, 
+    'E4': {'file': 'aaa', 'synth': null}, 
+    'F4': {'file': 'aaa', 'synth': null}, 
+    'F#4': {'file': 'aaa', 'synth': null}, 
+    'G4': {'file': 'aaa', 'synth': null}, 
+    'G#4': {'file': 'aaa', 'synth': null}, 
+    'A4': {'file': 'aaa', 'synth': null}, 
+    'A#4': {'file': 'aaa', 'synth': null}, 
+    'B4': {'file': 'aaa', 'synth': null},
+
+    //------ 5 --------------------------
+    'C5': {'file': 'aaa', 'synth': null}, 
+    'C#5': {'file': 'aaa', 'synth': null}, 
+    'D5': {'file': 'aaa', 'synth': null},
+    'D#5': {'file': 'aaa', 'synth': null}, 
+    'E5': {'file': 'aaa', 'synth': null}, 
+    'F5': {'file': 'aaa', 'synth': null}, 
+    'F#5': {'file': 'aaa', 'synth': null}, 
+    'G5': {'file': 'aaa', 'synth': null}, 
+    'G#5': {'file': 'aaa', 'synth': null}, 
+    'A5': {'file': 'aaa', 'synth': null}, 
+    'A#5': {'file': 'aaa', 'synth': null}, 
+    'B5': {'file': 'aaa', 'synth': null},
+
+    //------ 6 --------------------------
+    'C6': {'file': 'aaa', 'synth': null}, 
+    'C#6': {'file': 'aaa', 'synth': null}, 
+    'D6': {'file': 'aaa', 'synth': null},
+    'D#6': {'file': 'aaa', 'synth': null}, 
+    'E6': {'file': 'aaa', 'synth': null}, 
+    'F6': {'file': 'aaa', 'synth': null}, 
+    'F#6': {'file': 'aaa', 'synth': null}, 
+    'G6': {'file': 'aaa', 'synth': null}, 
+    'G#6': {'file': 'aaa', 'synth': null}, 
+    'A6': {'file': 'aaa', 'synth': null}, 
+    'A#6': {'file': 'aaa', 'synth': null}, 
+    'B6': {'file': 'aaa', 'synth': null},
+
+    //------ 7 --------------------------
+    'C7': {'file': 'aaa', 'synth': null}, 
+    'C#7': {'file': 'aaa', 'synth': null}, 
+    'D7': {'file': 'aaa', 'synth': null},
+    'D#7': {'file': 'aaa', 'synth': null}, 
+    'E7': {'file': 'aaa', 'synth': null}, 
+    'F7': {'file': 'aaa', 'synth': null}, 
+    'F#7': {'file': 'aaa', 'synth': null}, 
+    'G7': {'file': 'aaa', 'synth': null}, 
+    'G#7': {'file': 'aaa', 'synth': null}, 
+    'A7': {'file': 'aaa', 'synth': null}, 
+    'A#7': {'file': 'aaa', 'synth': null}, 
+    'B7': {'file': 'aaa', 'synth': null},
+
+    'C8': {'file': 'aaa', 'synth': null}
+}
 var scale;
 var current_note = "?"
 var noteAudioSample;
