@@ -1,4 +1,4 @@
-// 1. Select Elements
+
 const canvas_notes = document.getElementById('canvas_notes');
 const canvas_piano = document.getElementById('canvas_piano');
 const statusDisplay = document.getElementById('status');
@@ -8,6 +8,90 @@ const circleBtn = document.getElementById('drawCircleBtn');
 const clearBtn = document.getElementById('clearBtn');
 
 const WH_RATIO = 10.3595;
+const BLACK_NOTE_W = 88;
+const BLACK_NOTE_H = 513;
+const KEY_H = 770;
+const SPACE_W = 11;
+const SPACE_H = KEY_H;
+const NOTE_W = 153;
+const BALL = 70;
+
+const BLACK_NOTES_X = [
+        131, 407, 589, 868, 1036, 1203,
+        1479, 1661, 1940, 2108, 2275,
+        2551, 2733, 3012, 3180, 3347,
+        3623, 3805, 4084, 4252, 4419,
+        4695, 4877, 5156, 5324, 5491,
+        5767, 5949, 6228, 6396, 6563,
+        6839, 7021, 7300, 7468, 7635,
+        // 7911
+    ];
+
+const BLACK_SHARP_NOTE_NAMES = [
+    'A#0', 'C#1', 'D#1', 'F#1', 'G#1',
+    'A#1', 'C#2', 'D#2', 'F#2', 'G#2',
+    'A#2', 'C#3', 'D#3', 'F#3', 'G#3',
+    'A#3', 'C#4', 'D#4', 'F#4', 'G#4',
+    'A#4', 'C#5', 'D#5', 'F#5', 'G#5',
+    'A#5', 'C#6', 'D#6', 'F#6', 'G#6',
+    'A#6', 'C#7', 'D#7', 'F#7', 'G#7', 'A#7'
+];
+
+const BLACK_BEMOL_NOTE_NAMES = [
+    'Bb0', 'Db1', 'Eb1', 'Gb1', 'Ab1',
+    'Bb1', 'Db2', 'Eb2', 'Gb2', 'Ab2',
+    'Bb2', 'Db3', 'Eb3', 'Gb3', 'Ab3',
+    'Bb3', 'Db4', 'Eb4', 'Gb4', 'Ab4',
+    'Bb4', 'Db5', 'Eb5', 'Gb5', 'Ab5',
+    'Bb5', 'Db6', 'Eb6', 'Gb6', 'Ab6',
+    'Bb6', 'Db7', 'Eb7', 'Gb7', 'Ab7', 'Bb7'
+];
+
+const WHITE_NOTE_NAMES = [
+    'A0', 'B0', 
+    'C1', 'D1', 'E1', 'F1', 'G1', 'A1', 'B1',
+    'C2', 'D2', 'E2', 'F2', 'G2', 'A2', 'B2',
+    'C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3',
+    'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4',
+    'C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5',
+    'C6', 'D6', 'E6', 'F6', 'G6', 'A6', 'B6',
+    'C7', 'D7', 'E7', 'F7', 'G7', 'A7', 'B7',
+    'C8'
+];
+
+const WHITE_SOLFEGE_NOTE_NAMES = [
+    'La0', 'Si0', 
+    'Do1', 'Re1', 'Mi1', 'Fa1', 'Sol1', 'La1', 'Si1',
+    'Do2', 'Re2', 'Mi2', 'Fa2', 'Sol2', 'La2', 'Si2',
+    'Do3', 'Re3', 'Mi3', 'Fa3', 'Sol3', 'La3', 'Si3',
+    'Do4', 'Re4', 'Mi4', 'Fa4', 'Sol4', 'La4', 'Si4',
+    'Do5', 'Re5', 'Mi5', 'Fa5', 'Sol5', 'La5', 'Si5',
+    'Do6', 'Re6', 'Mi6', 'Fa6', 'Sol6', 'La6', 'Si6',
+    'Do7', 'Re7', 'Mi7', 'Fa7', 'Sol7', 'La7', 'Si7',
+    'Do8'
+];
+
+const BLACK_SHARP_NOTE_SOLFEGE_NAMES = [
+    'La#0', 'Do#1', 'Re#1', 'Fa#1', 'Sol#1',
+    'La#1', 'Do#2', 'Re#2', 'Fa#2', 'Sol#2',
+    'La#2', 'Do#3', 'Re#3', 'Fa#3', 'Sol#3',
+    'La#3', 'Do#4', 'Re#4', 'Fa#4', 'Sol#4',
+    'La#4', 'Do#5', 'Re#5', 'Fa#5', 'Sol#5',
+    'La#5', 'Do#6', 'Re#6', 'Fa#6', 'Sol#6',
+    'La#6', 'Do#7', 'Re#7', 'Fa#7', 'Sol#7', 'La#7'
+];
+
+const BLACK_BEMOL_NOTE_SOLFEGE_NAMES = [
+    'Sib0', 'Reb1', 'Mib1', 'Solb1', 'Lab1',
+    'Sib1', 'Reb2', 'Mib2', 'Solb2', 'Lab2',
+    'Sib2', 'Reb3', 'Mib3', 'Solb3', 'Lab3',
+    'Sib3', 'Reb4', 'Mib4', 'Solb4', 'Lab4',
+    'Sib4', 'Reb5', 'Mib5', 'Solb5', 'Lab5',
+    'Sib5', 'Reb6', 'Mib6', 'Solb6', 'Lab6',
+    'Sib6', 'Reb7', 'Mib7', 'Solb7', 'Lab7', 'Mib7'
+];
+
+var scale;
 var current_note = "?"
 
 
@@ -23,14 +107,11 @@ const synth = new Tone.PolySynth(Tone.Synth, {
     }
 }).toDestination();
 
-// 2. Storage Object
-// This stores the logical (CSS) dimensions
 const canvasState = {
     width: 0,
     height: 0
 };
 
-// 3. Function to resize and store data
 function resizeCanvases() {
     // Get CSS display width/height (in pixels)
     const cssWidth = canvas_notes.offsetWidth;
@@ -86,65 +167,6 @@ function drawPattern(ctx) {
         ctx.fill();
     }
 }
-
-const BLACK_NOTE_W = 88;
-const BLACK_NOTE_H = 513;
-const KEY_H = 770;
-const SPACE_W = 11;
-const SPACE_H = KEY_H;
-const NOTE_W = 153;
-const BLACK_NOTES_X = [
-        131, 407, 589, 868, 1036, 1203,
-        1479, 1661, 1940, 2108, 2275,
-        2551, 2733, 3012, 3180, 3347,
-        3623, 3805, 4084, 4252, 4419,
-        4695, 4877, 5156, 5324, 5491,
-        5767, 5949, 6228, 6396, 6563,
-        6839, 7021, 7300, 7468, 7635,
-        // 7911
-    ];
-
-const BLACK_SHARP_NOTE_NAMES = [
-    'A#0', 'C#1', 'D#1', 'F#1', 'G#1',
-    'A#1', 'C#2', 'D#2', 'F#2', 'G#2',
-    'A#2', 'C#3', 'D#3', 'F#3', 'G#3',
-    'A#3', 'C#4', 'D#4', 'F#4', 'G#4',
-    'A#4', 'C#5', 'D#5', 'F#5', 'G#5',
-    'A#5', 'C#6', 'D#6', 'F#6', 'G#6',
-    'A#6', 'C#7', 'D#7', 'F#7', 'G#7', 'A#7'
-]
-
-const BLACK_BEMOL_NOTE_NAMES = [
-    'Bb0', 'Db1', 'Eb1', 'Gb1', 'Ab1',
-    'Bb1', 'Db2', 'Eb2', 'Gb2', 'Ab2',
-    'Bb2', 'Db3', 'Eb3', 'Gb3', 'Ab3',
-    'Bb3', 'Db4', 'Eb4', 'Gb4', 'Ab4',
-    'Bb4', 'Db5', 'Eb5', 'Gb5', 'Ab5',
-    'Bb5', 'Db6', 'Eb6', 'Gb6', 'Ab6',
-    'Bb6', 'Db7', 'Eb7', 'Gb7', 'Ab7', 'Bb7'
-]
-
-const BLACK_SHARP_NOTE_SOLFEGE_NAMES = [
-    'La#0', 'Do#1', 'Re#1', 'Fa#1', 'Sol#1',
-    'La#1', 'Do#2', 'Re#2', 'Fa#2', 'Sol#2',
-    'La#2', 'Do#3', 'Re#3', 'Fa#3', 'Sol#3',
-    'La#3', 'Do#4', 'Re#4', 'Fa#4', 'Sol#4',
-    'La#4', 'Do#5', 'Re#5', 'Fa#5', 'Sol#5',
-    'La#5', 'Do#6', 'Re#6', 'Fa#6', 'Sol#6',
-    'La#6', 'Do#7', 'Re#7', 'Fa#7', 'Sol#7', 'La#7'
-]
-
-const BLACK_BEMOL_NOTE_SOLFEGE_NAMES = [
-    'Sib0', 'Reb1', 'Mib1', 'Solb1', 'Lab1',
-    'Sib1', 'Reb2', 'Mib2', 'Solb2', 'Lab2',
-    'Sib2', 'Reb3', 'Mib3', 'Solb3', 'Lab3',
-    'Sib3', 'Reb4', 'Mib4', 'Solb4', 'Lab4',
-    'Sib4', 'Reb5', 'Mib5', 'Solb5', 'Lab5',
-    'Sib5', 'Reb6', 'Mib6', 'Solb6', 'Lab6',
-    'Sib6', 'Reb7', 'Mib7', 'Solb7', 'Lab7', 'Mib7'
-]
-
-var scale;
 
 function drawBlackNote(ctx, x) {
     ctx.fillStyle = '#000000';
@@ -231,6 +253,21 @@ function getBlackNote(x,y) {
     return -1;
 }
 
+function getWhiteNote(x,y) {
+    var x_ref = x / scale;
+    var y_ref = y / scale;
+    var i = 0;
+    var found = false;
+
+    if (y_ref < BLACK_NOTE_H * scale) return -1;
+    console.log('canvas_piano.width = ' + canvas_piano.width + ', x = ' + x);
+    i = Math.trunc((x /canvas_piano.width) * WHITE_NOTE_NAMES.length);
+    if (i < 0) i = 0;
+    if (i >= WHITE_NOTE_NAMES.length) i = WHITE_NOTE_NAMES.length - 1;
+    console.log('white idx: ' + i);
+    return i;
+}
+
 function onNoteClicked() {
     const ctx = canvas_piano.getContext('2d');
     const rect = canvas_piano.getBoundingClientRect();
@@ -242,10 +279,18 @@ function onNoteClicked() {
     statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px | Note: ${current_note}`;
 
     var i = getBlackNote(x,y);
-    console.log("getBlackNote ret: " + i);
+    if (i >= 0) {
+        console.log("getBlackNote ret: " + i);
+    }
+    else {
+        i = getWhiteNote(x,y);
+        if (i >= 0) {
+            console.log("getWhiteNote ret: " + i);
+        }
+    }
     // Draw a circle at the click location
     ctx.beginPath();
-    ctx.arc(x, y, 10, 0, Math.PI * 2);
+    ctx.arc(x, y, BALL * scale, 0, Math.PI * 2);
     ctx.fillStyle = '#ff404088';
     ctx.fill();
     ctx.closePath();
