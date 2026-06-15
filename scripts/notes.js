@@ -16,6 +16,9 @@ const SPACE_H = KEY_H;
 const NOTE_W = 153;
 const BALL = 70;
 
+const BLACK_NOTE_POS_Y = BLACK_NOTE_H - BALL;
+const WHITE_NOTE_POS_Y = KEY_H - BALL;
+
 const BLACK_NOTES_X = [
         131, 407, 589, 868, 1036, 1203,
         1479, 1661, 1940, 2108, 2275,
@@ -233,6 +236,10 @@ clearBtn.addEventListener('click', () => {
     synth.triggerAttackRelease("C3", "8n");
 });
 
+function playNote(n) {
+    synth.triggerAttackRelease(n, "8n");
+}
+
 function getBlackNote(x,y) {
     var x_ref = x / scale;
     var y_ref = y / scale;
@@ -273,6 +280,10 @@ function onNoteClicked() {
     const rect = canvas_piano.getBoundingClientRect();
     const x = Math.round(event.clientX - rect.left);
     const y = Math.round(event.clientY - rect.top);
+    const ratio = canvas_piano.width / 52;
+
+    var note_pos_x = 0;
+    var note_pos_y = 0;
 
     var note_name = "";
     var solfege_note_name = "";
@@ -284,6 +295,8 @@ function onNoteClicked() {
     var solfege_flat_note_name = "";
 
     var display_text = "";
+
+
 
     console.log('Canvas click at', x, y);
     current_note = x;
@@ -300,6 +313,9 @@ function onNoteClicked() {
                         flat_note_name + '  ' + 
                         solfege_sharp_note_name + ', ' + 
                         solfege_flat_note_name;
+        note_pos_y = BLACK_NOTE_POS_Y * scale;
+        note_pos_x = (BLACK_NOTES_X[i] + BALL/2 + 10) * scale;
+
     }
     else {
         i = getWhiteNote(x,y);
@@ -307,14 +323,22 @@ function onNoteClicked() {
             console.log("getWhiteNote ret: " + i);
             solfege_note_name = WHITE_SOLFEGE_NOTE_NAMES[i];
             note_name = WHITE_NOTE_NAMES[i];
-        display_text =  note_name + ', ' +  solfege_note_name;
+            display_text =  note_name + ', ' +  solfege_note_name;
+            note_pos_y = WHITE_NOTE_POS_Y * scale;
+            note_pos_x = i * ratio + ((BALL/2 + 36) * scale); //(i * SPACE_H + 0 + (BALL / 2)) * scale;
         }
     }
     statusDisplay.innerText = display_text;
+    if (note_name.length > 1) {
+        playNote(note_name);
+    }
+    if (sharp_note_name.length > 1) {
+        playNote(sharp_note_name);
+    }
 
     // Draw a circle at the click location
     ctx.beginPath();
-    ctx.arc(x, y, BALL * scale, 0, Math.PI * 2);
+    ctx.arc(note_pos_x, note_pos_y, BALL * scale, 0, Math.PI * 2);
     ctx.fillStyle = '#ff404088';
     ctx.fill();
     ctx.closePath();
