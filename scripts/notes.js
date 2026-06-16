@@ -241,6 +241,13 @@ const canvasState = {
 async function loadNotes() {
     noteAudioSample = await Tone.ToneAudioBuffer.fromUrl('res/A3v16.mp3');
     audioSynth = new Tone.Player(noteAudioSample).toDestination();
+    for (var [key,note_dic] of Object.entries(audioSamples)) {
+        if (note_dic.file.length > 1) {
+            var sample = await Tone.ToneAudioBuffer.fromUrl('res/' + note_dic.file);
+            note_dic.synth = new Tone.Player(sample).toDestination();
+        }
+        // console.log(key, note_dic);
+    }
 }
 
 function resizeCanvases() {
@@ -366,7 +373,10 @@ clearBtn.addEventListener('click', () => {
 
 function playNote(n) {
     //synth.triggerAttackRelease(n, "8n");
-    audioSynth.start('0.5s', undefined, 1.0);
+    // audioSynth.start('0.5s', undefined, 1.0);
+    if (audioSamples[n].synth != null) {
+        audioSamples[n].synth.start('0.5s', undefined, 1.0);
+    }
 }
 
 function getBlackNote(x,y) {
