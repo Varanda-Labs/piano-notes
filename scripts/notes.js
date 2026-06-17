@@ -10,7 +10,9 @@
  *
  ***************************************************************
 
- Credits: Audio samples from https://github.com/tambien/Piano
+ Credits: Audio sample files downloaded from https://github.com/tambien/Piano
+          Actual Samples/author:  Salamander Grand Piano V3, Alexander Holm 
+                                  https://archive.org/details/SalamanderGrandPianoV3
 
  */
 
@@ -109,146 +111,53 @@ const BLACK_FLAT_NOTE_SOLFEGE_NAMES = [
     'Sib6', 'Reb7', 'Mib7', 'Solb7', 'Lab7', 'Mib7'
 ];
 
-var audioSamples = {
-    //------ 0 --------------------------
-    'A0': {'file': 'A0v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-    'A#0': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-    'B0': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
+const sampler = new Tone.Sampler({
+    urls: {
+        A0: "A0v16.mp3",
+        C1: "C1v16.mp3",
+        "D#1": "Ds1v16.mp3",
+        "F#1": "Fs1v16.mp3",
+        A1: "A1v16.mp3",
+        C2: "C2v16.mp3",
+        "D#2": "Ds2v16.mp3",
+        "F#2": "Fs2v16.mp3",
+        A2: "A2v16.mp3",
+        C3: "C3v16.mp3",
+        "D#3": "Ds3v16.mp3",
+        "F#3": "Fs3v16.mp3",
+        A3: "A3v16.mp3",
+        C4: "C4v16.mp3",
+        "D#4": "Ds4v16.mp3",
+        "F#4": "Fs4v16.mp3",
+        A4: "A4v16.mp3",
+        C5: "C5v16.mp3",
+        "D#5": "Ds5v16.mp3",
+        "F#5": "Fs5v16.mp3",
+        A5: "A5v16.mp3",
+        C6: "C6v16.mp3",
+        "D#6": "Ds6v16.mp3",
+        "F#6": "Fs6v16.mp3",
+        A6: "A6v16.mp3",
+        C7: "C7v16.mp3",
+        "D#7": "Ds7v16.mp3",
+        "F#7": "Fs7v16.mp3",
+        A7: "A7v16.mp3",
+        C8: "C8v16.mp3",
+    },
+    release: 1,
+    baseUrl: "res/",
+}).toDestination();
 
-    //------ 1 --------------------------
-    'C1': {'file': 'C1v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'C#1': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'D1': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-    'D#1': {'file': 'Ds1v16.mp3', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'E1': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'F1': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'F#1': {'file': 'Fs1v16.mp3', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'G1': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'G#1': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'A1': {'file': 'A1v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'A#1': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'B1': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
 
-    //------ 2 --------------------------
-    'C2': {'file': 'C2v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'C#2': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'D2': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-    'D#2': {'file': 'Ds2v16.mp3', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'E2': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'F2': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'F#2': {'file': 'Fs2v16.mp3', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'G2': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'G#2': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'A2': {'file': 'A2v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'A#2': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'B2': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-
-    //------ 3 --------------------------
-    'C3': {'file': 'C3v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'C#3': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'D3': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-    'D#3': {'file': 'Ds3v16.mp3', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'E3': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'F3': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'F#3': {'file': 'Fs3v16.mp3', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'G3': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'G#3': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'A3': {'file': 'A3v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'A#3': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'B3': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-
-    //------ 4 --------------------------
-    'C4': {'file': 'C4v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'C#4': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'D4': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-    'D#4': {'file': 'Ds4v16.mp3', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'E4': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'F4': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'F#4': {'file': 'Fs4v16.mp3', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'G4': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'G#4': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'A4': {'file': 'A4v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'A#4': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'B4': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-
-    //------ 5 --------------------------
-    'C5': {'file': 'C5v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'C#5': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'D5': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-    'D#5': {'file': 'Ds5v16.mp3', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'E5': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'F5': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'F#5': {'file': 'Fs5v16.mp3', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'G5': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'G#5': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'A5': {'file': 'A5v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'A#5': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'B5': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-
-    //------ 6 --------------------------
-    'C6': {'file': 'C6v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'C#6': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'D6': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-    'D#6': {'file': 'Ds6v16.mp3', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'E6': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'F6': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'F#6': {'file': 'Fs6v16.mp3', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'G6': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'G#6': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'A6': {'file': 'A6v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'A#6': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'B6': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-
-    //------ 7 --------------------------
-    'C7': {'file': 'C7v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'C#7': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'D7': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-    'D#7': {'file': 'Ds7v16.mp3', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'E7': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'F7': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'F#7': {'file': 'Fs7v16.mp3', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'G7': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'G#7': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'A7': {'file': 'A0v16.mp3',  'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'A#7': {'file': '', 'synth': null, 'fshift_src': '', 'fshift_arg': ''}, 
-    'B7': {'file': '',  'synth': null, 'fshift_src': '', 'fshift_arg': ''},
-
-    'C8': {'file': '',  'synth': null}
-}
 var scale;
 var current_note = "?"
 var noteAudioSample;
 var audioSynth;
 
-
-// Configuration for the "Piano" Synth
-// We use PolySynth to allow multiple notes to be played at once
-const synth = new Tone.PolySynth(Tone.Synth, {
-    oscillator: { type: "triangle" }, // Triangle waves are softer/singable
-    envelope: {
-        attack: 0.02,  // Fast attack
-        decay: 0.2,    // Quick fall to sustain
-        sustain: 0.5,  // Moderate volume
-        release: 1.5   // Slow fade out (release)
-    }
-}).toDestination();
-
 const canvasState = {
     width: 0,
     height: 0
 };
-
-async function loadNotes() {
-    noteAudioSample = await Tone.ToneAudioBuffer.fromUrl('res/A3v16.mp3');
-    audioSynth = new Tone.Player(noteAudioSample).toDestination();
-    for (var [key,note_dic] of Object.entries(audioSamples)) {
-        if (note_dic.file.length > 1) {
-            var sample = await Tone.ToneAudioBuffer.fromUrl('res/' + note_dic.file);
-            note_dic.synth = new Tone.Player(sample).toDestination();
-        }
-        // console.log(key, note_dic);
-    }
-}
 
 function resizeCanvases() {
     // Get CSS display width/height (in pixels)
@@ -322,7 +231,7 @@ function drawLA(ctx, x) {
 
 function drawSpaces(ctx) {
     var x = 0;
-    for (i = 0; i < 52; i++) {
+    for (var i = 0; i < 52; i++) {
         ctx.rect(x * scale, 0, SPACE_W * scale, SPACE_H * scale);
         ctx.fill(); 
         x = x + NOTE_W;
@@ -369,14 +278,14 @@ clearBtn.addEventListener('click', () => {
     const ctx = canvas_notes.getContext('2d');
     ctx.clearRect(0, 0, ctx.width, ctx.height);
     synth.triggerAttackRelease("C3", "8n");
+
+    // piano.keyDown('C4', '+1');
+
 });
 
 function playNote(n) {
-    //synth.triggerAttackRelease(n, "8n");
-    // audioSynth.start('0.5s', undefined, 1.0);
-    if (audioSamples[n].synth != null) {
-        audioSamples[n].synth.start('0.5s', undefined, 1.0);
-    }
+    sampler.triggerAttack(n);
+    sampler.triggerRelease(n);
 }
 
 function getBlackNote(x,y) {
@@ -483,6 +392,6 @@ function onNoteClicked() {
 
 canvas_piano.addEventListener('click', onNoteClicked);
 
-// Trigger initial draw
-loadNotes();
 resizeCanvases();
+
+
