@@ -23,6 +23,7 @@ const colorSelect = document.getElementById('colorSelect');
 const rectBtn = document.getElementById('drawRectBtn');
 const circleBtn = document.getElementById('drawCircleBtn');
 const clearBtn = document.getElementById('clearBtn');
+const pedalDownCheckbox = document.getElementById('pedalDownCheckbox');
 
 const WH_RATIO = 10.3595;
 const BLACK_NOTE_W = 88;
@@ -153,6 +154,8 @@ var scale;
 var current_note = "?"
 var noteAudioSample;
 var audioSynth;
+var playingNote = '';
+
 
 const canvasState = {
     width: 0,
@@ -186,7 +189,7 @@ function resizeCanvases() {
     drawNote();
 
     // Update Status
-    statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px | Note: ${current_note}`;
+    //statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px | Note: ${current_note}`;
 }
 
 // 4. Initialize on Load
@@ -277,7 +280,9 @@ circleBtn.addEventListener('click', drawCircle);
 clearBtn.addEventListener('click', () => {
     const ctx = canvas_notes.getContext('2d');
     ctx.clearRect(0, 0, ctx.width, ctx.height);
-    synth.triggerAttackRelease("C3", "8n");
+    if (pedalDownCheckbox.checked == true) {
+        synth.triggerAttackRelease("C3", "8n");
+    }
 
     // piano.keyDown('C4', '+1');
 
@@ -285,7 +290,7 @@ clearBtn.addEventListener('click', () => {
 
 function playNote(n) {
     sampler.triggerAttack(n);
-    sampler.triggerRelease(n);
+    playingNote = n;
 }
 
 function getBlackNote(x,y) {
@@ -323,7 +328,17 @@ function getWhiteNote(x,y) {
     return i;
 }
 
-function onNoteClicked() {
+function onMouseUp() {
+    if (playingNote.length > 1) {
+        if (pedalDownCheckbox.checked == false) {
+            sampler.triggerRelease(playingNote);
+        }
+        playingNote = '';
+        setTimeout(resizeCanvases, 100);
+    }
+}
+
+function onMouseDown() {
     const ctx = canvas_piano.getContext('2d');
     const rect = canvas_piano.getBoundingClientRect();
     const x = Math.round(event.clientX - rect.left);
@@ -390,7 +405,12 @@ function onNoteClicked() {
     ctx.closePath();
 }
 
-canvas_piano.addEventListener('click', onNoteClicked);
+//canvas_piano.addEventListener('click', onMouseDown);
+canvas_piano.addEventListener('mousedown', onMouseDown);
+canvas_piano.addEventListener('mouseup', onMouseUp);
+
+
+
 
 resizeCanvases();
 
