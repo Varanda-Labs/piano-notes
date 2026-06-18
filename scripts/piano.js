@@ -143,6 +143,10 @@ const SAMPLER = new Tone.Sampler({
     baseUrl: "res/",
 }).toDestination();
 
+const CANVAS_STATE = {
+    width: 0,
+    height: 0
+};
 
 class Piano extends Instrument{
   constructor(canvas, statusDisplay, pedalDownCheckBox, noteStrokeCallback = null){
@@ -152,24 +156,18 @@ class Piano extends Instrument{
     this.pedalDownCheckbox = pedalDownCheckBox;
     this.ctx = this.canvas_piano.getContext('2d');
 
-    this.canvasState;
     this.x_offset = "?"
     this.noteAudioSample;
     this.audioSynth;
     this.playingNote = '';
 
+    this.canvas_piano.addEventListener('mousedown', (event) => this.onMouseDown(event));
+    this.canvas_piano.addEventListener('mouseup', (event) => this.onMouseUp(event));
 
-    this.canvasState = {
-        width: 0,
-        height: 0
-    };
-
-    this.canvas_piano.addEventListener('mousedown', this.onMouseDown);
-    this.canvas_piano.addEventListener('mouseup', this.onMouseUp);
-    this.resizeCanvases();
+    this.Repaint();
   }
 
-  resizeCanvases() {      
+  Repaint() {      
       // If the canvas is inside a flex container, it might have 0 height initially.
       // We ensure height is at least the content or a minimum.
     const cssWidth = canvas_piano.offsetWidth;
@@ -183,31 +181,31 @@ class Piano extends Instrument{
       this.canvas_piano.height = actualHeight;
 
       // Store it
-      this.canvasState.width = this.canvas_piano.width;
-      this.canvasState.height = actualHeight;
+      CANVAS_STATE.width = this.canvas_piano.width;
+      CANVAS_STATE.height = actualHeight;
 
       this.drawPiano();
   }
 
   // // 4. Initialize on Load
-  // window.onload = resizeCanvases;
+  // window.onload = Repaint;
           
   // // Handle Window Resize
-  // window.addEventListener('resize', resizeCanvases);
+  // window.addEventListener('resize', Repaint);
 
   drawPattern() {
       this.ctx.clearRect(0, 0, this.ctx.width, this.ctx.height);
       this.ctx.fillStyle = colorSelect.value;
       this.ctx.beginPath();
       
-      if (this.canvasState.width > 0) {
-          if (this.canvasState.width < 300) {
-              this.ctx.rect(0, 0, this.canvasState.width, 20); // Draw a small bar if narrow
+      if (CANVAS_STATE.width > 0) {
+          if (CANVAS_STATE.width < 300) {
+              this.ctx.rect(0, 0, CANVAS_STATE.width, 20); // Draw a small bar if narrow
           } else {
               // Draw a pattern or large rectangle for larger screens
-              this.ctx.rect(0, 0, this.canvasState.width * 0.3, this.canvasState.height * 0.2);
-              this.ctx.rect(0, this.canvasState.height * 0.8, this.canvasState.width * 0.3, this.canvasState.height * 0.2);
-              this.ctx.rect(this.canvasState.width * 0.7, 0, this.canvasState.width * 0.2, this.canvasState.height * 0.5);
+              this.ctx.rect(0, 0, CANVAS_STATE.width * 0.3, CANVAS_STATE.height * 0.2);
+              this.ctx.rect(0, CANVAS_STATE.height * 0.8, CANVAS_STATE.width * 0.3, CANVAS_STATE.height * 0.2);
+              this.ctx.rect(CANVAS_STATE.width * 0.7, 0, CANVAS_STATE.width * 0.2, CANVAS_STATE.height * 0.5);
           }
           this.ctx.fill();
       }
@@ -216,24 +214,24 @@ class Piano extends Instrument{
   drawBlackNote(x) {
       this.ctx.fillStyle = '#000000';
       this.ctx.beginPath();
-      this.ctx.rect(x, 0, BLACK_NOTE_W * this.canvasState, BLACK_NOTE_H * this.canvasState);
+      this.ctx.rect(x, 0, BLACK_NOTE_W * this.scale, BLACK_NOTE_H * this.scale);
       this.ctx.fill(); 
   }
 
   drawLA(x) {
       for (var i = 0; i < BLACK_NOTES_X.length; i++) {
-        this.drawBlackNote(BLACK_NOTES_X[i] * this.canvasState);
+        this.drawBlackNote(BLACK_NOTES_X[i] * this.scale);
       }
 
       // BLACK_NOTES_X.forEach(function(x_offset) {
-      //     this.drawBlackNote(x_offset * this.canvasState);
+      //     this.drawBlackNote(x_offset * this.scale);
       // });
   }
 
   drawSpaces() {
       var x = 0;
       for (var i = 0; i < 52; i++) {
-          this.ctx.rect(x * this.canvasState, 0, SPACE_W * this.canvasState, SPACE_H * this.canvasState);
+          this.ctx.rect(x * this.scale, 0, SPACE_W * this.scale, SPACE_H * this.scale);
           this.ctx.fill(); 
           x = x + NOTE_W;
       }
@@ -244,7 +242,7 @@ class Piano extends Instrument{
       var h = w / WH_RATIO;
       this.canvas_piano.height = h * 1.0;
 
-      this.canvasState = h /KEY_H;
+      this.scale = h /KEY_H;
       this.ctx.fillStyle = '#ffffff';
       this.ctx.beginPath();
       this.ctx.rect(0, 0, w, h);
@@ -260,8 +258,8 @@ class Piano extends Instrument{
   }
 
   getBlackNote(x,y) {
-      var x_ref = x / this.canvasState;
-      var y_ref = y / this.canvasState;
+      var x_ref = x / this.scale;
+      var y_ref = y / this.scale;
       var i = 0;
       var found = false;
 
@@ -280,12 +278,12 @@ class Piano extends Instrument{
   }
 
   getWhiteNote(x,y) {
-      var x_ref = x / this.canvasState;
-      var y_ref = y / this.canvasState;
+      var x_ref = x / this.scale;
+      var y_ref = y / this.scale;
       var i = 0;
       var found = false;
 
-      if (y_ref < BLACK_NOTE_H * this.canvasState) return -1;
+      if (y_ref < BLACK_NOTE_H * this.scale) return -1;
       console.log('this.canvas_piano.width = ' + this.canvas_piano.width + ', x = ' + x);
       i = Math.trunc((x /this.canvas_piano.width) * WHITE_NOTE_NAMES.length);
       if (i < 0) i = 0;
@@ -300,16 +298,16 @@ class Piano extends Instrument{
               SAMPLER.triggerRelease(this.playingNote);
           }
           this.playingNote = '';
-          setTimeout(this.resizeCanvases, 100);
+          setTimeout(event =>this.Repaint(event), 100);
       }
   }
 
   onMouseDown() {
-      this.ctx = this.canvas_piano.getContext('2d');
-      this.rect = this.canvas_piano.getBoundingClientRect();
-      this.x = Math.round(event.clientX - rect.left);
-      this.y = Math.round(event.clientY - rect.top);
-      this.ratio = this.canvas_piano.width / 52;
+      //this.ctx = this.canvas_piano.getContext('2d');
+      var rect = this.canvas_piano.getBoundingClientRect();
+      var x = Math.round(event.clientX - rect.left);
+      var y = Math.round(event.clientY - rect.top);
+      var ratio = this.canvas_piano.width / 52;
 
       var note_pos_x = 0;
       var note_pos_y = 0;
@@ -340,8 +338,8 @@ class Piano extends Instrument{
           solfege_flat_note_name = BLACK_FLAT_NOTE_SOLFEGE_NAMES[i];
           display_text =  `${sharp_note_name}, ${flat_note_name} (${solfege_sharp_note_name}, $${solfege_flat_note_name})`;
 
-          note_pos_y = BLACK_NOTE_POS_Y * this.canvasState;
-          note_pos_x = (BLACK_NOTES_X[i] + BALL/2 + 10) * this.canvasState;
+          note_pos_y = BLACK_NOTE_POS_Y * this.scale;
+          note_pos_x = (BLACK_NOTES_X[i] + BALL/2 + 10) * this.scale;
 
       }
       else {
@@ -351,11 +349,11 @@ class Piano extends Instrument{
               solfege_note_name = WHITE_SOLFEGE_NOTE_NAMES[i];
               note_name = WHITE_NOTE_NAMES[i];
               display_text =  `${note_name} (${solfege_note_name})`;
-              note_pos_y = WHITE_NOTE_POS_Y * this.canvasState;
-              note_pos_x = i * ratio + ((BALL/2 + 36) * this.canvasState);
+              note_pos_y = WHITE_NOTE_POS_Y * this.scale;
+              note_pos_x = i * ratio + ((BALL/2 + 36) * this.scale);
           }
       }
-      statusDisplay.innerText = display_text;
+      this.statusDisplay.innerText = display_text;
       if (note_name.length > 1) {
           this.playNote(note_name);
       }
@@ -365,7 +363,7 @@ class Piano extends Instrument{
 
       // Draw a circle at the click location
       this.ctx.beginPath();
-      this.ctx.arc(note_pos_x, note_pos_y, BALL * this.canvasState, 0, Math.PI * 2);
+      this.ctx.arc(note_pos_x, note_pos_y, BALL * this.scale, 0, Math.PI * 2);
       this.ctx.fillStyle = '#ff404088';
       this.ctx.fill();
       this.ctx.closePath();
