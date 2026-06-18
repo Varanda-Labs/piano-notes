@@ -27,6 +27,8 @@ const circleBtn = document.getElementById('drawCircleBtn');
 const clearBtn = document.getElementById('clearBtn');
 const pedalDownCheckbox = document.getElementById('pedalDownCheckbox');
 
+const piano = new Piano(canvas_piano, statusDisplay, pedalDownCheckbox);
+
 const WH_RATIO = 10.3595;
 const BLACK_NOTE_W = 88;
 const BLACK_NOTE_H = 513;

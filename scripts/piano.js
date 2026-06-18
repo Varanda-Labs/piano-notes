@@ -145,7 +145,8 @@ const SAMPLER = new Tone.Sampler({
 
 
 class Piano extends Instrument{
-  constructor(canvas, statusDisplay, pedalDownCheckBox){
+  constructor(canvas, statusDisplay, pedalDownCheckBox, noteStrokeCallback = null){
+    super(noteStrokeCallback);
     this.canvas_piano = canvas;
     this.statusDisplay = statusDisplay;
     this.pedalDownCheckbox = pedalDownCheckBox;
@@ -168,34 +169,24 @@ class Piano extends Instrument{
     this.resizeCanvases();
   }
 
-  resizeCanvases() {
-      // Get CSS display width/height (in pixels)
-      this.cssWidth = this.canvas_notes.offsetWidth;
-      this.cssHeight = this.canvas_notes.offsetHeight;
-      
+  resizeCanvases() {      
       // If the canvas is inside a flex container, it might have 0 height initially.
       // We ensure height is at least the content or a minimum.
-      this.minHeight = 100; 
-      this.actualHeight = Math.max(cssHeight || minHeight, minHeight);
+    const cssWidth = canvas_piano.offsetWidth;
+    const cssHeight = canvas_piano.offsetHeight;
 
-      // Update CSS width/height first (for immediate visual change)
-      this.canvas_notes.width = cssWidth;
-      this.canvas_notes.height = actualHeight; // drawPiano overrides this
+      this.minHeight = 100; 
+      //this.actualHeight = Math.max(cssHeight || minHeight, minHeight);
+      var actualHeight = 200; // TODO: declared me
       
       this.canvas_piano.width = cssWidth;
       this.canvas_piano.height = actualHeight;
 
       // Store it
-      this.canvasState.width = this.canvas_notes.width;
-      this.canvasState.height = 200; //actualHeight;
+      this.canvasState.width = this.canvas_piano.width;
+      this.canvasState.height = actualHeight;
 
-      // update circle
-      //drawCircle();
       this.drawPiano();
-      this.drawNote();
-
-      // Update Status
-      //statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px | Note: ${this.x_offset}`;
   }
 
   // // 4. Initialize on Load
@@ -230,9 +221,13 @@ class Piano extends Instrument{
   }
 
   drawLA(x) {
-      BLACK_NOTES_X.forEach(function(x_offset) {
-          this.drawBlackNote(x_offset * this.canvasState);
-      });
+      for (var i = 0; i < BLACK_NOTES_X.length; i++) {
+        this.drawBlackNote(BLACK_NOTES_X[i] * this.canvasState);
+      }
+
+      // BLACK_NOTES_X.forEach(function(x_offset) {
+      //     this.drawBlackNote(x_offset * this.canvasState);
+      // });
   }
 
   drawSpaces() {
@@ -244,13 +239,9 @@ class Piano extends Instrument{
       }
   }
 
-  drawNote() {
-      this.canvas_notes.height = 100; //h * 1.0;
-  }
-
   drawPiano () {
-      this.w = this.canvas_piano.width;
-      this.h = w / WH_RATIO;
+      var w = this.canvas_piano.width;
+      var h = w / WH_RATIO;
       this.canvas_piano.height = h * 1.0;
 
       this.canvasState = h /KEY_H;
