@@ -15,6 +15,8 @@
                                   https://archive.org/details/SalamanderGrandPianoV3
 
  */
+import { Piano } from "./piano.js";
+
 
 const canvas_notes = document.getElementById('canvas_notes');
 const canvas_piano = document.getElementById('canvas_piano');
