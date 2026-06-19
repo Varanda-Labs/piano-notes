@@ -153,7 +153,7 @@ class Piano extends Instrument{
     super(noteStrokeCallback);
     this.canvas_piano = canvas;
     this.statusDisplay = statusDisplay;
-    this.pedalDownCheckbox = pedalDownCheckBox;
+    this.pedalDownCheckBox = pedalDownCheckBox;
     this.ctx = this.canvas_piano.getContext('2d');
 
     this.x_offset = "?"
@@ -163,6 +163,7 @@ class Piano extends Instrument{
 
     this.canvas_piano.addEventListener('mousedown', (event) => this.onMouseDown(event));
     this.canvas_piano.addEventListener('mouseup', (event) => this.onMouseUp(event));
+    this.pedalDownCheckBox.addEventListener('change', (event) => this.onPedalChange(event));
 
     this.Repaint();
   }
@@ -294,12 +295,26 @@ class Piano extends Instrument{
 
   onMouseUp() {
       if (this.playingNote.length > 1) {
-          if (pedalDownCheckbox.checked == false) {
+          if (this.pedalDownCheckBox.checked == false) {
               SAMPLER.triggerRelease(this.playingNote);
           }
           this.playingNote = '';
           setTimeout(event =>this.Repaint(event), 100);
       }
+  }
+
+
+  onPedalChange(event) {
+    // silence all notes upon pedal up
+    if (event.target.checked == false) {
+      var i;
+      for(i = 0; i < WHITE_NOTE_NAMES.length; i++) {
+        SAMPLER.triggerRelease(WHITE_NOTE_NAMES[i]);
+      }
+      for(i = 0; i < BLACK_SHARP_NOTE_NAMES.length; i++) {
+        SAMPLER.triggerRelease(BLACK_SHARP_NOTE_NAMES[i]);
+      }
+    }
   }
 
   onMouseDown() {
