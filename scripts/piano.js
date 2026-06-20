@@ -148,6 +148,114 @@ const CANVAS_STATE = {
     height: 0
 };
 
+// var midi = null; // global MIDIAccess object
+// function onMIDISuccess(midiAccess) {
+//   console.log("MIDI ready!");
+//   midi = midiAccess; // store in the global (in real usage, would probably keep in an object instance)
+
+//       try{
+//         midi.forEach(port => {
+//             port.onmidimessage = message => {
+//                 const [command, note, velocity] = message.data;
+
+//                 // Determine message type
+//                 const commandType = (command & 0xF0) === 0x9 ? 'Note On' :
+//                                   (command & 0xF0) === 0x8 ? 'Note Off' :
+//                                   (command & 0xF0) === 0xA ? 'Aftertouch' :
+//                                   'Other';
+
+//                 // Get note name
+//                 const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+//                 const noteName = noteNames[note % 12] + (Math.floor(note / 12) - 1);
+
+//                 console.log(
+//                     `[${commandType}] Note: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
+//                 );
+//             };
+//         });
+
+//         // Handle MIDI state changes
+//         midi.onstatechange = event => {
+//             if (event.state === 'disconnected') {
+//                 console.log('🔌 MIDI disconnected');
+//                 connectBtn.textContent = 'Reconnect';
+//                 connectBtn.disabled = false;
+//             }
+//         };
+//       } catch (err) {
+//           console.error('❌ MIDI Access Error:', err.message);
+//       }
+
+// }
+
+// function onMIDIFailure(msg) {
+//   console.error(`Failed to get MIDI access - ${msg}`);
+// }
+
+// navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
+
+var midi = null;
+
+// Main MIDI listener
+(async () => {
+    try {
+        midi = await navigator.requestMIDIAccess();
+        console.log('🎹 MIDI devices available:', midi.devices);
+
+        midi.inputs.forEach(port => {
+            port.onmidimessage = message => {
+                const [command, note, velocity] = message.data;
+                //console.log(`midi raw message.data: ${message.data}`);
+
+                // Determine message type
+                const commandType = (command & 0xF0) === 0x9 ? 'Note On' :
+                                  (command & 0xF0) === 0x8 ? 'Note Off' :
+                                  (command & 0xF0) === 0xA ? 'Aftertouch' :
+                                  'Other';
+
+                if ((command & 0xF0) !== 0x90) return;
+                var c = command & 0xF0;
+                if (1) {// (c === 0x90) || (c === 0x80) || (c === 0xa) ) { 
+
+                // Get note name
+                const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+                const noteName = noteNames[note % 12] + (Math.floor(note / 12) - 1);
+
+                console.log(
+                    `[${commandType}] Note: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
+                );
+                }
+
+              // if ((command & 0xF0) == 0x9) {
+              //   const commandType = 'Note On';
+
+              //     // Get note name
+              //     const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+              //     const noteName = noteNames[note % 12] + (Math.floor(note / 12) - 1);
+
+              //     console.log(
+              //         `[${commandType}] Note: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
+              //     );
+              // }
+
+
+            };
+        });
+
+        // Handle MIDI state changes
+        midi.onstatechange = event => {
+            if (event.state === 'disconnected') {
+                console.log('🔌 MIDI disconnected');
+                connectBtn.textContent = 'Reconnect';
+                connectBtn.disabled = false;
+            }
+        };
+    } catch (err) {
+        //console.error('❌ MIDI Access Error:', err.message);
+    }
+})();
+
+
 class Piano extends Instrument{
   constructor(canvas, statusDisplay, pedalDownCheckBox, noteStrokeCallback = null){
     super(noteStrokeCallback);
@@ -164,6 +272,7 @@ class Piano extends Instrument{
     this.canvas_piano.addEventListener('mousedown', (event) => this.onMouseDown(event));
     this.canvas_piano.addEventListener('mouseup', (event) => this.onMouseUp(event));
     this.pedalDownCheckBox.addEventListener('change', (event) => this.onPedalChange(event));
+    addEventListener("midimessage", (event) => this.onMidiMessage(event));
 
     this.Repaint();
   }
@@ -315,6 +424,10 @@ class Piano extends Instrument{
         SAMPLER.triggerRelease(BLACK_SHARP_NOTE_NAMES[i]);
       }
     }
+  }
+
+  onMidiMessage(event) {
+    console.log(`onMidiMessage: ${event.data}`);
   }
 
   onMouseDown() {

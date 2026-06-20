@@ -14,6 +14,9 @@
           Actual Samples/author:  Salamander Grand Piano V3, Alexander Holm 
                                   https://archive.org/details/SalamanderGrandPianoV3
 
+ Demo: https://varanda-labs.github.io/piano-notes/
+
+ midi: first pitch 21, last 108
  */
 import { Piano } from "./piano.js";
 
