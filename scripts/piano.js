@@ -148,52 +148,6 @@ const CANVAS_STATE = {
     height: 0
 };
 
-// var midi = null; // global MIDIAccess object
-// function onMIDISuccess(midiAccess) {
-//   console.log("MIDI ready!");
-//   midi = midiAccess; // store in the global (in real usage, would probably keep in an object instance)
-
-//       try{
-//         midi.forEach(port => {
-//             port.onmidimessage = message => {
-//                 const [command, note, velocity] = message.data;
-
-//                 // Determine message type
-//                 const commandType = (command & 0xF0) === 0x9 ? 'Note On' :
-//                                   (command & 0xF0) === 0x8 ? 'Note Off' :
-//                                   (command & 0xF0) === 0xA ? 'Aftertouch' :
-//                                   'Other';
-
-//                 // Get note name
-//                 const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-//                 const noteName = noteNames[note % 12] + (Math.floor(note / 12) - 1);
-
-//                 console.log(
-//                     `[${commandType}] Note: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
-//                 );
-//             };
-//         });
-
-//         // Handle MIDI state changes
-//         midi.onstatechange = event => {
-//             if (event.state === 'disconnected') {
-//                 console.log('🔌 MIDI disconnected');
-//                 connectBtn.textContent = 'Reconnect';
-//                 connectBtn.disabled = false;
-//             }
-//         };
-//       } catch (err) {
-//           console.error('❌ MIDI Access Error:', err.message);
-//       }
-
-// }
-
-// function onMIDIFailure(msg) {
-//   console.error(`Failed to get MIDI access - ${msg}`);
-// }
-
-// navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
-
 var midi = null;
 
 // Main MIDI listener
@@ -205,17 +159,15 @@ var midi = null;
         midi.inputs.forEach(port => {
             port.onmidimessage = message => {
                 const [command, note, velocity] = message.data;
-                //console.log(`midi raw message.data: ${message.data}`);
 
                 // Determine message type
-                const commandType = (command & 0xF0) === 0x9 ? 'Note On' :
-                                  (command & 0xF0) === 0x8 ? 'Note Off' :
-                                  (command & 0xF0) === 0xA ? 'Aftertouch' :
+                const commandType = (command & 0xF0) === 0x90 ? 'Note On' :
+                                  (command & 0xF0) === 0x80 ? 'Note Off' :
+                                  (command & 0xF0) === 0xA0 ? 'Aftertouch' :
                                   'Other';
 
-                if ((command & 0xF0) !== 0x90) return;
-                var c = command & 0xF0;
-                if (1) {// (c === 0x90) || (c === 0x80) || (c === 0xa) ) { 
+                if ((command & 0xF0) !== 0x90) return; // only Note On with velocity > 0
+                if (velocity == 0) return;
 
                 // Get note name
                 const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
@@ -224,21 +176,6 @@ var midi = null;
                 console.log(
                     `[${commandType}] Note: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
                 );
-                }
-
-              // if ((command & 0xF0) == 0x9) {
-              //   const commandType = 'Note On';
-
-              //     // Get note name
-              //     const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-              //     const noteName = noteNames[note % 12] + (Math.floor(note / 12) - 1);
-
-              //     console.log(
-              //         `[${commandType}] Note: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
-              //     );
-              // }
-
-
             };
         });
 
