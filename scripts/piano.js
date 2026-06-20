@@ -18,6 +18,7 @@
 
 export { Piano };
 import { Instrument } from "./instrument.js";
+import { NOTES_TABLE } from "./piano-table.js";
 
 const WH_RATIO = 10.3595;
 const BLACK_NOTE_W = 88;
