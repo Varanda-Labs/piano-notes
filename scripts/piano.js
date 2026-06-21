@@ -182,8 +182,30 @@ class Piano extends Instrument{
     this.pedalDownCheckBox.addEventListener('change', (event) => this.onPedalChange(event));
     addEventListener("midimessage", (event) => this.onMidiMessage(event));
 
+    this.black_notes_x = [];
+    this.initBackNotesX();
+
+    this.whiteNames = [];
+    this.initWhiteNames();
+
     this.initMidi();
     this.Repaint();
+  }
+
+  initBackNotesX() {
+    for (var i=0; i<NOTES_TABLE.length; i++) {
+      if (NOTES_TABLE[i].is_black) {
+        this.black_notes_x.push(NOTES_TABLE[i].x);
+      }
+    }
+  }
+
+  initWhiteNames() {
+    for (var i=0; i<NOTES_TABLE.length; i++) {
+      if (NOTES_TABLE[i].is_black == false) {
+        this.whiteNames.push(NOTES_TABLE[i].note);
+      }
+    }
   }
 
   initMidi() {
@@ -288,11 +310,11 @@ class Piano extends Instrument{
   }
 
   drawLA(x) {
-      for (var i = 0; i < BLACK_NOTES_X.length; i++) {
-        this.drawBlackNote(BLACK_NOTES_X[i] * this.scale);
+      for (var i = 0; i < this.black_notes_x.length; i++) {
+        this.drawBlackNote(this.black_notes_x[i] * this.scale);
       }
 
-      // BLACK_NOTES_X.forEach(function(x_offset) {
+      // this.black_notes_x.forEach(function(x_offset) {
       //     this.drawBlackNote(x_offset * this.scale);
       // });
   }
@@ -332,8 +354,8 @@ class Piano extends Instrument{
       var i = 0;
       var found = false;
 
-      for (i = 0; i< BLACK_NOTES_X.length; i++) {
-          var x_offset = BLACK_NOTES_X[i];
+      for (i = 0; i< this.black_notes_x.length; i++) {
+          var x_offset = this.black_notes_x[i];
           if ( x_ref > x_offset &&  x_ref < (x_offset + BLACK_NOTE_W) &&  y_ref < BLACK_NOTE_H) {
               found = true;
               break;
@@ -354,9 +376,9 @@ class Piano extends Instrument{
 
       if (y_ref < BLACK_NOTE_H * this.scale) return -1;
       console.log('this.canvas_piano.width = ' + this.canvas_piano.width + ', x = ' + x);
-      i = Math.trunc((x /this.canvas_piano.width) * WHITE_NOTE_NAMES.length);
+      i = Math.trunc((x /this.canvas_piano.width) * this.whiteNames.length);
       if (i < 0) i = 0;
-      if (i >= WHITE_NOTE_NAMES.length) i = WHITE_NOTE_NAMES.length - 1;
+      if (i >= this.whiteNames.length) i = this.whiteNames.length - 1;
       console.log('white idx: ' + i);
       return i;
   }
@@ -376,11 +398,8 @@ class Piano extends Instrument{
     // silence all notes upon pedal up
     if (event.target.checked == false) {
       var i;
-      for(i = 0; i < WHITE_NOTE_NAMES.length; i++) {
-        SAMPLER.triggerRelease(WHITE_NOTE_NAMES[i]);
-      }
-      for(i = 0; i < BLACK_SHARP_NOTE_NAMES.length; i++) {
-        SAMPLER.triggerRelease(BLACK_SHARP_NOTE_NAMES[i]);
+      for(i = 0; i < NOTES_TABLE.length; i++) {
+        SAMPLER.triggerRelease(NOTES_TABLE[i].note);
       }
     }
   }
@@ -426,7 +445,7 @@ class Piano extends Instrument{
           display_text =  `${sharp_note_name}, ${flat_note_name} (${solfege_sharp_note_name}, $${solfege_flat_note_name})`;
 
           note_pos_y = BLACK_NOTE_POS_Y * this.scale;
-          note_pos_x = (BLACK_NOTES_X[i] + BALL/2 + 10) * this.scale;
+          note_pos_x = (this.black_notes_x[i] + BALL/2 + 10) * this.scale;
 
       }
       else {
