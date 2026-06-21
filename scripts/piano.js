@@ -20,6 +20,9 @@ export { Piano };
 import { Instrument } from "./instrument.js";
 import { NOTES_TABLE, WHITE_INDEX_LOOKUP } from "./piano-table.js";
 
+const NUM_WHITE_KEYS = 52;
+const NUM_BLACK_KEYS = 36;
+
 const WH_RATIO = 10.3595;
 const BLACK_NOTE_W = 88;
 const BLACK_NOTE_H = 513;
@@ -32,93 +35,7 @@ const BALL = 70;
 const BLACK_NOTE_POS_Y = BLACK_NOTE_H - BALL;
 const WHITE_NOTE_POS_Y = KEY_H - BALL;
 
-const ALL_NOTES_NAMES = [
-  'A0', 'A#0', 'B0', 'C1', 'C#1', 'D1', 'D#1', 'E1', 'F1', 'F#1', 'G1', 'G#1',
-  'A1', 'A#1', 'B1', 'C2', 'C#2', 'D2', 'D#2', 'E2', 'F2', 'F#2', 'G2', 'G#2',
-  'A2', 'A#2', 'B2', 'C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3', 'G3', 'G#3',
-  'A3', 'A#3', 'B3', 'C4', 'C#4', 'D4', 'D#4', 'E4', 'F4', 'F#4', 'G4', 'G#4',
-  'A4', 'A#4', 'B4', 'C5', 'C#5', 'D5', 'D#5', 'E5', 'F5', 'F#5', 'G5', 'G#5',
-  'A5', 'A#5', 'B5', 'C6', 'C#6', 'D6', 'D#6', 'E6', 'F6', 'F#6', 'G6', 'G#6',
-  'A6', 'A#6', 'B6', 'C7', 'C#7', 'D7', 'D#7', 'E7', 'F7', 'F#7', 'G7', 'G#7',
-  'A7', 'A#7', 'B7', 'C8'
-]
-
 const MIDI_FIRST_NOTE_OFFSET = 21
-
-const BLACK_NOTES_X = [
-        131, 407, 589, 868, 1036, 1203,
-        1479, 1661, 1940, 2108, 2275,
-        2551, 2733, 3012, 3180, 3347,
-        3623, 3805, 4084, 4252, 4419,
-        4695, 4877, 5156, 5324, 5491,
-        5767, 5949, 6228, 6396, 6563,
-        6839, 7021, 7300, 7468, 7635,
-        // 7911
-    ];
-
-const BLACK_SHARP_NOTE_NAMES = [
-    'A#0', 'C#1', 'D#1', 'F#1', 'G#1',
-    'A#1', 'C#2', 'D#2', 'F#2', 'G#2',
-    'A#2', 'C#3', 'D#3', 'F#3', 'G#3',
-    'A#3', 'C#4', 'D#4', 'F#4', 'G#4',
-    'A#4', 'C#5', 'D#5', 'F#5', 'G#5',
-    'A#5', 'C#6', 'D#6', 'F#6', 'G#6',
-    'A#6', 'C#7', 'D#7', 'F#7', 'G#7', 'A#7'
-];
-
-const BLACK_FLAT_NOTE_NAMES = [
-    'Bb0', 'Db1', 'Eb1', 'Gb1', 'Ab1',
-    'Bb1', 'Db2', 'Eb2', 'Gb2', 'Ab2',
-    'Bb2', 'Db3', 'Eb3', 'Gb3', 'Ab3',
-    'Bb3', 'Db4', 'Eb4', 'Gb4', 'Ab4',
-    'Bb4', 'Db5', 'Eb5', 'Gb5', 'Ab5',
-    'Bb5', 'Db6', 'Eb6', 'Gb6', 'Ab6',
-    'Bb6', 'Db7', 'Eb7', 'Gb7', 'Ab7', 'Bb7'
-];
-
-const WHITE_NOTE_NAMES = [
-    'A0', 'B0', 
-    'C1', 'D1', 'E1', 'F1', 'G1', 'A1', 'B1',
-    'C2', 'D2', 'E2', 'F2', 'G2', 'A2', 'B2',
-    'C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3',
-    'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4',
-    'C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5',
-    'C6', 'D6', 'E6', 'F6', 'G6', 'A6', 'B6',
-    'C7', 'D7', 'E7', 'F7', 'G7', 'A7', 'B7',
-    'C8'
-];
-
-const WHITE_SOLFEGE_NOTE_NAMES = [
-    'La0', 'Si0', 
-    'Do1', 'Re1', 'Mi1', 'Fa1', 'Sol1', 'La1', 'Si1',
-    'Do2', 'Re2', 'Mi2', 'Fa2', 'Sol2', 'La2', 'Si2',
-    'Do3', 'Re3', 'Mi3', 'Fa3', 'Sol3', 'La3', 'Si3',
-    'Do4', 'Re4', 'Mi4', 'Fa4', 'Sol4', 'La4', 'Si4',
-    'Do5', 'Re5', 'Mi5', 'Fa5', 'Sol5', 'La5', 'Si5',
-    'Do6', 'Re6', 'Mi6', 'Fa6', 'Sol6', 'La6', 'Si6',
-    'Do7', 'Re7', 'Mi7', 'Fa7', 'Sol7', 'La7', 'Si7',
-    'Do8'
-];
-
-const BLACK_SHARP_NOTE_SOLFEGE_NAMES = [
-    'La#0', 'Do#1', 'Re#1', 'Fa#1', 'Sol#1',
-    'La#1', 'Do#2', 'Re#2', 'Fa#2', 'Sol#2',
-    'La#2', 'Do#3', 'Re#3', 'Fa#3', 'Sol#3',
-    'La#3', 'Do#4', 'Re#4', 'Fa#4', 'Sol#4',
-    'La#4', 'Do#5', 'Re#5', 'Fa#5', 'Sol#5',
-    'La#5', 'Do#6', 'Re#6', 'Fa#6', 'Sol#6',
-    'La#6', 'Do#7', 'Re#7', 'Fa#7', 'Sol#7', 'La#7'
-];
-
-const BLACK_FLAT_NOTE_SOLFEGE_NAMES = [
-    'Sib0', 'Reb1', 'Mib1', 'Solb1', 'Lab1',
-    'Sib1', 'Reb2', 'Mib2', 'Solb2', 'Lab2',
-    'Sib2', 'Reb3', 'Mib3', 'Solb3', 'Lab3',
-    'Sib3', 'Reb4', 'Mib4', 'Solb4', 'Lab4',
-    'Sib4', 'Reb5', 'Mib5', 'Solb5', 'Lab5',
-    'Sib5', 'Reb6', 'Mib6', 'Solb6', 'Lab6',
-    'Sib6', 'Reb7', 'Mib7', 'Solb7', 'Lab7', 'Mib7'
-];
 
 const SAMPLER = new Tone.Sampler({
     urls: {
@@ -211,141 +128,110 @@ class Piano extends Instrument{
   initMidi() {
     // Main MIDI listener
     (async () => {
-        try {
-            midi = await navigator.requestMIDIAccess();
-            console.log('🎹 MIDI devices available:', midi.devices);
+      try {
+        midi = await navigator.requestMIDIAccess();
+        console.log('🎹 MIDI devices available:', midi.devices);
 
-            midi.inputs.forEach(port => {
-                port.onmidimessage = message => {
-                    const [command, note, velocity] = message.data;
+        midi.inputs.forEach(port => {
+          port.onmidimessage = message => {
+            const [command, note, velocity] = message.data;
 
-                    // Determine message type
-                    const commandType = (command & 0xF0) === 0x90 ? 'Note On' :
-                                      (command & 0xF0) === 0x80 ? 'Note Off' :
-                                      (command & 0xF0) === 0xA0 ? 'Aftertouch' :
-                                      'Other';
+            // Determine message type
+            const commandType = (command & 0xF0) === 0x90 ? 'Note On' :
+                              (command & 0xF0) === 0x80 ? 'Note Off' :
+                              (command & 0xF0) === 0xA0 ? 'Aftertouch' :
+                              'Other';
 
-                    if ((command & 0xF0) !== 0x90) return; // only Note On with velocity > 0
-                    if (velocity == 0) return;
+            if ((command & 0xF0) !== 0x90) return; // only Note On with velocity > 0
+            if (velocity == 0) return;
 
-                    // Get note name
-                    //const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-                    //const noteName = noteNames[note % 12] + (Math.floor(note / 12) - 1);
-                    var noteName = ALL_NOTES_NAMES[note - MIDI_FIRST_NOTE_OFFSET];
-                    console.log(`this.canvas_piano: ${this.canvas_piano}` );
-                    console.log(`**** noteName: ${noteName}` );
+            // Get note name
+            //const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+            //const noteName = noteNames[note % 12] + (Math.floor(note / 12) - 1);
+            var noteName = NOTES_TABLE[note - MIDI_FIRST_NOTE_OFFSET].note;
+            console.log(`this.canvas_piano: ${this.canvas_piano}` );
+            console.log(`**** noteName: ${noteName}` );
 
-                    this.playNote(noteName);
+            this.playNote(noteName);
 
+            console.log(
+              `[${commandType}] Note: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
+            );
+          };
+        });
 
-                    console.log(
-                        `[${commandType}] Note: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
-                    );
-                };
-            });
-
-            // Handle MIDI state changes
-            midi.onstatechange = event => {
-                if (event.state === 'disconnected') {
-                    console.log('🔌 MIDI disconnected');
-                    connectBtn.textContent = 'Reconnect';
-                    connectBtn.disabled = false;
-                }
-            };
-        } catch (err) {
-            //console.error('❌ MIDI Access Error:', err.message);
-        }
+        // Handle MIDI state changes
+        midi.onstatechange = event => {
+          if (event.state === 'disconnected') {
+            console.log('🔌 MIDI disconnected');
+            connectBtn.textContent = 'Reconnect';
+            connectBtn.disabled = false;
+          }
+        };
+      } catch (err) {
+        //console.error('❌ MIDI Access Error:', err.message);
+      }
     })();
   }
 
   Repaint() {      
-      // If the canvas is inside a flex container, it might have 0 height initially.
-      // We ensure height is at least the content or a minimum.
-    const cssWidth = canvas_piano.offsetWidth;
-    const cssHeight = canvas_piano.offsetHeight;
+  const cssWidth = canvas_piano.offsetWidth;
+  const cssHeight = canvas_piano.offsetHeight;
 
-      this.minHeight = 100; 
-      //this.actualHeight = Math.max(cssHeight || minHeight, minHeight);
-      var actualHeight = 200; // TODO: declared me
-      
-      this.canvas_piano.width = cssWidth;
-      this.canvas_piano.height = actualHeight;
+    this.minHeight = 100; 
+    //this.actualHeight = Math.max(cssHeight || minHeight, minHeight);
+    var actualHeight = 200; // TODO: declared me
+    
+    this.canvas_piano.width = cssWidth;
+    this.canvas_piano.height = actualHeight;
 
-      // Store it
-      CANVAS_STATE.width = this.canvas_piano.width;
-      CANVAS_STATE.height = actualHeight;
+    // Store it
+    CANVAS_STATE.width = this.canvas_piano.width;
+    CANVAS_STATE.height = actualHeight;
 
-      this.drawPiano();
-  }
-
-  // // 4. Initialize on Load
-  // window.onload = Repaint;
-          
-  // // Handle Window Resize
-  // window.addEventListener('resize', Repaint);
-
-  drawPattern() {
-      this.ctx.clearRect(0, 0, this.ctx.width, this.ctx.height);
-      this.ctx.fillStyle = colorSelect.value;
-      this.ctx.beginPath();
-      
-      if (CANVAS_STATE.width > 0) {
-          if (CANVAS_STATE.width < 300) {
-              this.ctx.rect(0, 0, CANVAS_STATE.width, 20); // Draw a small bar if narrow
-          } else {
-              // Draw a pattern or large rectangle for larger screens
-              this.ctx.rect(0, 0, CANVAS_STATE.width * 0.3, CANVAS_STATE.height * 0.2);
-              this.ctx.rect(0, CANVAS_STATE.height * 0.8, CANVAS_STATE.width * 0.3, CANVAS_STATE.height * 0.2);
-              this.ctx.rect(CANVAS_STATE.width * 0.7, 0, CANVAS_STATE.width * 0.2, CANVAS_STATE.height * 0.5);
-          }
-          this.ctx.fill();
-      }
+    this.drawPiano();
   }
 
   drawBlackNote(x) {
-      this.ctx.fillStyle = '#000000';
-      this.ctx.beginPath();
-      this.ctx.rect(x, 0, BLACK_NOTE_W * this.scale, BLACK_NOTE_H * this.scale);
-      this.ctx.fill(); 
+    this.ctx.fillStyle = '#000000';
+    this.ctx.beginPath();
+    this.ctx.rect(x, 0, BLACK_NOTE_W * this.scale, BLACK_NOTE_H * this.scale);
+    this.ctx.fill(); 
   }
 
   drawLA(x) {
-      for (var i = 0; i < this.black_notes_x.length; i++) {
-        this.drawBlackNote(this.black_notes_x[i] * this.scale);
-      }
-
-      // this.black_notes_x.forEach(function(x_offset) {
-      //     this.drawBlackNote(x_offset * this.scale);
-      // });
+    for (var i = 0; i < this.black_notes_x.length; i++) {
+      this.drawBlackNote(this.black_notes_x[i] * this.scale);
+    }
   }
 
   drawSpaces() {
-      var x = 0;
-      for (var i = 0; i < 52; i++) {
-          this.ctx.rect(x * this.scale, 0, SPACE_W * this.scale, SPACE_H * this.scale);
-          this.ctx.fill(); 
-          x = x + NOTE_W;
-      }
+    var x = 0;
+    for (var i = 0; i < NUM_WHITE_KEYS; i++) {
+      this.ctx.rect(x * this.scale, 0, SPACE_W * this.scale, SPACE_H * this.scale);
+      this.ctx.fill(); 
+      x = x + NOTE_W;
+    }
   }
 
   drawPiano () {
-      var w = this.canvas_piano.width;
-      var h = w / WH_RATIO;
-      this.canvas_piano.height = h * 1.0;
+    var w = this.canvas_piano.width;
+    var h = w / WH_RATIO;
+    this.canvas_piano.height = h * 1.0;
 
-      this.scale = h /KEY_H;
-      this.ctx.fillStyle = '#ffffff';
-      this.ctx.beginPath();
-      this.ctx.rect(0, 0, w, h);
-      this.ctx.fill();
+    this.scale = h /KEY_H;
+    this.ctx.fillStyle = '#ffffff';
+    this.ctx.beginPath();
+    this.ctx.rect(0, 0, w, h);
+    this.ctx.fill();
 
-      this.drawLA(0);
-      this.drawSpaces();
+    this.drawLA(0);
+    this.drawSpaces();
   }
 
   playNote(n) {
-      SAMPLER.triggerAttack(n);
-      this.playingNote = n;
+    SAMPLER.triggerAttack(n);
+    this.playingNote = n;
   }
 
   getKeyedNote(x,y) {
@@ -364,60 +250,17 @@ class Piano extends Instrument{
       }
     }
 
-    if (y_ref < BLACK_NOTE_H * this.scale) return -1;
-    //console.log('this.canvas_piano.width = ' + this.canvas_piano.width + ', x = ' + x);
+    if (y_ref < BLACK_NOTE_H * this.scale) {
+      return -1;
+    }
+
     i = Math.trunc((x /this.canvas_piano.width) * this.whiteNames.length);
     if (i < 0) i = 0;
-    if (i >= this.whiteNames.length) i = this.whiteNames.length - 1;
-    console.log('white idx: ' + i);
+    if (i >= this.whiteNames.length) {
+      i = this.whiteNames.length - 1;
+    }
     return WHITE_INDEX_LOOKUP[i];
   }
-
-  getBlackNote(x,y) {
-      var x_ref = x / this.scale;
-      var y_ref = y / this.scale;
-      var i = 0;
-      var found = false;
-
-      for (i = 0; i< this.black_notes_x.length; i++) {
-          var x_offset = this.black_notes_x[i];
-          if ( x_ref > x_offset &&  x_ref < (x_offset + BLACK_NOTE_W) &&  y_ref < BLACK_NOTE_H) {
-              found = true;
-              break;
-          }
-      }
-
-      if (found) {
-          return i;
-      }
-      return -1;
-  }
-
-  getWhiteNote(x,y) {
-      var x_ref = x / this.scale;
-      var y_ref = y / this.scale;
-      var i = 0;
-      var found = false;
-
-      if (y_ref < BLACK_NOTE_H * this.scale) return -1;
-      console.log('this.canvas_piano.width = ' + this.canvas_piano.width + ', x = ' + x);
-      i = Math.trunc((x /this.canvas_piano.width) * this.whiteNames.length);
-      if (i < 0) i = 0;
-      if (i >= this.whiteNames.length) i = this.whiteNames.length - 1;
-      console.log('white idx: ' + i);
-      return i;
-  }
-
-  onMouseUp() {
-      if (this.playingNote.length > 1) {
-          if (this.pedalDownCheckBox.checked == false) {
-              SAMPLER.triggerRelease(this.playingNote);
-          }
-          this.playingNote = '';
-          setTimeout(event =>this.Repaint(event), 100);
-      }
-  }
-
 
   onPedalChange(event) {
     // silence all notes upon pedal up
@@ -433,75 +276,71 @@ class Piano extends Instrument{
     console.log(`onMidiMessage: ${event.data}`);
   }
 
+  drawNote(x, y, color) {
+    this.ctx.beginPath();
+    this.ctx.arc(x, y, BALL * this.scale, 0, Math.PI * 2);
+    this.ctx.fillStyle = '#ff404088';
+    this.ctx.fill();
+    this.ctx.closePath();
+  }
+
+  onMouseUp() {
+    if (this.playingNote.length > 1) {
+      if (this.pedalDownCheckBox.checked == false) {
+        SAMPLER.triggerRelease(this.playingNote);
+      }
+      this.playingNote = '';
+      setTimeout(event =>this.Repaint(event), 100);
+    }
+  }
+
   onMouseDown() {
-      //this.ctx = this.canvas_piano.getContext('2d');
-      var rect = this.canvas_piano.getBoundingClientRect();
-      var x = Math.round(event.clientX - rect.left);
-      var y = Math.round(event.clientY - rect.top);
-      var ratio = this.canvas_piano.width / 52;
+    //this.ctx = this.canvas_piano.getContext('2d');
+    var rect = this.canvas_piano.getBoundingClientRect();
+    var x = Math.round(event.clientX - rect.left);
+    var y = Math.round(event.clientY - rect.top);
+    var ratio = this.canvas_piano.width / NUM_WHITE_KEYS;
 
-      var note_pos_x = 0;
-      var note_pos_y = 0;
+    var note_pos_x = 0;
+    var note_pos_y = 0;
 
-      var note_name = "";
-      var solfege_note_name = "";
+    var note_name = "";
+    var flat_note_name = "";
 
-      var sharp_note_name = "";
-      var flat_note_name = "";
+    var solfege_name = "";
+    var solfege_flat_note_name = "";
 
-      var solfege_name = "";
-      var solfege_flat_note_name = "";
+    var display_text = "";
 
-      var display_text = "";
+    this.x_offset = x;
 
+    var i = this.getKeyedNote(x,y);
+    if (i < 0) {
+      return;
+    }
 
+    note_name = NOTES_TABLE[i].note;
+    flat_note_name = NOTES_TABLE[i].flat;
+    solfege_name = NOTES_TABLE[i].solfege;
+    solfege_flat_note_name = NOTES_TABLE[i].solfege_flat;
+    if (NOTES_TABLE[i].is_black) {
+      display_text =  `${note_name}, ${flat_note_name} (${solfege_name}, $${solfege_flat_note_name})`;
+      note_pos_y = BLACK_NOTE_POS_Y * this.scale;
+      note_pos_x = (NOTES_TABLE[i].blackX_whiteCnt + BALL/2 + 10) * this.scale;
+    }
+    else {
+      display_text =  `${note_name} (${solfege_name})`;
+      note_pos_y = WHITE_NOTE_POS_Y * this.scale;
+      note_pos_x = NOTES_TABLE[i].blackX_whiteCnt * ratio + ((BALL/2 + 36) * this.scale);
+    }
+    console.log(`note_pos_x = ${note_pos_x}, note_pos_y = ${note_pos_y}`);
 
-      console.log('Canvas click at', x, y);
-      this.x_offset = x;
-      // statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px | Note: ${this.x_offset}`;
+    this.statusDisplay.innerText = display_text;
+    if (note_name.length > 1) {
+        this.playNote(note_name);
+    }
 
-      var i = this.getKeyedNote(x,y);
-      if (i < 0) return;
-//      var i = this.getBlackNote(x,y);
-      console.log("getBlackNote ret: " + i);
-      note_name = NOTES_TABLE[i].note;
-      flat_note_name = NOTES_TABLE[i].flat;
-      solfege_name = NOTES_TABLE[i].solfege;
-      solfege_flat_note_name = NOTES_TABLE[i].solfege_flat;
-      //note_pos_x = (NOTES_TABLE[i].blackX_whiteCnt + BALL/2 + 10) * this.scale;
-      if (NOTES_TABLE[i].is_black) {
-        display_text =  `${note_name}, ${flat_note_name} (${solfege_name}, $${solfege_flat_note_name})`;
-        note_pos_y = BLACK_NOTE_POS_Y * this.scale;
-        note_pos_x = (NOTES_TABLE[i].blackX_whiteCnt + BALL/2 + 10) * this.scale;
-      }
-      else {
-        display_text =  `${note_name} (${solfege_name})`;
-        note_pos_y = WHITE_NOTE_POS_Y * this.scale;
-        note_pos_x = NOTES_TABLE[i].blackX_whiteCnt * ratio + ((BALL/2 + 36) * this.scale);
-      }
-      console.log(`note_pos_x = ${note_pos_x}, note_pos_y = ${note_pos_y}`);
-
-              // console.log("getWhiteNote ret: " + i);
-              // //solfege_note_name = WHITE_SOLFEGE_NOTE_NAMES[i];
-              // note_name = WHITE_NOTE_NAMES[i];
-              // display_text =  `${note_name} (${solfege_name})`;
-              // note_pos_y = WHITE_NOTE_POS_Y * this.scale;
-              // note_pos_x = i * ratio + ((BALL/2 + 36) * this.scale);
-
-      this.statusDisplay.innerText = display_text;
-      if (note_name.length > 1) {
-          this.playNote(note_name);
-      }
-      // if (sharp_note_name.length > 1) {
-      //     this.playNote(sharp_note_name);
-      // }
-
-      // Draw a circle at the click location
-      this.ctx.beginPath();
-      this.ctx.arc(note_pos_x, note_pos_y, BALL * this.scale, 0, Math.PI * 2);
-      this.ctx.fillStyle = '#ff404088';
-      this.ctx.fill();
-      this.ctx.closePath();
+    this.drawNote(note_pos_x, note_pos_y, '#ff404088');
   }
 
 }
