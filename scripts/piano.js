@@ -18,7 +18,7 @@
 
 export { Piano };
 import { Instrument } from "./instrument.js";
-import { NOTES_TABLE } from "./piano-table.js";
+import { NOTES_TABLE, WHITE_INDEX_LOOKUP } from "./piano-table.js";
 
 const WH_RATIO = 10.3595;
 const BLACK_NOTE_W = 88;
@@ -195,7 +195,7 @@ class Piano extends Instrument{
   initBackNotesX() {
     for (var i=0; i<NOTES_TABLE.length; i++) {
       if (NOTES_TABLE[i].is_black) {
-        this.black_notes_x.push(NOTES_TABLE[i].x);
+        this.black_notes_x.push(NOTES_TABLE[i].blackX_whiteCnt);
       }
     }
   }
@@ -348,6 +348,31 @@ class Piano extends Instrument{
       this.playingNote = n;
   }
 
+  getKeyedNote(x,y) {
+    var x_ref = x / this.scale;
+    var y_ref = y / this.scale;
+    var i = 0;
+    var found = false;
+
+    // check for black key
+    for (i = 0; i< NOTES_TABLE.length; i++) {
+      if (NOTES_TABLE[i].is_black) {
+        var x_offset = NOTES_TABLE[i].blackX_whiteCnt;
+        if ( x_ref > x_offset &&  x_ref < (x_offset + BLACK_NOTE_W) &&  y_ref < BLACK_NOTE_H) {
+          return i;
+        }
+      }
+    }
+
+    if (y_ref < BLACK_NOTE_H * this.scale) return -1;
+    //console.log('this.canvas_piano.width = ' + this.canvas_piano.width + ', x = ' + x);
+    i = Math.trunc((x /this.canvas_piano.width) * this.whiteNames.length);
+    if (i < 0) i = 0;
+    if (i >= this.whiteNames.length) i = this.whiteNames.length - 1;
+    console.log('white idx: ' + i);
+    return WHITE_INDEX_LOOKUP[i];
+  }
+
   getBlackNote(x,y) {
       var x_ref = x / this.scale;
       var y_ref = y / this.scale;
@@ -424,7 +449,7 @@ class Piano extends Instrument{
       var sharp_note_name = "";
       var flat_note_name = "";
 
-      var solfege_sharp_note_name = "";
+      var solfege_name = "";
       var solfege_flat_note_name = "";
 
       var display_text = "";
@@ -435,37 +460,41 @@ class Piano extends Instrument{
       this.x_offset = x;
       // statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px | Note: ${this.x_offset}`;
 
-      var i = this.getBlackNote(x,y);
-      if (i >= 0) {
-          console.log("getBlackNote ret: " + i);
-          sharp_note_name = BLACK_SHARP_NOTE_NAMES[i];
-          flat_note_name = BLACK_FLAT_NOTE_NAMES[i];
-          solfege_sharp_note_name = BLACK_SHARP_NOTE_SOLFEGE_NAMES[i];
-          solfege_flat_note_name = BLACK_FLAT_NOTE_SOLFEGE_NAMES[i];
-          display_text =  `${sharp_note_name}, ${flat_note_name} (${solfege_sharp_note_name}, $${solfege_flat_note_name})`;
-
-          note_pos_y = BLACK_NOTE_POS_Y * this.scale;
-          note_pos_x = (this.black_notes_x[i] + BALL/2 + 10) * this.scale;
-
+      var i = this.getKeyedNote(x,y);
+      if (i < 0) return;
+//      var i = this.getBlackNote(x,y);
+      console.log("getBlackNote ret: " + i);
+      note_name = NOTES_TABLE[i].note;
+      flat_note_name = NOTES_TABLE[i].flat;
+      solfege_name = NOTES_TABLE[i].solfege;
+      solfege_flat_note_name = NOTES_TABLE[i].solfege_flat;
+      //note_pos_x = (NOTES_TABLE[i].blackX_whiteCnt + BALL/2 + 10) * this.scale;
+      if (NOTES_TABLE[i].is_black) {
+        display_text =  `${note_name}, ${flat_note_name} (${solfege_name}, $${solfege_flat_note_name})`;
+        note_pos_y = BLACK_NOTE_POS_Y * this.scale;
+        note_pos_x = (NOTES_TABLE[i].blackX_whiteCnt + BALL/2 + 10) * this.scale;
       }
       else {
-          i = this.getWhiteNote(x,y);
-          if (i >= 0) {
-              console.log("getWhiteNote ret: " + i);
-              solfege_note_name = WHITE_SOLFEGE_NOTE_NAMES[i];
-              note_name = WHITE_NOTE_NAMES[i];
-              display_text =  `${note_name} (${solfege_note_name})`;
-              note_pos_y = WHITE_NOTE_POS_Y * this.scale;
-              note_pos_x = i * ratio + ((BALL/2 + 36) * this.scale);
-          }
+        display_text =  `${note_name} (${solfege_name})`;
+        note_pos_y = WHITE_NOTE_POS_Y * this.scale;
+        note_pos_x = NOTES_TABLE[i].blackX_whiteCnt * ratio + ((BALL/2 + 36) * this.scale);
       }
+      console.log(`note_pos_x = ${note_pos_x}, note_pos_y = ${note_pos_y}`);
+
+              // console.log("getWhiteNote ret: " + i);
+              // //solfege_note_name = WHITE_SOLFEGE_NOTE_NAMES[i];
+              // note_name = WHITE_NOTE_NAMES[i];
+              // display_text =  `${note_name} (${solfege_name})`;
+              // note_pos_y = WHITE_NOTE_POS_Y * this.scale;
+              // note_pos_x = i * ratio + ((BALL/2 + 36) * this.scale);
+
       this.statusDisplay.innerText = display_text;
       if (note_name.length > 1) {
           this.playNote(note_name);
       }
-      if (sharp_note_name.length > 1) {
-          this.playNote(sharp_note_name);
-      }
+      // if (sharp_note_name.length > 1) {
+      //     this.playNote(sharp_note_name);
+      // }
 
       // Draw a circle at the click location
       this.ctx.beginPath();
