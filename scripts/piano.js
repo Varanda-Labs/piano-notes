@@ -134,9 +134,9 @@ class Piano extends Instrument{
 
         midi.inputs.forEach(port => {
           port.onmidimessage = message => {
-            const [command, note, velocity] = message.data;
+            const [_command, note, velocity] = message.data;
 
-            command = command & 0xF0;
+            var command = _command & 0xF0;
 
             // // Determine message type
             // const commandType = (command & 0xF0) === 0x90 ? 'Note On' :
@@ -146,31 +146,25 @@ class Piano extends Instrument{
 
             //if ((command & 0xF0) !== 0x90) return; // only Note On with velocity > 0
             if (command == 0x90) { // if note on
-              if (velocity == 0) return;
-              // Get note name
-              //const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-              //const noteName = noteNames[note % 12] + (Math.floor(note / 12) - 1);
               var noteName = NOTES_TABLE[note - MIDI_FIRST_NOTE_OFFSET].note;
-              // console.log(`this.canvas_piano: ${this.canvas_piano}` );
-              // console.log(`**** noteName: ${noteName}` );
-              this.playNote(noteName);
 
-              console.log(
-                `Note On: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
-              );
+              if (velocity == 0) { // some MIDI issue velocity = 0 rather than "Note Off" command
+                  SAMPLER.triggerRelease(noteName);
+                  console.log(
+                    `Note Off: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
+                  );
+              } 
+              else {
+                this.playNote(noteName);
+                console.log(
+                  `Note On: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
+                );
+              }
             }
 
-            if (command == 0x80) { // if note off
-              if (velocity == 0) return;
-              // Get note name
-              //const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-              //const noteName = noteNames[note % 12] + (Math.floor(note / 12) - 1);
+            if (command == 0x80) { // if "Note Off" was explicit issued
               var noteName = NOTES_TABLE[note - MIDI_FIRST_NOTE_OFFSET].note;
-              // console.log(`this.canvas_piano: ${this.canvas_piano}` );
-              // console.log(`**** noteName: ${noteName}` );
-              // this.playNote(noteName);
               SAMPLER.triggerRelease(noteName);
-
               console.log(
                 `Note Off: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
               );
