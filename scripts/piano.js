@@ -136,27 +136,46 @@ class Piano extends Instrument{
           port.onmidimessage = message => {
             const [command, note, velocity] = message.data;
 
-            // Determine message type
-            const commandType = (command & 0xF0) === 0x90 ? 'Note On' :
-                              (command & 0xF0) === 0x80 ? 'Note Off' :
-                              (command & 0xF0) === 0xA0 ? 'Aftertouch' :
-                              'Other';
+            command = command & 0xF0;
 
-            if ((command & 0xF0) !== 0x90) return; // only Note On with velocity > 0
-            if (velocity == 0) return;
+            // // Determine message type
+            // const commandType = (command & 0xF0) === 0x90 ? 'Note On' :
+            //                   (command & 0xF0) === 0x80 ? 'Note Off' :
+            //                   (command & 0xF0) === 0xA0 ? 'Aftertouch' :
+            //                   'Other';
 
-            // Get note name
-            //const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-            //const noteName = noteNames[note % 12] + (Math.floor(note / 12) - 1);
-            var noteName = NOTES_TABLE[note - MIDI_FIRST_NOTE_OFFSET].note;
-            console.log(`this.canvas_piano: ${this.canvas_piano}` );
-            console.log(`**** noteName: ${noteName}` );
+            //if ((command & 0xF0) !== 0x90) return; // only Note On with velocity > 0
+            if (command == 0x90) { // if note on
+              if (velocity == 0) return;
+              // Get note name
+              //const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+              //const noteName = noteNames[note % 12] + (Math.floor(note / 12) - 1);
+              var noteName = NOTES_TABLE[note - MIDI_FIRST_NOTE_OFFSET].note;
+              // console.log(`this.canvas_piano: ${this.canvas_piano}` );
+              // console.log(`**** noteName: ${noteName}` );
+              this.playNote(noteName);
 
-            this.playNote(noteName);
+              console.log(
+                `Note On: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
+              );
+            }
 
-            console.log(
-              `[${commandType}] Note: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
-            );
+            if (command == 0x80) { // if note off
+              if (velocity == 0) return;
+              // Get note name
+              //const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+              //const noteName = noteNames[note % 12] + (Math.floor(note / 12) - 1);
+              var noteName = NOTES_TABLE[note - MIDI_FIRST_NOTE_OFFSET].note;
+              // console.log(`this.canvas_piano: ${this.canvas_piano}` );
+              // console.log(`**** noteName: ${noteName}` );
+              // this.playNote(noteName);
+              SAMPLER.triggerRelease(noteName);
+
+              console.log(
+                `Note Off: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
+              );
+            }
+
           };
         });
 
