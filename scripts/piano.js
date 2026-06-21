@@ -150,12 +150,15 @@ class Piano extends Instrument{
 
               if (velocity == 0) { // some MIDI issue velocity = 0 rather than "Note Off" command
                   SAMPLER.triggerRelease(noteName);
+                  setTimeout(event =>this.Repaint(event), 100);
                   console.log(
                     `Note Off: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
                   );
               } 
               else {
+                this.drawNote(noteName, '#ff404088');
                 this.playNote(noteName);
+
                 console.log(
                   `Note On: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
                 );
@@ -165,6 +168,7 @@ class Piano extends Instrument{
             if (command == 0x80) { // if "Note Off" was explicit issued
               var noteName = NOTES_TABLE[note - MIDI_FIRST_NOTE_OFFSET].note;
               SAMPLER.triggerRelease(noteName);
+              setTimeout(event =>this.Repaint(event), 100);
               console.log(
                 `Note Off: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
               );
@@ -289,14 +293,6 @@ class Piano extends Instrument{
     console.log(`onMidiMessage: ${event.data}`);
   }
 
-  drawNote(x, y, color) {
-    this.ctx.beginPath();
-    this.ctx.arc(x, y, BALL * this.scale, 0, Math.PI * 2);
-    this.ctx.fillStyle = '#ff404088';
-    this.ctx.fill();
-    this.ctx.closePath();
-  }
-
   onMouseUp() {
     if (this.playingNote.length > 1) {
       if (this.pedalDownCheckBox.checked == false) {
@@ -338,22 +334,47 @@ class Piano extends Instrument{
     solfege_flat_note_name = NOTES_TABLE[i].solfege_flat;
     if (NOTES_TABLE[i].is_black) {
       display_text =  `${note_name}, ${flat_note_name} (${solfege_name}, $${solfege_flat_note_name})`;
-      note_pos_y = BLACK_NOTE_POS_Y * this.scale;
-      note_pos_x = (NOTES_TABLE[i].blackX_whiteCnt + BALL/2 + 10) * this.scale;
     }
     else {
       display_text =  `${note_name} (${solfege_name})`;
-      note_pos_y = WHITE_NOTE_POS_Y * this.scale;
-      note_pos_x = NOTES_TABLE[i].blackX_whiteCnt * ratio + ((BALL/2 + 36) * this.scale);
     }
     console.log(`note_pos_x = ${note_pos_x}, note_pos_y = ${note_pos_y}`);
 
     this.statusDisplay.innerText = display_text;
     if (note_name.length > 1) {
         this.playNote(note_name);
+        this.drawNote(note_name, '#ff404088');
+    }
+  }
+
+  drawNote(name, color) {
+    var note_pos_x;
+    var note_pos_y;
+    var ratio = this.canvas_piano.width / NUM_WHITE_KEYS;
+    var n = NOTES_TABLE.find( function (a) 
+      { if (a.note == name) 
+          return true; 
+        return false; 
+      }
+    );
+
+    if (n == null)
+      return;
+
+    if (n.is_black) {
+      note_pos_y = BLACK_NOTE_POS_Y * this.scale;
+      note_pos_x = (n.blackX_whiteCnt + BALL/2 + 10) * this.scale;
+    }
+    else {
+      note_pos_y = WHITE_NOTE_POS_Y * this.scale;
+      note_pos_x = n.blackX_whiteCnt * ratio + ((BALL/2 + 36) * this.scale);
     }
 
-    this.drawNote(note_pos_x, note_pos_y, '#ff404088');
+    this.ctx.beginPath();
+    this.ctx.arc(note_pos_x, note_pos_y, BALL * this.scale, 0, Math.PI * 2);
+    this.ctx.fillStyle = '#ff404088';
+    this.ctx.fill();
+    this.ctx.closePath();
   }
 
 }
