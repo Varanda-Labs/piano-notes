@@ -27,13 +27,23 @@ const MIN_CANVAS_H = STAFF_LINE_SPACE * 5 * 3;
 
 const WIDTH_SCALE_REF = 1200;
 
+const CLAVE_DE_SOL = './res/clave-de-sol.svg';
+const CLAVE_DE_SOL_RATIO = 96/242; //64/204;
+const CLAVE_DE_SOL_H = STAFF_LINE_SPACE * 5 * 1.5;
+const CLAVE_DE_SOL_W = CLAVE_DE_SOL_H * CLAVE_DE_SOL_RATIO;
+const CLAVE_DE_SOL_X_OFFSET = 20;
+const CLAVE_DE_SOL_Y_OFFSET = -20; 
+
+
+
 class Staff {
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.minHeight = 100;
     this.scale = this.canvas.width / WIDTH_SCALE_REF;
-
+    this.claveDeSolImg = new Image();
+    this.claveDeSolImg.src = CLAVE_DE_SOL;
 
   }
 
@@ -42,6 +52,8 @@ drawStaff() {
   const y = 10 * this.scale;
   const staff_line_space = STAFF_LINE_SPACE * this.scale;
   const staff_w = STAFF_W * this.scale;
+  const CLAVE_DE_SOL_SCALE = .2;
+  const clave_scale = CLAVE_DE_SOL_SCALE * this.scale;
   
   const line_x = x; // TODO: cal center
   const line_y = y;
@@ -67,7 +79,13 @@ drawStaff() {
   this.ctx.lineTo(line_x + staff_w, y_end);
   this.ctx.stroke();
 
-
+  // this.ctx.drawImage( this.claveDeSolImg, 0, 0, 
+  //                     this.claveDeSolImg.width * clave_scale, 
+  //                     this.claveDeSolImg.height * clave_scale);
+  
+  this.ctx.drawImage( this.claveDeSolImg, CLAVE_DE_SOL_X_OFFSET * this.scale, CLAVE_DE_SOL_Y_OFFSET * this.scale, 
+                      CLAVE_DE_SOL_W * this.scale, 
+                      CLAVE_DE_SOL_H * this.scale);
 }
 
   Repaint() {      
@@ -80,9 +98,9 @@ drawStaff() {
     this.scale = this.canvas.width / WIDTH_SCALE_REF;
 
     this.canvas.width = this.canvas.offsetWidth;
-    if (this.canvas.height < MIN_CANVAS_H * this.scale) {
-      this.canvas.height = MIN_CANVAS_H * this.scale;
-    }
+    // if (this.canvas.height < MIN_CANVAS_H * this.scale) {
+    //   this.canvas.height = MIN_CANVAS_H * this.scale;
+    // }
 
     this.drawStaff();
   }
