@@ -19,7 +19,7 @@
  midi: first pitch 21, last 108
  */
 import { Piano } from "./piano.js";
-import { Staff } from "./staff.js";
+import { Sheet } from "./sheet.js";
 
 
 
@@ -33,7 +33,9 @@ const clearBtn = document.getElementById('clearBtn');
 const pedalDownCheckbox = document.getElementById('pedalDownCheckbox');
 
 const piano = new Piano(canvas_piano, statusDisplay, pedalDownCheckbox);
-const staff = new Staff(canvas_notes);
+//const staff = new Staff(canvas_notes);
+const sheet = new Sheet(canvas_notes);
+
 
 var scale;
 var current_note = "?"
@@ -49,7 +51,7 @@ const canvasState = {
 
 function resizeCanvases() {
   piano.Repaint();
-  staff.Repaint();
+  sheet.Repaint();
 
   drawNote();
 
