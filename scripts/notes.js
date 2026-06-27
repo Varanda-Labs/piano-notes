@@ -48,23 +48,6 @@ const canvasState = {
 };
 
 function resizeCanvases() {
-  // Get CSS display width/height (in pixels)
-  const cssWidth = canvas_notes.offsetWidth;
-  const cssHeight = canvas_notes.offsetHeight;
-
-  // If the canvas is inside a flex container, it might have 0 height initially.
-  // We ensure height is at least the content or a minimum.
-  const minHeight = 100;
-  const actualHeight = Math.max(cssHeight || minHeight, minHeight);
-
-  // Update CSS width/height first (for immediate visual change)
-  canvas_notes.width = cssWidth;
-  canvas_notes.height = actualHeight; // drawPiano overrides this
-
-  // Store it
-  canvasState.width = canvas_notes.width;
-  canvasState.height = 200; //actualHeight;
-
   piano.Repaint();
   staff.Repaint();
 
