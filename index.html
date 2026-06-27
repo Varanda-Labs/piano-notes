@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piano Notes</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piano Notes</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
-    <script src="scripts/Tone.js"></script>
+  <script src="scripts/Tone.js"></script>
 
-    <div class="container">
-        <!-- Row 1: Buttons + Select -->
-        <div class="controls-row">
-            <h3>Controls</h3>
-            <div>
-                <button id="drawRectBtn">Draw Rect</button>
-                <button id="drawCircleBtn">Draw Circle</button>
-                <button id="clearBtn">Clear All</button>
-                <input type="checkbox" id="pedalDownCheckbox" name="pedalDownCheckbox" value="false">
-                <label for="pedalDownCheckbox">Pedal Down</label>
+  <div class="container">
+    <!-- Row 1: Buttons + Select -->
+    <div class="controls-row">
+      <h3>Controls</h3>
+      <div>
+        <button id="drawRectBtn">Draw Rect</button>
+        <button id="drawCircleBtn">Draw Circle</button>
+        <button id="clearBtn">Clear All</button>
+        <input type="checkbox" id="pedalDownCheckbox" name="pedalDownCheckbox" value="false">
+        <label for="pedalDownCheckbox">Pedal Down</label>
 
-                <select id="colorSelect">
-                    <option value="#000000">Black</option>
-                    <option value="#ff0000">Red</option>
-                    <option value="#00ff00">Green</option>
-                    <option value="#0000ff">Blue</option>
-                </select>
-            </div>
-            <div class="status-bar" id="status">Width: 0px | Height: 0px</div>
-        </div>
-
-        <!-- Row 2: Canvas 1 -->
-        <div class="canvas-wrapper">
-            <canvas id="canvas_notes"></canvas>
-        </div>
-
-        <!-- Row 3: Canvas 2 -->
-        <div class="canvas-wrapper">
-            <canvas id="canvas_piano"></canvas>
-        </div>
+        <select id="colorSelect">
+          <option value="#000000">Black</option>
+          <option value="#ff0000">Red</option>
+          <option value="#00ff00">Green</option>
+          <option value="#0000ff">Blue</option>
+        </select>
+      </div>
+      <div class="status-bar" id="status">Width: 0px | Height: 0px</div>
     </div>
 
-    <script type="module" src="scripts/notes.js"></script>
+    <!-- Row 2: Canvas 1 -->
+    <div class="canvas-wrapper">
+      <canvas id="canvas_notes"></canvas>
+    </div>
+
+    <!-- Row 3: Canvas 2 -->
+    <div class="canvas-wrapper">
+      <canvas id="canvas_piano"></canvas>
+    </div>
+  </div>
+
+  <script type="module" src="scripts/notes.js"></script>
 </body>
+
 </html>

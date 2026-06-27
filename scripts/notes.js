@@ -19,6 +19,8 @@
  midi: first pitch 21, last 108
  */
 import { Piano } from "./piano.js";
+import { Staff } from "./staff.js";
+
 
 
 const canvas_notes = document.getElementById('canvas_notes');
@@ -31,6 +33,7 @@ const clearBtn = document.getElementById('clearBtn');
 const pedalDownCheckbox = document.getElementById('pedalDownCheckbox');
 
 const piano = new Piano(canvas_piano, statusDisplay, pedalDownCheckbox);
+const staff = new Staff(canvas_notes);
 
 var scale;
 var current_note = "?"
@@ -40,74 +43,76 @@ var playingNote = '';
 
 
 const canvasState = {
-    width: 0,
-    height: 0
+  width: 0,
+  height: 0
 };
 
 function resizeCanvases() {
-    // Get CSS display width/height (in pixels)
-    const cssWidth = canvas_notes.offsetWidth;
-    const cssHeight = canvas_notes.offsetHeight;
-    
-    // If the canvas is inside a flex container, it might have 0 height initially.
-    // We ensure height is at least the content or a minimum.
-    const minHeight = 100; 
-    const actualHeight = Math.max(cssHeight || minHeight, minHeight);
+  // Get CSS display width/height (in pixels)
+  const cssWidth = canvas_notes.offsetWidth;
+  const cssHeight = canvas_notes.offsetHeight;
 
-    // Update CSS width/height first (for immediate visual change)
-    canvas_notes.width = cssWidth;
-    canvas_notes.height = actualHeight; // drawPiano overrides this
+  // If the canvas is inside a flex container, it might have 0 height initially.
+  // We ensure height is at least the content or a minimum.
+  const minHeight = 100;
+  const actualHeight = Math.max(cssHeight || minHeight, minHeight);
 
-    // Store it
-    canvasState.width = canvas_notes.width;
-    canvasState.height = 200; //actualHeight;
+  // Update CSS width/height first (for immediate visual change)
+  canvas_notes.width = cssWidth;
+  canvas_notes.height = actualHeight; // drawPiano overrides this
 
-    piano.Repaint();
-    drawNote();
+  // Store it
+  canvasState.width = canvas_notes.width;
+  canvasState.height = 200; //actualHeight;
 
-    // Update Status
-    //statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px | Note: ${current_note}`;
+  piano.Repaint();
+  staff.Repaint();
+
+  drawNote();
+
+  // Update Status
+  //statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px | Note: ${current_note}`;
 }
 
 // 4. Initialize on Load
 window.onload = resizeCanvases;
-        
+
 // Handle Window Resize
 window.addEventListener('resize', resizeCanvases);
 
 // 5. Helper: Draw function
 function drawPattern(ctx) {
-    ctx.clearRect(0, 0, ctx.width, ctx.height);
-    ctx.fillStyle = colorSelect.value;
-    ctx.beginPath();
-    
-    // Draw a shape relative to canvas size
-    if (canvasState.width > 0) {
-        if (canvasState.width < 300) {
-            ctx.rect(0, 0, canvasState.width, 20); // Draw a small bar if narrow
-        } else {
-            // Draw a pattern or large rectangle for larger screens
-            ctx.rect(0, 0, canvasState.width * 0.3, canvasState.height * 0.2);
-            ctx.rect(0, canvasState.height * 0.8, canvasState.width * 0.3, canvasState.height * 0.2);
-            ctx.rect(canvasState.width * 0.7, 0, canvasState.width * 0.2, canvasState.height * 0.5);
-        }
-        ctx.fill();
+  ctx.clearRect(0, 0, ctx.width, ctx.height);
+  ctx.fillStyle = colorSelect.value;
+  ctx.beginPath();
+
+  // Draw a shape relative to canvas size
+  if (canvasState.width > 0) {
+    if (canvasState.width < 300) {
+      ctx.rect(0, 0, canvasState.width, 20); // Draw a small bar if narrow
+    } else {
+      // Draw a pattern or large rectangle for larger screens
+      ctx.rect(0, 0, canvasState.width * 0.3, canvasState.height * 0.2);
+      ctx.rect(0, canvasState.height * 0.8, canvasState.width * 0.3, canvasState.height * 0.2);
+      ctx.rect(canvasState.width * 0.7, 0, canvasState.width * 0.2, canvasState.height * 0.5);
     }
+    ctx.fill();
+  }
 }
 
 function drawNote() {
-    canvas_notes.height = 100; //h * 1.0;
+  //canvas_notes.height = 100; //h * 1.0;
 }
 
-function drawCircle () {
-    const ctx = canvas_notes.getContext('2d');
-    // const ctx = canvas_piano.getContext('2d');
+function drawCircle() {
+  const ctx = canvas_notes.getContext('2d');
+  // const ctx = canvas_piano.getContext('2d');
 
-    ctx.clearRect(0, 0, ctx.width, ctx.height);
-    ctx.fillStyle = colorSelect.value;
-    ctx.beginPath();
-    ctx.arc(canvas_notes.width / 2, canvas_notes.height / 2, canvas_notes.width / 4, 0, Math.PI * 2);
-    ctx.fill();
+  ctx.clearRect(0, 0, ctx.width, ctx.height);
+  ctx.fillStyle = colorSelect.value;
+  ctx.beginPath();
+  ctx.arc(canvas_notes.width / 2, canvas_notes.height / 2, canvas_notes.width / 4, 0, Math.PI * 2);
+  ctx.fill();
 }
 
 // 6. Event Listeners
@@ -116,13 +121,13 @@ rectBtn.addEventListener('click', () => drawPattern(canvas_notes.getContext('2d'
 circleBtn.addEventListener('click', drawCircle);
 
 clearBtn.addEventListener('click', () => {
-    const ctx = canvas_notes.getContext('2d');
-    ctx.clearRect(0, 0, ctx.width, ctx.height);
-    if (pedalDownCheckbox.checked == true) {
-        synth.triggerAttackRelease("C3", "8n");
-    }
+  const ctx = canvas_notes.getContext('2d');
+  ctx.clearRect(0, 0, ctx.width, ctx.height);
+  if (pedalDownCheckbox.checked == true) {
+    synth.triggerAttackRelease("C3", "8n");
+  }
 
-    // piano.keyDown('C4', '+1');
+  // piano.keyDown('C4', '+1');
 
 });
 

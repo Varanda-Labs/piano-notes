@@ -74,10 +74,6 @@ const SAMPLER = new Tone.Sampler({
     baseUrl: "res/",
 }).toDestination();
 
-const CANVAS_STATE = {
-    width: 0,
-    height: 0
-};
 
 var midi = null;
 
@@ -201,10 +197,6 @@ class Piano extends Instrument{
     
     this.canvas_piano.width = cssWidth;
     this.canvas_piano.height = actualHeight;
-
-    // Store it
-    CANVAS_STATE.width = this.canvas_piano.width;
-    CANVAS_STATE.height = actualHeight;
 
     this.drawPiano();
   }
