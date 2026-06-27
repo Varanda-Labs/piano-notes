@@ -36,17 +36,17 @@ const CLAVE_DE_SOL_Y_OFFSET = -30;
 
 class Clave {
   constructor(  file,
-                image_ratio,
                 h,
                 w,
                 x_offset,
                 y_offset) {
     this.file = file;
-    this.image_ratio = image_ratio;
     this.h = h;
     this.w = w;
     this.x_offset = x_offset;
     this.y_offset = y_offset;
+    this.claveImage = new Image();
+    this.claveImage.src = this.file;
   }
 }
 
@@ -56,9 +56,14 @@ class Staff {
     this.ctx = canvas.getContext('2d');
     this.minHeight = 100;
     this.scale = this.canvas.width / WIDTH_SCALE_REF;
-    this.claveDeSolImg = new Image();
-    this.claveDeSolImg.src = CLAVE_DE_SOL;
-
+    this.claveDeSolImg = new Clave(
+      CLAVE_DE_SOL,
+      CLAVE_DE_SOL_H,
+      CLAVE_DE_SOL_W,
+      CLAVE_DE_SOL_X_OFFSET,
+      CLAVE_DE_SOL_Y_OFFSET
+    );
+    this.activeClave = this.claveDeSolImg;
   }
 
 drawStaff() {
@@ -92,16 +97,12 @@ drawStaff() {
   this.ctx.moveTo(line_x + staff_w, line_y);
   this.ctx.lineTo(line_x + staff_w, y_end);
   this.ctx.stroke();
-
-  // this.ctx.drawImage( this.claveDeSolImg, 0, 0, 
-  //                     this.claveDeSolImg.width * clave_scale, 
-  //                     this.claveDeSolImg.height * clave_scale);
   
-  this.ctx.drawImage( this.claveDeSolImg, 
-                      line_x + CLAVE_DE_SOL_X_OFFSET * this.scale, 
-                      line_y + CLAVE_DE_SOL_Y_OFFSET * this.scale, 
-                      CLAVE_DE_SOL_W * this.scale, 
-                      CLAVE_DE_SOL_H * this.scale);
+  this.ctx.drawImage( this.activeClave.claveImage,
+                      line_x + this.activeClave.x_offset * this.scale, 
+                      line_y + this.activeClave.y_offset * this.scale, 
+                      this.activeClave.w * this.scale, 
+                      this.activeClave.h * this.scale);
 }
 
   Repaint() {      
