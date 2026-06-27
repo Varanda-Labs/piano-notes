@@ -32,9 +32,23 @@ const CLAVE_DE_SOL_RATIO = 96/242; //64/204;
 const CLAVE_DE_SOL_H = STAFF_LINE_SPACE * 5 * 1.5;
 const CLAVE_DE_SOL_W = CLAVE_DE_SOL_H * CLAVE_DE_SOL_RATIO;
 const CLAVE_DE_SOL_X_OFFSET = 20;
-const CLAVE_DE_SOL_Y_OFFSET = -20; 
+const CLAVE_DE_SOL_Y_OFFSET = -30; 
 
-
+class Clave {
+  constructor(  file,
+                image_ratio,
+                h,
+                w,
+                x_offset,
+                y_offset) {
+    this.file = file;
+    this.image_ratio = image_ratio;
+    this.h = h;
+    this.w = w;
+    this.x_offset = x_offset;
+    this.y_offset = y_offset;
+  }
+}
 
 class Staff {
   constructor(canvas) {
@@ -48,8 +62,8 @@ class Staff {
   }
 
 drawStaff() {
-  const x = 10 * this.scale;
-  const y = 10 * this.scale;
+  const x = 40 * this.scale;
+  const y = 40 * this.scale;
   const staff_line_space = STAFF_LINE_SPACE * this.scale;
   const staff_w = STAFF_W * this.scale;
   const CLAVE_DE_SOL_SCALE = .2;
@@ -83,7 +97,9 @@ drawStaff() {
   //                     this.claveDeSolImg.width * clave_scale, 
   //                     this.claveDeSolImg.height * clave_scale);
   
-  this.ctx.drawImage( this.claveDeSolImg, CLAVE_DE_SOL_X_OFFSET * this.scale, CLAVE_DE_SOL_Y_OFFSET * this.scale, 
+  this.ctx.drawImage( this.claveDeSolImg, 
+                      line_x + CLAVE_DE_SOL_X_OFFSET * this.scale, 
+                      line_y + CLAVE_DE_SOL_Y_OFFSET * this.scale, 
                       CLAVE_DE_SOL_W * this.scale, 
                       CLAVE_DE_SOL_H * this.scale);
 }
