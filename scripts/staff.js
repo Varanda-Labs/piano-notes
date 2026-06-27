@@ -28,11 +28,18 @@ const MIN_CANVAS_H = STAFF_LINE_SPACE * 5 * 3;
 const WIDTH_SCALE_REF = 1200;
 
 const CLAVE_DE_SOL = './res/clave-de-sol.svg';
-const CLAVE_DE_SOL_RATIO = 96/242; //64/204;
+const CLAVE_DE_SOL_RATIO = 96/242;
 const CLAVE_DE_SOL_H = STAFF_LINE_SPACE * 5 * 1.5;
 const CLAVE_DE_SOL_W = CLAVE_DE_SOL_H * CLAVE_DE_SOL_RATIO;
 const CLAVE_DE_SOL_X_OFFSET = 20;
 const CLAVE_DE_SOL_Y_OFFSET = -30; 
+
+const CLAVE_DE_FA = './res/clave-de-fa.svg';
+const CLAVE_DE_FA_RATIO = 420/494;
+const CLAVE_DE_FA_H = STAFF_LINE_SPACE * 3.5;
+const CLAVE_DE_FA_W = CLAVE_DE_FA_H * CLAVE_DE_FA_RATIO;
+const CLAVE_DE_FA_X_OFFSET = 20;
+const CLAVE_DE_FA_Y_OFFSET = -4; 
 
 class Clave {
   constructor(  file,
@@ -63,7 +70,16 @@ class Staff {
       CLAVE_DE_SOL_X_OFFSET,
       CLAVE_DE_SOL_Y_OFFSET
     );
-    this.activeClave = this.claveDeSolImg;
+
+    this.claveDeFaImg = new Clave(
+      CLAVE_DE_FA,
+      CLAVE_DE_FA_H,
+      CLAVE_DE_FA_W,
+      CLAVE_DE_FA_X_OFFSET,
+      CLAVE_DE_FA_Y_OFFSET
+    );
+
+    this.activeClave = this.claveDeFaImg; // claveDeSolImg;
   }
 
 drawStaff() {
@@ -71,8 +87,6 @@ drawStaff() {
   const y = 40 * this.scale;
   const staff_line_space = STAFF_LINE_SPACE * this.scale;
   const staff_w = STAFF_W * this.scale;
-  const CLAVE_DE_SOL_SCALE = .2;
-  const clave_scale = CLAVE_DE_SOL_SCALE * this.scale;
   
   const line_x = x; // TODO: cal center
   const line_y = y;
