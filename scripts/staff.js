@@ -10,9 +10,6 @@
  *
  ***************************************************************
 
- Credits: Audio sample files downloaded from https://github.com/tambien/Piano
-          Actual Samples/author:  Salamander Grand Piano V3, Alexander Holm 
-                                  https://archive.org/details/SalamanderGrandPianoV3
 
  */
 
@@ -36,10 +33,10 @@ const CLAVE_DE_SOL_Y_OFFSET = -30;
 
 const CLAVE_DE_FA = './res/clave-de-fa.svg';
 const CLAVE_DE_FA_RATIO = 420/494;
-const CLAVE_DE_FA_H = STAFF_LINE_SPACE * 3.5;
+const CLAVE_DE_FA_H = STAFF_LINE_SPACE * 3.2;
 const CLAVE_DE_FA_W = CLAVE_DE_FA_H * CLAVE_DE_FA_RATIO;
 const CLAVE_DE_FA_X_OFFSET = 20;
-const CLAVE_DE_FA_Y_OFFSET = -4; 
+const CLAVE_DE_FA_Y_OFFSET = -2; 
 
 class Clave {
   constructor(  file,
