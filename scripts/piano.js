@@ -188,16 +188,7 @@ class Piano extends Instrument{
   }
 
   Repaint() {      
-  const cssWidth = canvas_piano.offsetWidth;
-  const cssHeight = canvas_piano.offsetHeight;
-
-    this.minHeight = 100; 
-    //this.actualHeight = Math.max(cssHeight || minHeight, minHeight);
-    var actualHeight = 200; // TODO: declared me
-    
-    this.canvas_piano.width = cssWidth;
-    this.canvas_piano.height = actualHeight;
-
+    this.canvas_piano.width = canvas_piano.offsetWidth;
     this.drawPiano();
   }
 

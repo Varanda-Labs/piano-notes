@@ -21,6 +21,10 @@ export { Staff };
 const BLACK_NOTE_W = 50;
 const BLACK_NOTE_H = 10;
 
+const STAFF_W = 500;
+const STAFF_LINE_SPACE = 20;
+const MAX_CANVAS_H = STAFF_LINE_SPACE * 5 * 2;
+
 class Staff {
   constructor(canvas) {
     this.canvas = canvas;
@@ -33,8 +37,6 @@ class Staff {
 drawStaff() {
   const x = 10;
   const y = 10;
-  const STAFF_W = 500;
-  const STAFF_LINE_SPACE = 20;
   
   const line_x = x; // TODO: cal center
   const line_y = y;
@@ -53,7 +55,7 @@ drawStaff() {
 
   y_end = line_y + 4 * STAFF_LINE_SPACE;
   this.ctx.moveTo(line_x, line_y);
-  this.ctx.lineTo(line_x, line_y + 4 * STAFF_LINE_SPACE);
+  this.ctx.lineTo(line_x, y_end);
   this.ctx.stroke();
 
   this.ctx.moveTo(line_x + STAFF_W, line_y);
@@ -64,16 +66,20 @@ drawStaff() {
 }
 
   Repaint() {      
-  const cssWidth = this.canvas.offsetWidth;
-  const cssHeight = this.canvas.offsetHeight;
+  // const cssWidth = this.canvas.offsetWidth;
+  // const cssHeight = this.canvas.offsetHeight;
 
-    this.minHeight = 100; 
-    //this.actualHeight = Math.max(cssHeight || minHeight, minHeight);
-    var actualHeight = 200; // TODO: declared me
+  //   this.minHeight = 100; 
+  //   //this.actualHeight = Math.max(cssHeight || minHeight, minHeight);
+  //   var actualHeight = 200; // TODO: declared me
     
-    this.canvas.width = cssWidth;
-    this.canvas.height = actualHeight;
+  //   this.canvas.width = cssWidth;
+  //   this.canvas.height = actualHeight;
 
+    this.canvas.width = this.canvas.offsetWidth;
+    if (this.canvas.height > MAX_CANVAS_H) {
+      this.canvas.height = MAX_CANVAS_H;
+    }
     this.drawStaff();
   }
 }
