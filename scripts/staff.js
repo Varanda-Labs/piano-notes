@@ -13,7 +13,10 @@
 
  */
 
-export { Staff };
+export { Staff, G_CLEF, F_CLEF };
+
+const G_CLEF = 'G-CLEF';
+const F_CLEF = 'F-CLEF';
 
 const BLACK_NOTE_W = 50;
 const BLACK_NOTE_H = 10;
@@ -53,8 +56,9 @@ class Clave {
 }
 
 class Staff {
-  constructor(canvas) {
+  constructor(canvas, clef) {
     this.canvas = canvas;
+    this.clef = clef;
     this.ctx = canvas.getContext('2d');
     this.minHeight = 100;
     this.claveDeSolImg = new Clave(
@@ -73,23 +77,28 @@ class Staff {
       CLAVE_DE_FA_Y_OFFSET
     );
 
-    this.activeClave = this.claveDeFaImg; // claveDeSolImg;
+    if (clef == 'G-CLEF') {
+      this.activeClave = this.claveDeSolImg;
+    }
+    else if (clef == 'F-CLEF') {
+      this.activeClave = this.claveDeFaImg;
+    }
+    else {
+      console.log("clef must be either G-CLEF or F-CLEF, assuming G-CLEF");
+      this.activeClave = this.claveDeSolImg;
+    }
   }
 
   getStaffSize(scale) {
     const w = STAFF_W * scale;
-    const h = STAFF_LINE_SPACE * this.scale * 5;
+    const h = STAFF_LINE_SPACE * scale * 5;
     return { "width": w, "height": h};
 
   }
 
   drawStaff(scale, line_x, line_y) {
-    // const x = 40 * this.scale;
-    // const y = 40 * this.scale;
-    this.scale = scale;
-
-    const staff_line_space = STAFF_LINE_SPACE * this.scale;
-    const staff_w = STAFF_W * this.scale;
+    const staff_line_space = STAFF_LINE_SPACE * scale;
+    const staff_w = STAFF_W * scale;
     
     // const line_x = x; // TODO: cal center
     // const line_y = y;
@@ -116,25 +125,10 @@ class Staff {
     this.ctx.stroke();
     
     this.ctx.drawImage( this.activeClave.claveImage,
-                        line_x + this.activeClave.x_offset * this.scale, 
-                        line_y + this.activeClave.y_offset * this.scale, 
-                        this.activeClave.w * this.scale, 
-                        this.activeClave.h * this.scale);
+                        line_x + this.activeClave.x_offset * scale, 
+                        line_y + this.activeClave.y_offset * scale, 
+                        this.activeClave.w * scale, 
+                        this.activeClave.h * scale);
   }
 
-  Repaint() {      
-
-
-    // const canvas_h = window.innerHeight / 2;
-    // this.canvas.height = canvas_h;
-    // this.scale = this.canvas.width / WIDTH_SCALE_REF;
-    // this.canvas.width = this.canvas.offsetWidth;
-
-
-    // if (this.canvas.height < MIN_CANVAS_H * this.scale) {
-    //   this.canvas.height = MIN_CANVAS_H * this.scale;
-    // }
-
-    this.drawStaff();
-  }
 }
