@@ -22,8 +22,6 @@ const STAFF_W = 500;
 const STAFF_LINE_SPACE = 20;
 const MIN_CANVAS_H = STAFF_LINE_SPACE * 5 * 3;
 
-const WIDTH_SCALE_REF = 1200;
-
 const CLAVE_DE_SOL = './res/clave-de-sol.svg';
 const CLAVE_DE_SOL_RATIO = 96/242;
 const CLAVE_DE_SOL_H = STAFF_LINE_SPACE * 5 * 1.5;
@@ -59,7 +57,6 @@ class Staff {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.minHeight = 100;
-    this.scale = this.canvas.width / WIDTH_SCALE_REF;
     this.claveDeSolImg = new Clave(
       CLAVE_DE_SOL,
       CLAVE_DE_SOL_H,
@@ -79,53 +76,61 @@ class Staff {
     this.activeClave = this.claveDeFaImg; // claveDeSolImg;
   }
 
-drawStaff() {
-  const x = 40 * this.scale;
-  const y = 40 * this.scale;
-  const staff_line_space = STAFF_LINE_SPACE * this.scale;
-  const staff_w = STAFF_W * this.scale;
-  
-  const line_x = x; // TODO: cal center
-  const line_y = y;
-  var i = 0;
-  var y_end;
+  getStaffSize(scale) {
+    const w = STAFF_W * scale;
+    const h = STAFF_LINE_SPACE * this.scale * 5;
+    return { "width": w, "height": h};
 
-  this.ctx.fillStyle = '#000000';
-  this.ctx.beginPath();
-
-  while (i < 5) {
-    this.ctx.moveTo(line_x, line_y + i * staff_line_space );
-    this.ctx.lineTo(line_x + staff_w, line_y + i * staff_line_space);
-    this.ctx.stroke();
-    i++;
   }
 
-  y_end = line_y + 4 * staff_line_space;
-  this.ctx.moveTo(line_x, line_y);
-  this.ctx.lineTo(line_x, y_end);
-  this.ctx.stroke();
+  drawStaff(scale, line_x, line_y) {
+    // const x = 40 * this.scale;
+    // const y = 40 * this.scale;
+    this.scale = scale;
 
-  this.ctx.moveTo(line_x + staff_w, line_y);
-  this.ctx.lineTo(line_x + staff_w, y_end);
-  this.ctx.stroke();
-  
-  this.ctx.drawImage( this.activeClave.claveImage,
-                      line_x + this.activeClave.x_offset * this.scale, 
-                      line_y + this.activeClave.y_offset * this.scale, 
-                      this.activeClave.w * this.scale, 
-                      this.activeClave.h * this.scale);
-}
+    const staff_line_space = STAFF_LINE_SPACE * this.scale;
+    const staff_w = STAFF_W * this.scale;
+    
+    // const line_x = x; // TODO: cal center
+    // const line_y = y;
+    var i = 0;
+    var y_end;
+
+    this.ctx.fillStyle = '#000000';
+    this.ctx.beginPath();
+
+    while (i < 5) {
+      this.ctx.moveTo(line_x, line_y + i * staff_line_space );
+      this.ctx.lineTo(line_x + staff_w, line_y + i * staff_line_space);
+      this.ctx.stroke();
+      i++;
+    }
+
+    y_end = line_y + 4 * staff_line_space;
+    this.ctx.moveTo(line_x, line_y);
+    this.ctx.lineTo(line_x, y_end);
+    this.ctx.stroke();
+
+    this.ctx.moveTo(line_x + staff_w, line_y);
+    this.ctx.lineTo(line_x + staff_w, y_end);
+    this.ctx.stroke();
+    
+    this.ctx.drawImage( this.activeClave.claveImage,
+                        line_x + this.activeClave.x_offset * this.scale, 
+                        line_y + this.activeClave.y_offset * this.scale, 
+                        this.activeClave.w * this.scale, 
+                        this.activeClave.h * this.scale);
+  }
 
   Repaint() {      
-    // const cssHeight = this.canvas.offsetHeight;
-    // const minHeight = MIN_CANVAS_H;
-    // const actualHeight = Math.max(cssHeight || minHeight, minHeight);
 
-    // this.canvas.height = actualHeight; // drawPiano overrides this
 
-    this.scale = this.canvas.width / WIDTH_SCALE_REF;
+    // const canvas_h = window.innerHeight / 2;
+    // this.canvas.height = canvas_h;
+    // this.scale = this.canvas.width / WIDTH_SCALE_REF;
+    // this.canvas.width = this.canvas.offsetWidth;
 
-    this.canvas.width = this.canvas.offsetWidth;
+
     // if (this.canvas.height < MIN_CANVAS_H * this.scale) {
     //   this.canvas.height = MIN_CANVAS_H * this.scale;
     // }
