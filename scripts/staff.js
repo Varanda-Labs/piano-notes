@@ -14,6 +14,7 @@
  */
 
 export { Staff, G_CLEF, F_CLEF };
+import { Note } from "./note-base.js";
 
 const G_CLEF = 'G-CLEF';
 const F_CLEF = 'F-CLEF';
@@ -87,6 +88,7 @@ class Staff {
       console.log("clef must be either G-CLEF or F-CLEF, assuming G-CLEF");
       this.activeClave = this.claveDeSolImg;
     }
+    this.notes = [new Note(canvas), new Note(canvas)];
   }
 
   getStaffSize(scale) {
@@ -129,6 +131,8 @@ class Staff {
                         line_y + this.activeClave.y_offset * scale, 
                         this.activeClave.w * scale, 
                         this.activeClave.h * scale);
+                        
+    this.notes[0].drawNote("C7", false, this.clef, scale,line_x + staff_w/2, line_y);
   }
 
 }

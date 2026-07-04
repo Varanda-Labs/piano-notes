@@ -44,6 +44,7 @@ class NoteImage {
 class Note {
   constructor(canvas) {
     this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
 
     this.noteImgDown = new NoteImage( NOTE_IMG_DOWN, 
                                       NOTE_IMG_WH_RATE,
@@ -74,9 +75,18 @@ class Note {
                                     NOTE_IMG_WH_RATE,
                                     NOTE_IMG_UP_X_FRAC,
                                     NOTE_IMG_UP_Y_FRAC);
+    this.Note_w = 80;
+    this.Note_h = this.Note_w / NOTE_IMG_WH_RATE;
   }
 
   drawNote(note_name, is_flat, clef, scale, staff_x, staff_y, line_space) {
+    const off_x = this.Note_w * this.noteImgUp.x_frac * scale;
+    const off_y = this.Note_w * this.noteImgUp.y_frac * scale;
 
+    this.ctx.drawImage( this.noteImgUp.img,
+                        staff_x - off_x, // + this.activeClave.x_offset * scale, 
+                        staff_y - off_y, // + this.activeClave.y_offset * scale, 
+                        this.Note_w * scale, 
+                        this.Note_h * scale);
   }
 }
