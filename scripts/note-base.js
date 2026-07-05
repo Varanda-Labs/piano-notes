@@ -80,13 +80,22 @@ class Note {
   }
 
   drawNote(note_name, is_flat, clef, scale, staff_x, staff_y, line_space) {
-    const off_x = this.Note_w * this.noteImgUp.x_frac * scale;
-    const off_y = this.Note_w * this.noteImgUp.y_frac * scale;
+    const off_x = this.Note_w * this.noteImgUp.x_frac / NOTE_IMG_WH_RATE * scale;
+    const off_y = this.Note_w * this.noteImgUp.y_frac / NOTE_IMG_WH_RATE * scale;
+    const lineSpaceOffsetDic = this.getLineSpaceOffset(note_name, );
+    var lineSpaceOffset = lineSpaceOffsetDic["G-CLEF"];
+    if (clef != "G-CLEF") {
+      lineSpaceOffset = lineSpaceOffsetDic["F-CLEF"];
+    }
 
     this.ctx.drawImage( this.noteImgUp.img,
                         staff_x - off_x, // + this.activeClave.x_offset * scale, 
-                        staff_y - off_y, // + this.activeClave.y_offset * scale, 
+                        lineSpaceOffset * line_space + staff_y - off_y, // + this.activeClave.y_offset * scale, 
                         this.Note_w * scale, 
                         this.Note_h * scale);
+  }
+
+  getLineSpaceOffset(note_name, is_flat) {
+    return {"G-CLEF": 0, "F-CLEF": -1}
   }
 }

@@ -131,8 +131,8 @@ class Staff {
                         line_y + this.activeClave.y_offset * scale, 
                         this.activeClave.w * scale, 
                         this.activeClave.h * scale);
-                        
-    this.notes[0].drawNote("C7", false, this.clef, scale,line_x + staff_w/2, line_y);
+
+    this.notes[0].drawNote("C7", false, this.clef, scale,line_x + staff_w/2, line_y, staff_line_space);
   }
 
 }
