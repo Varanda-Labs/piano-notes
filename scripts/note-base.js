@@ -83,9 +83,16 @@ class Note {
     const off_x = this.Note_w * this.noteImgUp.x_frac / NOTE_IMG_WH_RATE * scale;
     const off_y = this.Note_w * this.noteImgUp.y_frac / NOTE_IMG_WH_RATE * scale;
     const lineSpaceOffsetDic = this.getLineSpaceOffset(note_name, false);
-    var lineSpaceOffset = lineSpaceOffsetDic["G-CLEF"];
+    var lineSpaceOffset = lineSpaceOffsetDic.G_CLEF_LINE_POS;
+    var extra_lines = lineSpaceOffsetDic.G_CLEF_EXTRA_LINES;
     if (clef != "G-CLEF") {
-      lineSpaceOffset = lineSpaceOffsetDic["F-CLEF"];
+      lineSpaceOffset = lineSpaceOffsetDic.F_CLEF_LINE_POS;
+      lineSpaceOffsetDic.F_CLEF_EXTRA_LINES;
+    }
+
+    if (lineSpaceOffset == null) {
+      console.log(`Note ${note_name} can not be display in ${clef}`);
+      return;
     }
 
     this.ctx.drawImage( this.noteImgUp.img,
@@ -96,6 +103,13 @@ class Note {
   }
 
   getLineSpaceOffset(note_name, is_flat) {
-    return {"HAS-VALID-G-CLEF": true, "G-CLEF": 0, "HAS-VALID-F-CLEF": true, "F-CLEF": -1}
+    // return {"HAS-VALID-G-CLEF": true, "G-CLEF": 0, "HAS-VALID-F-CLEF": true, "F-CLEF": -1}
+    var n = NOTES_IN_STAFF_TABLE.find( function (a) 
+      { if (a.note == note_name) 
+          return true; 
+        return false; 
+      }
+    );
+    return n;
   }
 }
