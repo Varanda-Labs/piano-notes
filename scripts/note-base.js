@@ -14,7 +14,7 @@
  */
 
 export { Note };
-//import { Staff, G_CLEF, F_CLEF } from "./staff.js";
+import { /*NOTES_TABLE, WHITE_INDEX_LOOKUP,*/ NOTES_IN_STAFF_TABLE} from "./piano-table.js";
 
 const NOTE_IMG_WH_RATE = 250/350;
 
@@ -82,20 +82,20 @@ class Note {
   drawNote(note_name, is_flat, clef, scale, staff_x, staff_y, line_space) {
     const off_x = this.Note_w * this.noteImgUp.x_frac / NOTE_IMG_WH_RATE * scale;
     const off_y = this.Note_w * this.noteImgUp.y_frac / NOTE_IMG_WH_RATE * scale;
-    const lineSpaceOffsetDic = this.getLineSpaceOffset(note_name, );
+    const lineSpaceOffsetDic = this.getLineSpaceOffset(note_name, false);
     var lineSpaceOffset = lineSpaceOffsetDic["G-CLEF"];
     if (clef != "G-CLEF") {
       lineSpaceOffset = lineSpaceOffsetDic["F-CLEF"];
     }
 
     this.ctx.drawImage( this.noteImgUp.img,
-                        staff_x - off_x, // + this.activeClave.x_offset * scale, 
-                        lineSpaceOffset * line_space + staff_y - off_y, // + this.activeClave.y_offset * scale, 
+                        staff_x - off_x,
+                        lineSpaceOffset * line_space + staff_y - off_y,
                         this.Note_w * scale, 
                         this.Note_h * scale);
   }
 
   getLineSpaceOffset(note_name, is_flat) {
-    return {"G-CLEF": 0, "F-CLEF": -1}
+    return {"HAS-VALID-G-CLEF": true, "G-CLEF": 0, "HAS-VALID-F-CLEF": true, "F-CLEF": -1}
   }
 }
