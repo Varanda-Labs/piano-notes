@@ -31,6 +31,8 @@ const NOTE_IMG_SHARP_DOWN   = "./res/note-sharp-down.svg";
 const NOTE_IMG_SHARP_UP     = "./res/note-sharp-up.svg";
 const NOTE_IMG_UP           = "./res/note-up.svg";
 
+const EXTRALINE_W = 8;
+
 class NoteImage {
   constructor(filename, wh_rate, x_frac, y_frac) {
     this.file = filename;
@@ -87,12 +89,22 @@ class Note {
     var extra_lines = lineSpaceOffsetDic.G_CLEF_EXTRA_LINES;
     if (clef != "G-CLEF") {
       lineSpaceOffset = lineSpaceOffsetDic.F_CLEF_LINE_POS;
-      lineSpaceOffsetDic.F_CLEF_EXTRA_LINES;
+      extra_lines = lineSpaceOffsetDic.F_CLEF_EXTRA_LINES;
     }
 
     if (lineSpaceOffset == null) {
       console.log(`Note ${note_name} can not be display in ${clef}`);
       return;
+    }
+const EXTRALINE_X_OFFSET = 38;
+    if (extra_lines > 1) {
+        var i = 5;
+        while (i < 5 + extra_lines) {
+          this.ctx.moveTo(staff_x - (EXTRALINE_X_OFFSET * scale), staff_y + i * line_space );
+          this.ctx.lineTo(staff_x + EXTRALINE_W * scale, staff_y + i * line_space);
+          this.ctx.stroke();
+          i++;
+      }
     }
 
     this.ctx.drawImage( this.noteImgUp.img,
