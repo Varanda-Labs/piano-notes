@@ -102,8 +102,6 @@ class Staff {
     const staff_line_space = STAFF_LINE_SPACE * scale;
     const staff_w = STAFF_W * scale;
     
-    // const line_x = x; // TODO: cal center
-    // const line_y = y;
     var i = 0;
     var y_end;
 
@@ -132,7 +130,7 @@ class Staff {
                         this.activeClave.w * scale, 
                         this.activeClave.h * scale);
 
-    this.notes[0].drawNote("A2", false, this.clef, scale,line_x + staff_w/2, line_y, staff_line_space);
+    this.notes[0].drawNote("G4", false, this.clef, scale,line_x + staff_w/2, line_y, staff_line_space);
   }
 
 }

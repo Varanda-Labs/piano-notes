@@ -32,6 +32,8 @@ const NOTE_IMG_SHARP_UP     = "./res/note-sharp-up.svg";
 const NOTE_IMG_UP           = "./res/note-up.svg";
 
 const EXTRALINE_W = 8;
+const EXTRALINE_X_OFFSET = 38;
+
 
 class NoteImage {
   constructor(filename, wh_rate, x_frac, y_frac) {
@@ -87,6 +89,14 @@ class Note {
     const lineSpaceOffsetDic = this.getLineSpaceOffset(note_name, false);
     var lineSpaceOffset = lineSpaceOffsetDic.G_CLEF_LINE_POS;
     var extra_lines = lineSpaceOffsetDic.G_CLEF_EXTRA_LINES;
+    var img;
+    if (note_name.indexOf('#') > 0) {
+      img = this.noteImgSharpUp.img;
+    }
+    else {
+      img = this.noteImgUp.img;
+    }
+
     if (clef != "G-CLEF") {
       lineSpaceOffset = lineSpaceOffsetDic.F_CLEF_LINE_POS;
       extra_lines = lineSpaceOffsetDic.F_CLEF_EXTRA_LINES;
@@ -96,8 +106,8 @@ class Note {
       console.log(`Note ${note_name} can not be display in ${clef}`);
       return;
     }
-const EXTRALINE_X_OFFSET = 38;
-    if (extra_lines > 1) {
+
+    if (extra_lines > 0) {
         var i = 5;
         while (i < 5 + extra_lines) {
           this.ctx.moveTo(staff_x - (EXTRALINE_X_OFFSET * scale), staff_y + i * line_space );
@@ -107,7 +117,17 @@ const EXTRALINE_X_OFFSET = 38;
       }
     }
 
-    this.ctx.drawImage( this.noteImgUp.img,
+    if (extra_lines < 0) {
+        var i = -1;
+        while (i >= extra_lines) {
+          this.ctx.moveTo(staff_x - (EXTRALINE_X_OFFSET * scale), staff_y + i * line_space );
+          this.ctx.lineTo(staff_x + EXTRALINE_W * scale, staff_y + i * line_space);
+          this.ctx.stroke();
+          i--;
+      }
+    }
+
+    this.ctx.drawImage( img,
                         staff_x - off_x,
                         lineSpaceOffset * line_space + staff_y - off_y,
                         this.Note_w * scale, 
