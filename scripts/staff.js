@@ -130,7 +130,7 @@ class Staff {
                         this.activeClave.w * scale, 
                         this.activeClave.h * scale);
 
-    this.notes[0].drawNote("G4", false, this.clef, scale,line_x + staff_w/2, line_y, staff_line_space);
+    this.notes[0].drawNote("A5", false, this.clef, scale,line_x + staff_w/2, line_y, staff_line_space);
   }
 
 }
