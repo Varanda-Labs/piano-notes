@@ -88,7 +88,7 @@ class Staff {
       console.log("clef must be either G-CLEF or F-CLEF, assuming G-CLEF");
       this.activeClave = this.claveDeSolImg;
     }
-    this.notes = [new Note(canvas), new Note(canvas)];
+    this.notes = []; //[new Note(canvas), new Note(canvas)];
   }
 
   getStaffSize(scale) {
@@ -96,6 +96,10 @@ class Staff {
     const h = STAFF_LINE_SPACE * scale * 5;
     return { "width": w, "height": h};
 
+  }
+
+  addNote(name, is_flat) {
+    this.notes.push(new Note(this.canvas, name, is_flat));
   }
 
   drawStaff(scale, line_x, line_y) {
@@ -130,7 +134,9 @@ class Staff {
                         this.activeClave.w * scale, 
                         this.activeClave.h * scale);
 
-    this.notes[0].drawNote("A5", false, this.clef, scale,line_x + staff_w/2, line_y, staff_line_space);
+    for (var i=0; i < this.notes.length; i++) {
+      this.notes[i].drawNote(this.clef, scale,line_x + staff_w/2, line_y, staff_line_space);
+    }
   }
 
 }

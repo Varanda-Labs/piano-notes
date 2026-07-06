@@ -26,6 +26,8 @@ class Sheet {
     this.staff_1 = new Staff(canvas_notes, G_CLEF);
     this.staff_2 = new Staff(canvas_notes, F_CLEF);
 
+    this.staff_2.addNote('C2', false);
+
     this.Repaint();
   }
 

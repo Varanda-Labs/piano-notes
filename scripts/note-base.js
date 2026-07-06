@@ -46,9 +46,11 @@ class NoteImage {
 }
 
 class Note {
-  constructor(canvas) {
+  constructor(canvas, note_name, is_flat) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
+    this.note_name = note_name;
+    this.is_flat = is_flat;
 
     this.noteImgDown = new NoteImage( NOTE_IMG_DOWN, 
                                       NOTE_IMG_WH_RATE,
@@ -83,14 +85,14 @@ class Note {
     this.Note_h = this.Note_w / NOTE_IMG_WH_RATE;
   }
 
-  drawNote(note_name, is_flat, clef, scale, staff_x, staff_y, line_space) {
+  drawNote(clef, scale, staff_x, staff_y, line_space) {
     const off_x = this.Note_w * this.noteImgUp.x_frac / NOTE_IMG_WH_RATE * scale;
     const off_y = this.Note_w * this.noteImgUp.y_frac / NOTE_IMG_WH_RATE * scale;
-    const lineSpaceOffsetDic = this.getLineSpaceOffset(note_name, false);
+    const lineSpaceOffsetDic = this.getLineSpaceOffset(this.note_name, false);
     var lineSpaceOffset = lineSpaceOffsetDic.G_CLEF_LINE_POS;
     var extra_lines = lineSpaceOffsetDic.G_CLEF_EXTRA_LINES;
     var img;
-    if (note_name.indexOf('#') > 0) {
+    if (this.note_name.indexOf('#') > 0) {
       img = this.noteImgSharpUp.img;
     }
     else {
@@ -103,7 +105,7 @@ class Note {
     }
 
     if (lineSpaceOffset == null) {
-      console.log(`Note ${note_name} can not be display in ${clef}`);
+      console.log(`Note ${this.note_name} can not be display in ${clef}`);
       return;
     }
 
@@ -135,7 +137,6 @@ class Note {
   }
 
   getLineSpaceOffset(note_name, is_flat) {
-    // return {"HAS-VALID-G-CLEF": true, "G-CLEF": 0, "HAS-VALID-F-CLEF": true, "F-CLEF": -1}
     var n = NOTES_IN_STAFF_TABLE.find( function (a) 
       { if (a.note == note_name) 
           return true; 
