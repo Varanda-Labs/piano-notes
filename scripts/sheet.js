@@ -26,8 +26,18 @@ class Sheet {
     this.staff_1 = new Staff(canvas_notes, G_CLEF);
     this.staff_2 = new Staff(canvas_notes, F_CLEF);
 
-    this.staff_2.addNote('C2', false);
+    this.current_note = null; //this.staff_2.addNote('C2', false);
 
+    this.Repaint();
+  }
+
+  addNote(note_name, is_flat) {
+    if (this.current_note != null) {
+      this.staff_1.removeNote(this.current_note);
+      this.staff_2.removeNote(this.current_note);
+    }
+    this.current_note = this.staff_1.addNote(note_name, is_flat);
+    this.current_note = this.staff_2.addNote(note_name, is_flat);
     this.Repaint();
   }
 

@@ -32,7 +32,7 @@ const circleBtn = document.getElementById('drawCircleBtn');
 const clearBtn = document.getElementById('clearBtn');
 const pedalDownCheckbox = document.getElementById('pedalDownCheckbox');
 
-const piano = new Piano(canvas_piano, statusDisplay, pedalDownCheckbox);
+const piano = new Piano(canvas_piano, statusDisplay, pedalDownCheckbox, onNoteStroke);
 //const staff = new Staff(canvas_notes);
 const sheet = new Sheet(canvas_notes);
 
@@ -48,6 +48,11 @@ const canvasState = {
   width: 0,
   height: 0
 };
+
+function onNoteStroke(note_name) {
+  sheet.addNote(note_name);
+  console.log(`********** onNoteStroke: ${note_name} ********`);
+}
 
 function resizeCanvases() {
   piano.Repaint();

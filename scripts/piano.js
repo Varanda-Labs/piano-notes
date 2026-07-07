@@ -232,6 +232,9 @@ class Piano extends Instrument{
   playNote(n) {
     SAMPLER.triggerAttack(n);
     this.playingNote = n;
+    if (this.noteStrokeCallback != null) {
+      this.noteStrokeCallback(n);
+    }
   }
 
   getKeyedNote(x,y) {

@@ -99,7 +99,13 @@ class Staff {
   }
 
   addNote(name, is_flat) {
-    this.notes.push(new Note(this.canvas, name, is_flat));
+    var n = new Note(this.canvas, name, is_flat);
+    this.notes.push(n);
+    return n;
+  }
+
+  removeNote(obj) {
+    this.notes.splice(this.notes.indexOf(obj, 1));
   }
 
   drawStaff(scale, line_x, line_y) {
