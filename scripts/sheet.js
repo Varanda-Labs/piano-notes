@@ -50,12 +50,17 @@ class Sheet {
     const staff_area = this.staff_1.getStaffSize(this.scale);
     const space = staff_area.height / 4;
 
-    // both clefs and space in between takes 12 spaces.
-    // Therefore, to place the vertical center the first clef y position will be:
-    //. (height - (12 * space)) / 2
+    const CLEF_NUM_VERTICAL_SPACES = 4;
+    const SPACE_BETWEEN_CLEFS_IN_SPACES = 6;
+    const BOTH_CLEFS_NUM_SPACES = (CLEF_NUM_VERTICAL_SPACES * 2) + SPACE_BETWEEN_CLEFS_IN_SPACES;
 
-    const y_first_staff = (canvas_h - 12 * space) / 2; // space * 5;
-    const y_second_staff = y_first_staff + 8 * space; // space * 13;
+
+    // both clefs and space in between takes BOTH_CLEFS_NUM_SPACES.
+    // Therefore, to place the vertical center the first clef y position will be:
+    //. (height - (BOTH_CLEFS_NUM_SPACES * space)) / 2
+
+    const y_first_staff = (canvas_h - BOTH_CLEFS_NUM_SPACES * space) / 2; // space * 5;
+    const y_second_staff = y_first_staff + ((CLEF_NUM_VERTICAL_SPACES + SPACE_BETWEEN_CLEFS_IN_SPACES) * space); // space * 13;
 
     this.canvas.width = this.canvas.offsetWidth;
 
