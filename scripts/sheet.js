@@ -54,19 +54,10 @@ class Sheet {
     const SPACE_BETWEEN_CLEFS_IN_SPACES = 6;
     const BOTH_CLEFS_NUM_SPACES = (CLEF_NUM_VERTICAL_SPACES * 2) + SPACE_BETWEEN_CLEFS_IN_SPACES;
 
-
-    // both clefs and space in between takes BOTH_CLEFS_NUM_SPACES.
-    // Therefore, to place the vertical center the first clef y position will be:
-    //. (height - (BOTH_CLEFS_NUM_SPACES * space)) / 2
-
-    const y_first_staff = (canvas_h - BOTH_CLEFS_NUM_SPACES * space) / 2; // space * 5;
-    const y_second_staff = y_first_staff + ((CLEF_NUM_VERTICAL_SPACES + SPACE_BETWEEN_CLEFS_IN_SPACES) * space); // space * 13;
+    const y_first_staff = (canvas_h - BOTH_CLEFS_NUM_SPACES * space) / 2;
+    const y_second_staff = y_first_staff + ((CLEF_NUM_VERTICAL_SPACES + SPACE_BETWEEN_CLEFS_IN_SPACES) * space);
 
     this.canvas.width = this.canvas.offsetWidth;
-
-    // const canvas_h = window.innerHeight / 2;
-    // this.canvas.height = canvas_h;
-    // this.scale = this.canvas.width / WIDTH_SCALE_REF;
 
     var line_x = (this.canvas.width - staff_area.width) / 2;
 
