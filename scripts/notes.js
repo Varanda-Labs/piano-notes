@@ -51,6 +51,7 @@ const canvasState = {
 
 function onNoteStroke(note_name) {
   sheet.addNote(note_name);
+  sheet.Repaint();
   console.log(`********** onNoteStroke: ${note_name} ********`);
 }
 

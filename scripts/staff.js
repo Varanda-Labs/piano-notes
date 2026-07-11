@@ -93,7 +93,7 @@ class Staff {
 
   getStaffSize(scale) {
     const w = STAFF_W * scale;
-    const h = STAFF_LINE_SPACE * scale * 5;
+    const h = STAFF_LINE_SPACE * scale * 4;
     return { "width": w, "height": h};
 
   }

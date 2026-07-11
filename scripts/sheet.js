@@ -43,16 +43,25 @@ class Sheet {
 
   Repaint() {
     this.scale = this.canvas.width / WIDTH_SCALE_REF;
-    const staff_area = this.staff_1.getStaffSize(this.scale);
-    const space = staff_area.height / 5;
-    const y_first_staff = space * 5;
-    const y_second_staff = space * 15;
-
-    this.canvas.width = this.canvas.offsetWidth;
-
     const canvas_h = window.innerHeight / 2;
     this.canvas.height = canvas_h;
     this.scale = this.canvas.width / WIDTH_SCALE_REF;
+
+    const staff_area = this.staff_1.getStaffSize(this.scale);
+    const space = staff_area.height / 4;
+
+    // both clefs and space in between takes 12 spaces.
+    // Therefore, to place the vertical center the first clef y position will be:
+    //. (height - (12 * space)) / 2
+
+    const y_first_staff = (canvas_h - 12 * space) / 2; // space * 5;
+    const y_second_staff = y_first_staff + 8 * space; // space * 13;
+
+    this.canvas.width = this.canvas.offsetWidth;
+
+    // const canvas_h = window.innerHeight / 2;
+    // this.canvas.height = canvas_h;
+    // this.scale = this.canvas.width / WIDTH_SCALE_REF;
 
     var line_x = (this.canvas.width - staff_area.width) / 2;
 

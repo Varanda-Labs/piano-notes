@@ -85,7 +85,7 @@ class Note {
     this.Note_h = this.Note_w / NOTE_IMG_WH_RATE;
   }
 
-  drawNote(clef, scale, staff_x, staff_y, line_space) {
+  async drawNote(clef, scale, staff_x, staff_y, line_space) {
     const off_x = this.Note_w * this.noteImgUp.x_frac / NOTE_IMG_WH_RATE * scale;
     const off_y = this.Note_w * this.noteImgUp.y_frac / NOTE_IMG_WH_RATE * scale;
     const lineSpaceOffsetDic = this.getLineSpaceOffset(this.note_name, false);
@@ -129,11 +129,18 @@ class Note {
       }
     }
 
-    this.ctx.drawImage( img,
-                        staff_x - off_x,
-                        lineSpaceOffset * line_space + staff_y - off_y,
-                        this.Note_w * scale, 
-                        this.Note_h * scale);
+    try {
+      await img.decode(); 
+      
+      this.ctx.drawImage( img,
+                          staff_x - off_x,
+                          lineSpaceOffset * line_space + staff_y - off_y,
+                          this.Note_w * scale, 
+                          this.Note_h * scale);
+    } catch (error) {
+      console.error("Image failed to load or decode:", error);
+    }
+
   }
 
   getLineSpaceOffset(note_name, is_flat) {
