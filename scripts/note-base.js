@@ -86,18 +86,13 @@ class Note {
   }
 
   async drawNote(clef, scale, staff_x, staff_y, line_space) {
-    const off_x = this.Note_w * this.noteImgUp.x_frac / NOTE_IMG_WH_RATE * scale;
-    const off_y = this.Note_w * this.noteImgUp.y_frac / NOTE_IMG_WH_RATE * scale;
+    const OFFSET_TO_FLIP_NOTE_DOWN = 1;
+    var off_x = this.Note_w * this.noteImgUp.x_frac / NOTE_IMG_WH_RATE * scale;
+    var off_y = this.Note_w * this.noteImgUp.y_frac / NOTE_IMG_WH_RATE * scale;
     const lineSpaceOffsetDic = this.getLineSpaceOffset(this.note_name, false);
     var lineSpaceOffset = lineSpaceOffsetDic.G_CLEF_LINE_POS;
     var extra_lines = lineSpaceOffsetDic.G_CLEF_EXTRA_LINES;
     var img;
-    if (this.note_name.indexOf('#') > 0) {
-      img = this.noteImgSharpUp.img;
-    }
-    else {
-      img = this.noteImgUp.img;
-    }
 
     if (clef != "G-CLEF") {
       lineSpaceOffset = lineSpaceOffsetDic.F_CLEF_LINE_POS;
@@ -107,6 +102,27 @@ class Note {
     if (lineSpaceOffset == null) {
       console.log(`Note ${this.note_name} can not be display in ${clef}`);
       return;
+    }
+
+    if (this.note_name.indexOf('#') > 0) {
+      if (lineSpaceOffset > OFFSET_TO_FLIP_NOTE_DOWN) {
+        img = this.noteImgSharpUp.img;
+      }
+      else {
+        img = this.noteImgSharpDown.img;
+        off_x = this.Note_w * this.noteImgDown.x_frac / NOTE_IMG_WH_RATE * scale;
+        off_y = this.Note_w * this.noteImgDown.y_frac / NOTE_IMG_WH_RATE * scale;
+      }
+    }
+    else {
+      if (lineSpaceOffset > OFFSET_TO_FLIP_NOTE_DOWN) {
+        img = this.noteImgUp.img;
+      }
+      else {
+        img = this.noteImgDown.img;
+        off_x = this.Note_w * this.noteImgDown.x_frac / NOTE_IMG_WH_RATE * scale;
+        off_y = this.Note_w * this.noteImgDown.y_frac / NOTE_IMG_WH_RATE * scale;
+      }
     }
 
     if (extra_lines > 0) {
