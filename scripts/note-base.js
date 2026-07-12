@@ -21,7 +21,7 @@ const NOTE_IMG_WH_RATE = 250/350;
 const NOTE_IMG_UP_X_FRAC = 126/250;
 const NOTE_IMG_UP_Y_FRAC = 270/350;
 
-const NOTE_IMG_DOWN_X_FRAC = 190/250;
+const NOTE_IMG_DOWN_X_FRAC = (190 - 20)/250;
 const NOTE_IMG_DOWN_Y_FRAC = 97/350;
 
 const NOTE_IMG_DOWN         = "./res/note-down.svg";
