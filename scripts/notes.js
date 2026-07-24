@@ -22,12 +22,17 @@ import { Piano } from "./piano.js";
 import { Sheet } from "./sheet.js";
 
 
+const TOOLTIP_START_PRACTICE = "Start Practicing";
+const TOOLTIP_STOP_PRACTICE = "Stop Practicing";
+const BUTTON_START_TEXT = "▶ Start";
+const BUTTON_STOP_TEXT = "⏹ Stop";
+
 
 const canvas_notes = document.getElementById('canvas_notes');
 const canvas_piano = document.getElementById('canvas_piano');
 const statusDisplay = document.getElementById('status');
 const colorSelect = document.getElementById('colorSelect');
-const rectBtn = document.getElementById('drawRectBtn');
+const StartStopBtn = document.getElementById('startStopBtn');
 const circleBtn = document.getElementById('drawCircleBtn');
 const clearBtn = document.getElementById('clearBtn');
 const pedalDownCheckbox = document.getElementById('pedalDownCheckbox');
@@ -36,12 +41,16 @@ const piano = new Piano(canvas_piano, statusDisplay, pedalDownCheckbox, onNoteSt
 //const staff = new Staff(canvas_notes);
 const sheet = new Sheet(canvas_notes);
 
+StartStopBtn.textContent = BUTTON_START_TEXT;
+StartStopBtn.setAttribute('title', TOOLTIP_START_PRACTICE);
 
 var scale;
 var current_note = "?"
 var noteAudioSample;
 var audioSynth;
 var playingNote = '';
+
+var mode = 'Idle'; // modes: Idle, Practicing
 
 
 const canvasState = {
@@ -106,8 +115,25 @@ function drawCircle() {
   ctx.fill();
 }
 
+function OnStartStopBtn() {
+  console.log("OnStartStopBtn");
+  if (mode == 'Idle') {
+    mode = 'Practicing';
+    // StartStopBtn.textContent = "⏹ Stop";
+    // StartStopBtn.setAttribute('title', 'tooltip1');
+    StartStopBtn.textContent = BUTTON_STOP_TEXT;
+    StartStopBtn.setAttribute('title', TOOLTIP_STOP_PRACTICE);
+  }
+  else {
+    mode = 'Idle';
+    StartStopBtn.textContent = BUTTON_START_TEXT;
+    StartStopBtn.setAttribute('title', TOOLTIP_START_PRACTICE);
+  }
+
+}
+
 // 6. Event Listeners
-rectBtn.addEventListener('click', () => drawPattern(canvas_notes.getContext('2d')));
+StartStopBtn.addEventListener('click', OnStartStopBtn);
 
 circleBtn.addEventListener('click', drawCircle);
 
