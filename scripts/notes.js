@@ -178,6 +178,8 @@ clearBtn.addEventListener('click', () => {
 
 });
 
+piano.SetExpectedNextNote('C4');
+
 resizeCanvases();
 
 

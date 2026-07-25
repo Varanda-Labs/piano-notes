@@ -35,7 +35,10 @@ const BALL = 70;
 const BLACK_NOTE_POS_Y = BLACK_NOTE_H - BALL;
 const WHITE_NOTE_POS_Y = KEY_H - BALL;
 
-const MIDI_FIRST_NOTE_OFFSET = 21
+const MIDI_FIRST_NOTE_OFFSET = 21;
+
+const KEY_COLOR_BAD = '#ff404088';
+const KEY_COLOR_GOOD = '#1cf104e9';
 
 const SAMPLER = new Tone.Sampler({
     urls: {
@@ -152,7 +155,7 @@ class Piano extends Instrument{
                   );
               } 
               else {
-                this.drawNote(noteName, '#ff404088');
+                this.drawNoteMark(noteName, '#ff404088');
                 this.playNote(noteName);
 
                 console.log(
@@ -319,7 +322,7 @@ class Piano extends Instrument{
     solfege_name = NOTES_TABLE[i].solfege;
     solfege_flat_note_name = NOTES_TABLE[i].solfege_flat;
     if (NOTES_TABLE[i].is_black) {
-      display_text =  `${note_name}, ${flat_note_name} (${solfege_name}, $${solfege_flat_note_name})`;
+      display_text =  `${note_name}, ${flat_note_name} (${solfege_name}, ${solfege_flat_note_name})`;
     }
     else {
       display_text =  `${note_name} (${solfege_name})`;
@@ -328,12 +331,19 @@ class Piano extends Instrument{
 
     this.statusDisplay.innerText = display_text;
     if (note_name.length > 1) {
+        var c = KEY_COLOR_GOOD;
         this.playNote(note_name);
-        this.drawNote(note_name, '#ff404088');
+        if (this.expectedNextNote.length > 1) {
+          if (this.expectedNextNote != note_name) {
+            c = KEY_COLOR_BAD;
+            this.drawNoteMark(this.expectedNextNote, KEY_COLOR_GOOD);
+          }
+        }
+        this.drawNoteMark(note_name, c);
     }
   }
 
-  drawNote(name, color) {
+  drawNoteMark(name, color) {
     var note_pos_x;
     var note_pos_y;
     var ratio = this.canvas_piano.width / NUM_WHITE_KEYS;
@@ -358,7 +368,7 @@ class Piano extends Instrument{
 
     this.ctx.beginPath();
     this.ctx.arc(note_pos_x, note_pos_y, BALL * this.scale, 0, Math.PI * 2);
-    this.ctx.fillStyle = '#ff404088';
+    this.ctx.fillStyle = color; //'#ff404088';
     this.ctx.fill();
     this.ctx.closePath();
   }
