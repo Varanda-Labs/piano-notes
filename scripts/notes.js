@@ -27,6 +27,7 @@ const TOOLTIP_STOP_PRACTICE = "Stop Practicing";
 const BUTTON_START_TEXT = "▶ Start";
 const BUTTON_STOP_TEXT = "⏹ Stop";
 
+const timerLabel = document.getElementById('timerLabel');
 
 const canvas_notes = document.getElementById('canvas_notes');
 const canvas_piano = document.getElementById('canvas_piano');
@@ -51,6 +52,7 @@ var audioSynth;
 var playingNote = '';
 
 var mode = 'Idle'; // modes: Idle, Practicing
+//var practicing_state = 'WaitingPlayerInput';
 
 
 const canvasState = {
@@ -58,9 +60,39 @@ const canvasState = {
   height: 0
 };
 
+let countdown = 300;
+let intervalId = null;
+
+function startCountDown() {
+    countdown = 300;
+    timerLabel.textContent = countdown;
+
+    if (intervalId) clearInterval(intervalId);
+    intervalId = setInterval(() => {
+        countdown--;
+        timerLabel.textContent = countdown;
+        if (countdown <= 0) {
+            stopCountDown();
+        }
+    }, 1000);
+}
+
+function stopCountDown() {
+    clearInterval(intervalId);
+    intervalId = null;
+    timerLabel.textContent = "0";
+
+    mode = 'Idle';
+    StartStopBtn.textContent = BUTTON_START_TEXT;
+    StartStopBtn.setAttribute('title', TOOLTIP_START_PRACTICE);
+}
+
+
 function onNoteStroke(note_name) {
-  sheet.addNote(note_name);
-  sheet.Repaint();
+  if (mode == 'Idle') {
+    sheet.addNote(note_name);
+    sheet.Repaint();
+  }
   console.log(`********** onNoteStroke: ${note_name} ********`);
 }
 
@@ -70,8 +102,6 @@ function resizeCanvases() {
 
   drawNote();
 
-  // Update Status
-  //statusDisplay.innerText = `Stored Width: ${canvasState.width}px | Stored Height: ${canvasState.height}px | Note: ${current_note}`;
 }
 
 // 4. Initialize on Load
@@ -119,13 +149,13 @@ function OnStartStopBtn() {
   console.log("OnStartStopBtn");
   if (mode == 'Idle') {
     mode = 'Practicing';
-    // StartStopBtn.textContent = "⏹ Stop";
-    // StartStopBtn.setAttribute('title', 'tooltip1');
+    startCountDown();
     StartStopBtn.textContent = BUTTON_STOP_TEXT;
     StartStopBtn.setAttribute('title', TOOLTIP_STOP_PRACTICE);
   }
   else {
     mode = 'Idle';
+    stopCountDown();
     StartStopBtn.textContent = BUTTON_START_TEXT;
     StartStopBtn.setAttribute('title', TOOLTIP_START_PRACTICE);
   }
