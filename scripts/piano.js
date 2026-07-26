@@ -327,7 +327,7 @@ class Piano extends Instrument{
     else {
       display_text =  `${note_name} (${solfege_name})`;
     }
-    console.log(`note_pos_x = ${note_pos_x}, note_pos_y = ${note_pos_y}`);
+    //console.log(`note_pos_x = ${note_pos_x}, note_pos_y = ${note_pos_y}`);
 
     this.statusDisplay.innerText = display_text;
     if (note_name.length > 1) {

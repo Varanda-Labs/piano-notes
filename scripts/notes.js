@@ -68,9 +68,14 @@ let countdown = 300;
 let intervalId = null;
 
 function startCountDown() {
+    mode = 'Practicing';
+    sheet.setBackgroundColor(BACKGROUND_COLOR_PRACTICING);
+    StartStopBtn.textContent = BUTTON_STOP_TEXT;
+    StartStopBtn.setAttribute('title', TOOLTIP_STOP_PRACTICE);
+    piano.SetExpectedNextNote('C4');
+
     countdown = 300;
     timerLabel.textContent = countdown;
-
     if (intervalId) clearInterval(intervalId);
     intervalId = setInterval(() => {
         countdown--;
@@ -99,7 +104,7 @@ function onNoteStroke(note_name) {
     sheet.addNote(note_name);
     sheet.Repaint();
   }
-  console.log(`********** onNoteStroke: ${note_name} ********`);
+  //console.log(`********** onNoteStroke: ${note_name} ********`);
 }
 
 function resizeCanvases() {
@@ -152,7 +157,6 @@ function drawCircle() {
 }
 
 function OnStartStopBtn() {
-  console.log("OnStartStopBtn");
   if (mode == 'Idle') {
     mode = 'Practicing';
     startCountDown();
@@ -162,11 +166,7 @@ function OnStartStopBtn() {
     piano.SetExpectedNextNote('C4');
   }
   else {
-    // mode = 'Idle';
     stopCountDown();
-    // StartStopBtn.textContent = BUTTON_START_TEXT;
-    // StartStopBtn.setAttribute('title', TOOLTIP_START_PRACTICE);
-    // piano.SetExpectedNextNote('');
   }
 
 }

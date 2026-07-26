@@ -21,8 +21,6 @@ class Instrument {
   }
 
   SetExpectedNextNote(note) {
-    // when next note differs the Instrument should provide visual or audible to highlight the error
-    console.log("SetExpectedNextNote should be implemented by derived class");
     this.expectedNextNote = note;
   }
 

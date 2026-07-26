@@ -100,7 +100,7 @@ class Note {
     }
 
     if (lineSpaceOffset == null) {
-      console.log(`Note ${this.note_name} can not be display in ${clef}`);
+      //console.log(`Note ${this.note_name} can not be display in ${clef}`);
       return;
     }
 
