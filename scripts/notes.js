@@ -20,6 +20,7 @@
  */
 import { Piano } from "./piano.js";
 import { Sheet } from "./sheet.js";
+import { NOTES_IN_STAFF_TABLE} from "./piano-table.js";
 
 
 const TOOLTIP_START_PRACTICE = "Start Practicing";
@@ -105,6 +106,7 @@ function onNoteStroke(note_name) {
     sheet.Repaint();
   }
   //console.log(`********** onNoteStroke: ${note_name} ********`);
+  getRandomNote();
 }
 
 function resizeCanvases() {
@@ -120,6 +122,34 @@ window.onload = resizeCanvases;
 
 // Handle Window Resize
 window.addEventListener('resize', resizeCanvases);
+
+function getRandomRange(inclusive_min, inclusive_max) {
+  const r = Math.floor(Math.random() * ( inclusive_max - inclusive_min + 1));
+  return r + inclusive_min;
+}
+
+const ranges = [
+  [75, 87], // C7 ~ C8. lowest probability
+  [63, 74], // C6 ~ B6. lower       "
+  [63, 74], // C6 ~ B6. lower       "
+  [27, 62], // C3 ~ B5  higher      "
+  [27, 62], // C3 ~ B5  higher
+  [27, 62], // C3 ~ B5  higher
+  [27, 62], // C3 ~ B5  higher
+  [27, 62], // C3 ~ B5  higher
+  [27, 62], // C3 ~ B5  higher 
+  [14, 26], // B1 ~ B2. lower
+  [14, 26], // B1 ~ B2  lower
+  [0, 13].  // A0 ~ A1  lowest
+];
+
+function getRandomNote() {
+  const i = getRandomRange(0, ranges.length - 1);
+  const ii =  getRandomRange(ranges[i][0], ranges[i][1]);
+  const s = NOTES_IN_STAFF_TABLE[ii].note;
+  console.log(`note = ${s}`);
+  return s;
+}
 
 // 5. Helper: Draw function
 function drawPattern(ctx) {

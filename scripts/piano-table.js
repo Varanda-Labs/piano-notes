@@ -112,47 +112,47 @@ const WHITE_INDEX_LOOKUP = [
 ];
 
 const NOTES_IN_STAFF_TABLE = [
-  { 'note': 'A0',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 10.5, "F_CLEF_EXTRA_LINES": 6},
-  { 'note': 'A#0', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 10.5, "F_CLEF_EXTRA_LINES": 6},
-  { 'note': 'B0',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 10, "F_CLEF_EXTRA_LINES": 6},
-  { 'note': 'C1',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 9.5, "F_CLEF_EXTRA_LINES": 5},
-  { 'note': 'C#1', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 9.5, "F_CLEF_EXTRA_LINES": 5},
-  { 'note': 'D1',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 9, "F_CLEF_EXTRA_LINES": 5},
-  { 'note': 'D#1', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 9, "F_CLEF_EXTRA_LINES": 5},
-  { 'note': 'E1',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 8.5, "F_CLEF_EXTRA_LINES": 4},
-  { 'note': 'F1',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 8, "F_CLEF_EXTRA_LINES": 4},
-  { 'note': 'F#1', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 8, "F_CLEF_EXTRA_LINES": 4},
-  { 'note': 'G1',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 7.5, "F_CLEF_EXTRA_LINES": 3},
-  { 'note': 'G#1', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 7.5, "F_CLEF_EXTRA_LINES": 3},
-  { 'note': 'A1',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 7, "F_CLEF_EXTRA_LINES": 3},
-  { 'note': 'A#1', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 7, "F_CLEF_EXTRA_LINES": 3},
-  { 'note': 'B1',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 6.5, "F_CLEF_EXTRA_LINES": 2},
-  { 'note': 'C2',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 6, "F_CLEF_EXTRA_LINES": 2},
-  { 'note': 'C#2', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 6, "F_CLEF_EXTRA_LINES": 2},
-  { 'note': 'D2',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 5.5, "F_CLEF_EXTRA_LINES": 1},
-  { 'note': 'D#2', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 5.5, "F_CLEF_EXTRA_LINES": 1},
-  { 'note': 'E2',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 5, "F_CLEF_EXTRA_LINES": 1},
-  { 'note': 'F2',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 4.5, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'F#2', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 4.5, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'G2',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 4, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'G#2', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 4, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'A2',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 3.5, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'A#2', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 3.5, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'B2',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 3, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'C3',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 2.5, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'C#3', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 2.5, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'D3',  "G_CLEF_LINE_POS": 8, "G_CLEF_EXTRA_LINES": 4, "F_CLEF_LINE_POS": 2, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'D#3', "G_CLEF_LINE_POS": 8, "G_CLEF_EXTRA_LINES": 4, "F_CLEF_LINE_POS": 2, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'E3',  "G_CLEF_LINE_POS": 7.5, "G_CLEF_EXTRA_LINES": 3, "F_CLEF_LINE_POS": 1.5, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'F3',  "G_CLEF_LINE_POS": 7, "G_CLEF_EXTRA_LINES": 3, "F_CLEF_LINE_POS": 1, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'F#3', "G_CLEF_LINE_POS": 7, "G_CLEF_EXTRA_LINES": 3, "F_CLEF_LINE_POS": 1, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'G3',  "G_CLEF_LINE_POS": 6.5, "G_CLEF_EXTRA_LINES": 2, "F_CLEF_LINE_POS": 0.5, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'G#3', "G_CLEF_LINE_POS": 6.6, "G_CLEF_EXTRA_LINES": 2, "F_CLEF_LINE_POS": 0.5, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'A3',  "G_CLEF_LINE_POS": 6, "G_CLEF_EXTRA_LINES": 2, "F_CLEF_LINE_POS": 0, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'A#3', "G_CLEF_LINE_POS": 6, "G_CLEF_EXTRA_LINES": 2, "F_CLEF_LINE_POS": 0, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'B3',  "G_CLEF_LINE_POS": 5.5, "G_CLEF_EXTRA_LINES": 1, "F_CLEF_LINE_POS": -0.5, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'C4',  "G_CLEF_LINE_POS": 5, "G_CLEF_EXTRA_LINES": 1, "F_CLEF_LINE_POS": -1, "F_CLEF_EXTRA_LINES": -1},
-  { 'note': 'C#4', "G_CLEF_LINE_POS": 5, "G_CLEF_EXTRA_LINES": 1, "F_CLEF_LINE_POS": -1, "F_CLEF_EXTRA_LINES": -1},
+  { 'note': 'A0',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 10.5, "F_CLEF_EXTRA_LINES": 6}, // 0
+  { 'note': 'A#0', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 10.5, "F_CLEF_EXTRA_LINES": 6}, // 1
+  { 'note': 'B0',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 10, "F_CLEF_EXTRA_LINES": 6},   // 2
+  { 'note': 'C1',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 9.5, "F_CLEF_EXTRA_LINES": 5},  // 3
+  { 'note': 'C#1', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 9.5, "F_CLEF_EXTRA_LINES": 5},  // 4
+  { 'note': 'D1',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 9, "F_CLEF_EXTRA_LINES": 5},    // 5
+  { 'note': 'D#1', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 9, "F_CLEF_EXTRA_LINES": 5},    // 6
+  { 'note': 'E1',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 8.5, "F_CLEF_EXTRA_LINES": 4},  // 7
+  { 'note': 'F1',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 8, "F_CLEF_EXTRA_LINES": 4},    // 8
+  { 'note': 'F#1', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 8, "F_CLEF_EXTRA_LINES": 4},    // 9
+  { 'note': 'G1',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 7.5, "F_CLEF_EXTRA_LINES": 3},  // 10
+  { 'note': 'G#1', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 7.5, "F_CLEF_EXTRA_LINES": 3},  // 11
+  { 'note': 'A1',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 7, "F_CLEF_EXTRA_LINES": 3},    // 12
+  { 'note': 'A#1', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 7, "F_CLEF_EXTRA_LINES": 3},    // 13
+  { 'note': 'B1',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 6.5, "F_CLEF_EXTRA_LINES": 2},  // 14
+  { 'note': 'C2',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 6, "F_CLEF_EXTRA_LINES": 2},    // 15
+  { 'note': 'C#2', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 6, "F_CLEF_EXTRA_LINES": 2},    // 16
+  { 'note': 'D2',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 5.5, "F_CLEF_EXTRA_LINES": 1},  // 17
+  { 'note': 'D#2', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 5.5, "F_CLEF_EXTRA_LINES": 1},  // 18
+  { 'note': 'E2',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 5, "F_CLEF_EXTRA_LINES": 1},    // 19
+  { 'note': 'F2',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 4.5, "F_CLEF_EXTRA_LINES": 0},  // 20
+  { 'note': 'F#2', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 4.5, "F_CLEF_EXTRA_LINES": 0},  // 21
+  { 'note': 'G2',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 4, "F_CLEF_EXTRA_LINES": 0},    // 22
+  { 'note': 'G#2', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 4, "F_CLEF_EXTRA_LINES": 0},    // 23
+  { 'note': 'A2',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 3.5, "F_CLEF_EXTRA_LINES": 0},  // 24
+  { 'note': 'A#2', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 3.5, "F_CLEF_EXTRA_LINES": 0},  // 25
+  { 'note': 'B2',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 3, "F_CLEF_EXTRA_LINES": 0},    // 26
+  { 'note': 'C3',  "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 2.5, "F_CLEF_EXTRA_LINES": 0},  // 27
+  { 'note': 'C#3', "G_CLEF_LINE_POS": null, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": 2.5, "F_CLEF_EXTRA_LINES": 0},  // 28
+  { 'note': 'D3',  "G_CLEF_LINE_POS": 8, "G_CLEF_EXTRA_LINES": 4, "F_CLEF_LINE_POS": 2, "F_CLEF_EXTRA_LINES": 0},       // 29
+  { 'note': 'D#3', "G_CLEF_LINE_POS": 8, "G_CLEF_EXTRA_LINES": 4, "F_CLEF_LINE_POS": 2, "F_CLEF_EXTRA_LINES": 0},       // 30
+  { 'note': 'E3',  "G_CLEF_LINE_POS": 7.5, "G_CLEF_EXTRA_LINES": 3, "F_CLEF_LINE_POS": 1.5, "F_CLEF_EXTRA_LINES": 0},   // 31
+  { 'note': 'F3',  "G_CLEF_LINE_POS": 7, "G_CLEF_EXTRA_LINES": 3, "F_CLEF_LINE_POS": 1, "F_CLEF_EXTRA_LINES": 0},       // 32
+  { 'note': 'F#3', "G_CLEF_LINE_POS": 7, "G_CLEF_EXTRA_LINES": 3, "F_CLEF_LINE_POS": 1, "F_CLEF_EXTRA_LINES": 0},       // 33
+  { 'note': 'G3',  "G_CLEF_LINE_POS": 6.5, "G_CLEF_EXTRA_LINES": 2, "F_CLEF_LINE_POS": 0.5, "F_CLEF_EXTRA_LINES": 0},   // 34
+  { 'note': 'G#3', "G_CLEF_LINE_POS": 6.6, "G_CLEF_EXTRA_LINES": 2, "F_CLEF_LINE_POS": 0.5, "F_CLEF_EXTRA_LINES": 0},   // 35
+  { 'note': 'A3',  "G_CLEF_LINE_POS": 6, "G_CLEF_EXTRA_LINES": 2, "F_CLEF_LINE_POS": 0, "F_CLEF_EXTRA_LINES": 0},       // 36
+  { 'note': 'A#3', "G_CLEF_LINE_POS": 6, "G_CLEF_EXTRA_LINES": 2, "F_CLEF_LINE_POS": 0, "F_CLEF_EXTRA_LINES": 0},       // 37
+  { 'note': 'B3',  "G_CLEF_LINE_POS": 5.5, "G_CLEF_EXTRA_LINES": 1, "F_CLEF_LINE_POS": -0.5, "F_CLEF_EXTRA_LINES": 0},  // 38
+  { 'note': 'C4',  "G_CLEF_LINE_POS": 5, "G_CLEF_EXTRA_LINES": 1, "F_CLEF_LINE_POS": -1, "F_CLEF_EXTRA_LINES": -1},     // 39
+  { 'note': 'C#4', "G_CLEF_LINE_POS": 5, "G_CLEF_EXTRA_LINES": 1, "F_CLEF_LINE_POS": -1, "F_CLEF_EXTRA_LINES": -1},     // 40
   { 'note': 'D4',  "G_CLEF_LINE_POS": 4.5, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": -1.5, "F_CLEF_EXTRA_LINES": -1},
   { 'note': 'D#4', "G_CLEF_LINE_POS": 4.5, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": -1.5, "F_CLEF_EXTRA_LINES": -1},
   { 'note': 'E4',  "G_CLEF_LINE_POS": 4, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": -2, "F_CLEF_EXTRA_LINES": -2},
@@ -162,7 +162,7 @@ const NOTES_IN_STAFF_TABLE = [
   { 'note': 'G#4', "G_CLEF_LINE_POS": 3, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": -3, "F_CLEF_EXTRA_LINES": -3},
   { 'note': 'A4',  "G_CLEF_LINE_POS": 2.5, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": -3.5, "F_CLEF_EXTRA_LINES": -3},
   { 'note': 'A#4', "G_CLEF_LINE_POS": 2.5, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": -3.5, "F_CLEF_EXTRA_LINES": -3},
-  { 'note': 'B4',  "G_CLEF_LINE_POS": 2, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": -4, "F_CLEF_EXTRA_LINES": -4},
+  { 'note': 'B4',  "G_CLEF_LINE_POS": 2, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": -4, "F_CLEF_EXTRA_LINES": -4},     // 50
   { 'note': 'C5',  "G_CLEF_LINE_POS": 1.5, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'C#5', "G_CLEF_LINE_POS": 1.5, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'D5',  "G_CLEF_LINE_POS": 1, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
@@ -172,32 +172,32 @@ const NOTES_IN_STAFF_TABLE = [
   { 'note': 'F#5', "G_CLEF_LINE_POS": 0, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'G5',  "G_CLEF_LINE_POS": -0.5, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'G#5', "G_CLEF_LINE_POS": -0.5, "G_CLEF_EXTRA_LINES": 0, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'A5',  "G_CLEF_LINE_POS": -1, "G_CLEF_EXTRA_LINES": -1, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
+  { 'note': 'A5',  "G_CLEF_LINE_POS": -1, "G_CLEF_EXTRA_LINES": -1, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},  // 60
   { 'note': 'A#5', "G_CLEF_LINE_POS": -1, "G_CLEF_EXTRA_LINES": -1, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'B5',  "G_CLEF_LINE_POS": -1.5, "G_CLEF_EXTRA_LINES": -1, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'C6',  "G_CLEF_LINE_POS": -2, "G_CLEF_EXTRA_LINES": -2, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
+  { 'note': 'B5',  "G_CLEF_LINE_POS": -1.5, "G_CLEF_EXTRA_LINES": -1, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},// 62
+  { 'note': 'C6',  "G_CLEF_LINE_POS": -2, "G_CLEF_EXTRA_LINES": -2, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},  // 63
   { 'note': 'C#6', "G_CLEF_LINE_POS": -2, "G_CLEF_EXTRA_LINES": -2, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'D6',  "G_CLEF_LINE_POS": -2.5, "G_CLEF_EXTRA_LINES": -2, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'D#6', "G_CLEF_LINE_POS": -2.5, "G_CLEF_EXTRA_LINES": -2, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'E6',  "G_CLEF_LINE_POS": -3, "G_CLEF_EXTRA_LINES": -3, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'F6',  "G_CLEF_LINE_POS": -3.5, "G_CLEF_EXTRA_LINES": -3, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'F#6', "G_CLEF_LINE_POS": -3.5, "G_CLEF_EXTRA_LINES": -3, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'G6',  "G_CLEF_LINE_POS": -4, "G_CLEF_EXTRA_LINES": -4, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
+  { 'note': 'G6',  "G_CLEF_LINE_POS": -4, "G_CLEF_EXTRA_LINES": -4, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},  // 70
   { 'note': 'G#6', "G_CLEF_LINE_POS": -4, "G_CLEF_EXTRA_LINES": -4, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'A6',  "G_CLEF_LINE_POS": -4.5, "G_CLEF_EXTRA_LINES": -4, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'A#6', "G_CLEF_LINE_POS": -4.5, "G_CLEF_EXTRA_LINES": -4, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'B6',  "G_CLEF_LINE_POS": -5, "G_CLEF_EXTRA_LINES": -5, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'C7',  "G_CLEF_LINE_POS": -5.5, "G_CLEF_EXTRA_LINES": -5, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
+  { 'note': 'B6',  "G_CLEF_LINE_POS": -5, "G_CLEF_EXTRA_LINES": -5, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},   // 74
+  { 'note': 'C7',  "G_CLEF_LINE_POS": -5.5, "G_CLEF_EXTRA_LINES": -5, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0}, // 75
   { 'note': 'C#7', "G_CLEF_LINE_POS": -5.5, "G_CLEF_EXTRA_LINES": -5, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'D7',  "G_CLEF_LINE_POS": -6, "G_CLEF_EXTRA_LINES": -6, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'D#7', "G_CLEF_LINE_POS": -6, "G_CLEF_EXTRA_LINES": -6, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'E7',  "G_CLEF_LINE_POS": -6.5, "G_CLEF_EXTRA_LINES": -6, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'F7',  "G_CLEF_LINE_POS": -7, "G_CLEF_EXTRA_LINES": -7, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
+  { 'note': 'F7',  "G_CLEF_LINE_POS": -7, "G_CLEF_EXTRA_LINES": -7, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},  // 80
   { 'note': 'F#7', "G_CLEF_LINE_POS": -7, "G_CLEF_EXTRA_LINES": -7, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'G7',  "G_CLEF_LINE_POS": -7.5, "G_CLEF_EXTRA_LINES": -7, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'G#7', "G_CLEF_LINE_POS": -7.5, "G_CLEF_EXTRA_LINES": -7, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'A7',  "G_CLEF_LINE_POS": -8, "G_CLEF_EXTRA_LINES": -8, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'A#7', "G_CLEF_LINE_POS": -8, "G_CLEF_EXTRA_LINES": -8, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
   { 'note': 'B7',  "G_CLEF_LINE_POS": -8.5, "G_CLEF_EXTRA_LINES": -8, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
-  { 'note': 'C8',  "G_CLEF_LINE_POS": -9, "G_CLEF_EXTRA_LINES": -9, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},
+  { 'note': 'C8',  "G_CLEF_LINE_POS": -9, "G_CLEF_EXTRA_LINES": -9, "F_CLEF_LINE_POS": null, "F_CLEF_EXTRA_LINES": 0},  // 87
 ];
