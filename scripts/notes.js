@@ -27,6 +27,10 @@ const TOOLTIP_STOP_PRACTICE = "Stop Practicing";
 const BUTTON_START_TEXT = "▶ Start";
 const BUTTON_STOP_TEXT = "⏹ Stop";
 
+const BACKGROUND_COLOR_PRACTICING = '#b8f9e9';
+const BACKGROUND_COLOR_IDLE = '#daf3fc';
+
+
 const timerLabel = document.getElementById('timerLabel');
 
 const canvas_notes = document.getElementById('canvas_notes');
@@ -85,6 +89,8 @@ function stopCountDown() {
     mode = 'Idle';
     StartStopBtn.textContent = BUTTON_START_TEXT;
     StartStopBtn.setAttribute('title', TOOLTIP_START_PRACTICE);
+    sheet.setBackgroundColor(BACKGROUND_COLOR_IDLE);
+    piano.SetExpectedNextNote('');
 }
 
 
@@ -150,14 +156,17 @@ function OnStartStopBtn() {
   if (mode == 'Idle') {
     mode = 'Practicing';
     startCountDown();
+    sheet.setBackgroundColor(BACKGROUND_COLOR_PRACTICING);
     StartStopBtn.textContent = BUTTON_STOP_TEXT;
     StartStopBtn.setAttribute('title', TOOLTIP_STOP_PRACTICE);
+    piano.SetExpectedNextNote('C4');
   }
   else {
-    mode = 'Idle';
+    // mode = 'Idle';
     stopCountDown();
-    StartStopBtn.textContent = BUTTON_START_TEXT;
-    StartStopBtn.setAttribute('title', TOOLTIP_START_PRACTICE);
+    // StartStopBtn.textContent = BUTTON_START_TEXT;
+    // StartStopBtn.setAttribute('title', TOOLTIP_START_PRACTICE);
+    // piano.SetExpectedNextNote('');
   }
 
 }
@@ -178,7 +187,7 @@ clearBtn.addEventListener('click', () => {
 
 });
 
-piano.SetExpectedNextNote('C4');
+// piano.SetExpectedNextNote('C4');
 
 resizeCanvases();
 

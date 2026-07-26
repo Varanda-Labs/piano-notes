@@ -31,6 +31,10 @@ class Sheet {
     this.Repaint();
   }
 
+  setBackgroundColor(color) {
+    this.canvas.style.backgroundColor = color;
+  }
+
   addNote(note_name, is_flat) {
     if (this.current_note != null) {
       this.staff_1.removeNote(this.current_note);
