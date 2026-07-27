@@ -73,7 +73,8 @@ function startCountDown() {
     sheet.setBackgroundColor(BACKGROUND_COLOR_PRACTICING);
     StartStopBtn.textContent = BUTTON_STOP_TEXT;
     StartStopBtn.setAttribute('title', TOOLTIP_STOP_PRACTICE);
-    piano.SetExpectedNextNote('C4');
+    piano.SetExpectedNextNote(getRandomNote());
+    sheet.addNote(piano.expectedNextNote);
 
     countdown = 300;
     timerLabel.textContent = countdown;
@@ -104,9 +105,19 @@ function onNoteStroke(note_name) {
   if (mode == 'Idle') {
     sheet.addNote(note_name);
     sheet.Repaint();
+    return;
   }
   //console.log(`********** onNoteStroke: ${note_name} ********`);
-  getRandomNote();
+  //getRandomNote();
+  if (note_name == piano.expectedNextNote) {
+    // Success
+    piano.SetExpectedNextNote(getRandomNote());
+    sheet.addNote(piano.expectedNextNote);
+  }
+  else {
+
+  }
+
 }
 
 function resizeCanvases() {
@@ -140,7 +151,7 @@ const ranges = [
   [27, 62], // C3 ~ B5  higher 
   [14, 26], // B1 ~ B2. lower
   [14, 26], // B1 ~ B2  lower
-  [0, 13].  // A0 ~ A1  lowest
+  [0, 13]   // A0 ~ A1  lowest
 ];
 
 function getRandomNote() {
@@ -190,10 +201,10 @@ function OnStartStopBtn() {
   if (mode == 'Idle') {
     mode = 'Practicing';
     startCountDown();
-    sheet.setBackgroundColor(BACKGROUND_COLOR_PRACTICING);
-    StartStopBtn.textContent = BUTTON_STOP_TEXT;
-    StartStopBtn.setAttribute('title', TOOLTIP_STOP_PRACTICE);
-    piano.SetExpectedNextNote('C4');
+    // sheet.setBackgroundColor(BACKGROUND_COLOR_PRACTICING);
+    // StartStopBtn.textContent = BUTTON_STOP_TEXT;
+    // StartStopBtn.setAttribute('title', TOOLTIP_STOP_PRACTICE);
+    // piano.SetExpectedNextNote('C4');
   }
   else {
     stopCountDown();
