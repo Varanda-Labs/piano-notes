@@ -142,12 +142,25 @@ class Sheet {
       setTimeout(event =>this.goodAnimationDone(event), 1000);
 
     }
-    this.goodImage.src = GOOD_IMG_PATH + emoji_good[0];
+    this.goodImage.src = GOOD_IMG_PATH + emoji_good[this.getRandom(emoji_good.length)];
 
     // setTimeout(event =>this.goodAnimationDone(event), 1000);
   }
 
   startBadAnimation() {
-    setTimeout(event =>this.badAnimationDone(event), 1000);
+    this.badImage = new Image();
+    this.badImage.onload = () => {
+      const ctx = this.canvas.getContext('2d');
+      ctx.drawImage(  this.badImage,
+                      0,
+                      0,
+                      100, 
+                      100);
+
+      setTimeout(event =>this.badAnimationDone(event), 1000);
+
+    }
+    this.badImage.src = BAD_IMG_PATH + emoji_bad[this.getRandom(emoji_bad.length)];
+    // setTimeout(event =>this.badAnimationDone(event), 1000);
   }
 }

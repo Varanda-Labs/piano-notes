@@ -30,6 +30,7 @@ const BUTTON_STOP_TEXT = "⏹ Stop";
 
 const BACKGROUND_COLOR_PRACTICING = '#b8f9e9';
 const BACKGROUND_COLOR_IDLE = '#daf3fc';
+const BACKGROUND_COLOR_DOWN = '#fbc2c2';
 
 
 const timerLabel = document.getElementById('timerLabel');
@@ -113,17 +114,18 @@ function onNoteStroke(note_name) {
   if (mode == 'Idle') {
     sheet.addNote(note_name);
     sheet.Repaint();
-    sheet.startBadAnimation();
     return;
   }
   //console.log(`********** onNoteStroke: ${note_name} ********`);
   //getRandomNote();
   if (note_name == piano.expectedNextNote) {
     // Success
+    sheet.setBackgroundColor(BACKGROUND_COLOR_PRACTICING);
     sheet.startGoodAnimation();
   }
   else {
-
+    sheet.setBackgroundColor(BACKGROUND_COLOR_DOWN);
+    sheet.startBadAnimation();
   }
 
 }
