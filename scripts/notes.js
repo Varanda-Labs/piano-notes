@@ -45,7 +45,7 @@ const pedalDownCheckbox = document.getElementById('pedalDownCheckbox');
 
 const piano = new Piano(canvas_piano, statusDisplay, pedalDownCheckbox, onNoteStroke);
 //const staff = new Staff(canvas_notes);
-const sheet = new Sheet(canvas_notes);
+const sheet = new Sheet(canvas_notes, onGoodAnimationDone, onBadAnimationDone);
 
 StartStopBtn.textContent = BUTTON_START_TEXT;
 StartStopBtn.setAttribute('title', TOOLTIP_START_PRACTICE);
@@ -100,19 +100,27 @@ function stopCountDown() {
     piano.SetExpectedNextNote('');
 }
 
+function onGoodAnimationDone() {
+  piano.SetExpectedNextNote(getRandomNote());
+  sheet.addNote(piano.expectedNextNote);
+}
+
+function onBadAnimationDone() {
+  
+}
 
 function onNoteStroke(note_name) {
   if (mode == 'Idle') {
     sheet.addNote(note_name);
     sheet.Repaint();
+    sheet.startBadAnimation();
     return;
   }
   //console.log(`********** onNoteStroke: ${note_name} ********`);
   //getRandomNote();
   if (note_name == piano.expectedNextNote) {
     // Success
-    piano.SetExpectedNextNote(getRandomNote());
-    sheet.addNote(piano.expectedNextNote);
+    sheet.startGoodAnimation();
   }
   else {
 

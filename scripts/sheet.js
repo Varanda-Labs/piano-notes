@@ -19,8 +19,11 @@ import { Staff, G_CLEF, F_CLEF } from "./staff.js";
 const WIDTH_SCALE_REF = 1400;
 
 class Sheet {
-  constructor(canvas) {
+  constructor(canvas, goodAnimationDoneCallback = null, badAnimationDoneCallback = null) {
     this.canvas = canvas;
+    this.goodAnimationDoneCallback = goodAnimationDoneCallback;
+    this.badAnimationDoneCallback = badAnimationDoneCallback;
+
     this.scale = this.canvas.width / WIDTH_SCALE_REF;
 
     this.staff_1 = new Staff(canvas_notes, G_CLEF);
@@ -68,5 +71,25 @@ class Sheet {
     this.staff_1.drawStaff(this.scale, line_x, y_first_staff);
     this.staff_2.drawStaff(this.scale, line_x, y_second_staff);
 
+  }
+
+  goodAnimationDone(event) {
+    if (this.goodAnimationDoneCallback != null) {
+      this.goodAnimationDoneCallback();
+    }
+  }
+
+  badAnimationDone(event) {
+    if (this.badAnimationDoneCallback != null) {
+      this.badAnimationDoneCallback();
+    }
+  }
+
+  startGoodAnimation() {
+    setTimeout(event =>this.goodAnimationDone(event), 1000);
+  }
+
+  startBadAnimation() {
+    setTimeout(event =>this.badAnimationDone(event), 1000);
   }
 }
