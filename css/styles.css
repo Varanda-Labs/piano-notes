@@ -108,3 +108,41 @@ canvas {
     font-weight: bold;
     color: #333;
 }
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    width: 80%;
+    font-family: Arial, sans-serif; 
+}
+
+th {
+    background-color: #f2f2f2; 
+    color: #333; 
+    padding: 5px; 
+}
+
+td {
+    text-align: center; 
+    padding: 5px; 
+    font-size: 90%; /* Decrease the font size by 10% for a slightly smaller look */
+}
+
+th, td {
+    border: 1px solid black; 
+}
+
+p {
+    display: inline-block;
+    margin: 5px 0; 
+    vertical-align: middle; 
+    font-weight: bold; 
+    color: #333; 
+    font-size: 150%; /* Make it 50% larger than the default size */
+    font-family: Arial, sans-serif; /* Use the same font as titles */
+}
+
+.score-container {
+    display: flex; 
+    justify-content: center; 
+}

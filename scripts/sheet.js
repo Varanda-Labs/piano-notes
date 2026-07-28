@@ -134,10 +134,10 @@ class Sheet {
     this.goodImage.onload = () => {
       const ctx = this.canvas.getContext('2d');
       ctx.drawImage(  this.goodImage,
-                      0,
-                      0,
-                      100, 
-                      100);
+                      60  * this.scale,
+                      60  * this.scale,
+                      140 * this.scale, 
+                      140 * this.scale);
 
       setTimeout(event =>this.goodAnimationDone(event), 1000);
 
@@ -152,10 +152,10 @@ class Sheet {
     this.badImage.onload = () => {
       const ctx = this.canvas.getContext('2d');
       ctx.drawImage(  this.badImage,
-                      0,
-                      0,
-                      100, 
-                      100);
+                      60  * this.scale,
+                      60  * this.scale,
+                      140 * this.scale, 
+                      140 * this.scale);
 
       setTimeout(event =>this.badAnimationDone(event), 1000);
 

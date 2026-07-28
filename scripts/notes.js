@@ -117,7 +117,7 @@ function onNoteStroke(note_name) {
     return;
   }
   //console.log(`********** onNoteStroke: ${note_name} ********`);
-  //getRandomNote();
+
   if (note_name == piano.expectedNextNote) {
     // Success
     sheet.setBackgroundColor(BACKGROUND_COLOR_PRACTICING);
@@ -209,12 +209,7 @@ function drawCircle() {
 
 function OnStartStopBtn() {
   if (mode == 'Idle') {
-    mode = 'Practicing';
     startCountDown();
-    // sheet.setBackgroundColor(BACKGROUND_COLOR_PRACTICING);
-    // StartStopBtn.textContent = BUTTON_STOP_TEXT;
-    // StartStopBtn.setAttribute('title', TOOLTIP_STOP_PRACTICE);
-    // piano.SetExpectedNextNote('C4');
   }
   else {
     stopCountDown();

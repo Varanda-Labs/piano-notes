@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Piano Notes</title>
   <link rel="stylesheet" href="css/styles.css">
+
 </head>
 
 <body>
@@ -14,21 +15,41 @@
   <div class="container">
     <!-- Row 1: Buttons + Select -->
     <div class="controls-row">
-      <h3>Controls</h3>
+      <!-- <h3>Controls</h3> -->
+
+
+    <div class="score-container">
+      <p style="margin-right: 10px;">Score:</p>
+
+        <table>
+          <tr>
+            <th>Correct</th>
+            <th>Incorrect</th>
+            <th>Total</th>
+          </tr>
+          <tr>
+            <!-- Values with unique IDs -->
+            <td id="right-score" style="vertical-align: middle;">0</td> 
+            <td id="wrong-score" style="vertical-align: middle;">0</td> 
+            <td id="total-score" style="vertical-align: middle;">0</td> 
+          </tr>
+        </table>
+      </div>
+
       <div>
         <button title="Start Notes Exercise" id="startStopBtn">▶ Start</button>
-         <div id="timerLabel">300</div>
-        <button id="drawCircleBtn">Draw Circle</button>
-        <button id="clearBtn">Clear All</button>
+         <div id="timerLabel">0</div>
+        <!-- <button id="drawCircleBtn">Draw Circle</button>
+        <button id="clearBtn">Clear All</button>  -->
         <input type="checkbox" id="pedalDownCheckbox" name="pedalDownCheckbox" value="false">
         <label for="pedalDownCheckbox">Pedal Down</label>
 
-        <select id="colorSelect">
+        <!-- <select id="colorSelect">
           <option value="#000000">Black</option>
           <option value="#ff0000">Red</option>
           <option value="#00ff00">Green</option>
           <option value="#0000ff">Blue</option>
-        </select>
+        </select> -->
       </div>
       <div class="status-bar" id="status">Width: 0px | Height: 0px</div>
     </div>
