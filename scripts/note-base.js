@@ -104,19 +104,29 @@ class Note {
       return;
     }
 
-    if (this.note_name.indexOf('#') > 0) {
+    if (this.note_name.indexOf('#') > 0 || this.is_flat) {
       if (lineSpaceOffset > OFFSET_TO_FLIP_NOTE_DOWN) {
-        img = this.noteImgSharpUp.img;
+        if (this.is_flat) {
+          img = this.noteImgFlatUp.img;
+        }
+        else {
+          img = this.noteImgSharpUp.img;
+        }
       }
       else {
-        img = this.noteImgSharpDown.img;
+        if (this.is_flat) {
+          img = this.noteImgFlatDown.img;
+        }
+        else {
+          img = this.noteImgSharpDown.img;
+        }
         off_x = this.Note_w * this.noteImgDown.x_frac / NOTE_IMG_WH_RATE * scale;
         off_y = this.Note_w * this.noteImgDown.y_frac / NOTE_IMG_WH_RATE * scale;
       }
     }
     else {
       if (lineSpaceOffset > OFFSET_TO_FLIP_NOTE_DOWN) {
-        img = this.noteImgUp.img;
+        img = this.noteImgUp.img;     
       }
       else {
         img = this.noteImgDown.img;

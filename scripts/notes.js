@@ -20,7 +20,7 @@
  */
 import { Piano } from "./piano.js";
 import { Sheet } from "./sheet.js";
-import { NOTES_IN_STAFF_TABLE} from "./piano-table.js";
+import { NOTES_IN_STAFF_TABLE, NOTES_TABLE} from "./piano-table.js";
 
 
 const TOOLTIP_START_PRACTICE = "Start Practicing";
@@ -60,6 +60,9 @@ var playingNote = '';
 var mode = 'Idle'; // modes: Idle, Practicing
 //var practicing_state = 'WaitingPlayerInput';
 
+var expectedNextNoteIndex = -1;
+var expectedNextIsFlat = false;
+
 
 const canvasState = {
   width: 0,
@@ -74,7 +77,10 @@ function startCountDown() {
     sheet.setBackgroundColor(BACKGROUND_COLOR_PRACTICING);
     StartStopBtn.textContent = BUTTON_STOP_TEXT;
     StartStopBtn.setAttribute('title', TOOLTIP_STOP_PRACTICE);
-    piano.SetExpectedNextNote(getRandomNote());
+
+    getRandomNoteIndex();
+    piano.SetExpectedNextNote(NOTES_IN_STAFF_TABLE[expectedNextNoteIndex].note);
+
     sheet.addNote(piano.expectedNextNote);
 
     countdown = 300;
@@ -102,8 +108,13 @@ function stopCountDown() {
 }
 
 function onGoodAnimationDone() {
-  piano.SetExpectedNextNote(getRandomNote());
-  sheet.addNote(piano.expectedNextNote);
+  getRandomNoteIndex();
+  piano.SetExpectedNextNote(NOTES_IN_STAFF_TABLE[expectedNextNoteIndex].note);
+  if (expectedNextIsFlat == true) {
+    sheet.addNote(NOTES_IN_STAFF_TABLE[expectedNextNoteIndex + 1].note, expectedNextIsFlat);
+  } else {
+    sheet.addNote(NOTES_IN_STAFF_TABLE[expectedNextNoteIndex].note, expectedNextIsFlat);
+  }
 }
 
 function onBadAnimationDone() {
@@ -158,18 +169,28 @@ const ranges = [
   [27, 62], // C3 ~ B5  higher
   [27, 62], // C3 ~ B5  higher
   [27, 62], // C3 ~ B5  higher
-  [27, 62], // C3 ~ B5  higher 
+  [27, 62], // C3 ~ B5  higher
+  [27, 62], // C3 ~ B5  higher
+  [27, 62], // C3 ~ B5  higher
+  [27, 62], // C3 ~ B5  higher
+  [27, 62], // C3 ~ B5  higher
+  [27, 62], // C3 ~ B5  higher  
   [14, 26], // B1 ~ B2. lower
   [14, 26], // B1 ~ B2  lower
   [0, 13]   // A0 ~ A1  lowest
 ];
 
-function getRandomNote() {
+function getRandomNoteIndex() {
   const i = getRandomRange(0, ranges.length - 1);
-  const ii =  getRandomRange(ranges[i][0], ranges[i][1]);
-  const s = NOTES_IN_STAFF_TABLE[ii].note;
-  console.log(`note = ${s}`);
-  return s;
+  expectedNextNoteIndex = getRandomRange(ranges[i][0], ranges[i][1]);
+  expectedNextIsFlat = false;
+  if (NOTES_TABLE[expectedNextNoteIndex].is_black == true) {
+    if (getRandomRange(0,99) > 70) { // 30% to be flat
+      expectedNextIsFlat = true;
+    }
+  }
+
+  return expectedNextNoteIndex;
 }
 
 // 5. Helper: Draw function
