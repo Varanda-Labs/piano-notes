@@ -44,6 +44,12 @@ const circleBtn = document.getElementById('drawCircleBtn');
 const clearBtn = document.getElementById('clearBtn');
 const pedalDownCheckbox = document.getElementById('pedalDownCheckbox');
 
+const right_score = document.getElementById("right-score"); 
+const wrong_score = document.getElementById("wrong-score"); 
+const total_score = document.getElementById("total-score");
+var right_score_int = 0;
+var right_wrong_int = 0;
+
 const piano = new Piano(canvas_piano, statusDisplay, pedalDownCheckbox, onNoteStroke);
 //const staff = new Staff(canvas_notes);
 const sheet = new Sheet(canvas_notes, onGoodAnimationDone, onBadAnimationDone);
@@ -72,8 +78,32 @@ const canvasState = {
 let countdown = 300;
 let intervalId = null;
 
+function score_reset() {
+  right_score_int = 0;
+  right_wrong_int = 0;
+  right_score.textContent = 0;
+  wrong_score.textContent = 0;
+  total_score.textContent = 0;
+}
+
+function score_correct() {
+  right_score_int += 1;
+  //right_wrong_int = 0;
+  right_score.textContent = right_score_int;
+  //wrong_score.textContent = 0;
+  total_score.textContent = right_score_int + right_wrong_int;
+}
+
+function score_incorrect() {
+  //right_score.textContent += 1;
+  right_wrong_int += 1;
+  wrong_score.textContent = right_wrong_int;
+  total_score.textContent = right_score_int + right_wrong_int;
+}
+
 function startCountDown() {
     mode = 'Practicing';
+    score_reset();
     sheet.setBackgroundColor(BACKGROUND_COLOR_PRACTICING);
     StartStopBtn.textContent = BUTTON_STOP_TEXT;
     StartStopBtn.setAttribute('title', TOOLTIP_STOP_PRACTICE);
@@ -133,10 +163,12 @@ function onNoteStroke(note_name) {
     // Success
     sheet.setBackgroundColor(BACKGROUND_COLOR_PRACTICING);
     sheet.startGoodAnimation();
+    score_correct();
   }
   else {
     sheet.setBackgroundColor(BACKGROUND_COLOR_DOWN);
     sheet.startBadAnimation();
+    score_incorrect();
   }
 
 }
