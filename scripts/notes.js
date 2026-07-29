@@ -174,12 +174,14 @@ function onNoteStroke(note_name) {
 
   if (note_name == piano.expectedNextNote) {
     // Success
+    sheet.Repaint();
     sheet.setBackgroundColor(BACKGROUND_COLOR_PRACTICING);
     sheet.startGoodAnimation();
     score_correct();
     noteStatus(expectedNextNoteIndex);
   }
   else {
+    sheet.Repaint();
     sheet.setBackgroundColor(BACKGROUND_COLOR_DOWN);
     sheet.startBadAnimation();
     score_incorrect();
