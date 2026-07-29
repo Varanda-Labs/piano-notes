@@ -1,7 +1,7 @@
 # Piano Notes
 
 ## Published App:
-(https://varanda-labs.github.io/piano-notes)[https://varanda-labs.github.io/piano-notes]
+[https://varanda-labs.github.io/piano-notes](https://varanda-labs.github.io/piano-notes)
 
 ## About Our Web App
 Welcome to our web app, where we're making easier to learn piano notes for aspiring musicians! Our mission is straightforward: offer a free, open-source platform without subscriptions so that anyone can learn and enjoy playing the piano.
