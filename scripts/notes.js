@@ -40,8 +40,8 @@ const canvas_piano = document.getElementById('canvas_piano');
 const statusDisplay = document.getElementById('status');
 const colorSelect = document.getElementById('colorSelect');
 const StartStopBtn = document.getElementById('startStopBtn');
-const circleBtn = document.getElementById('drawCircleBtn');
-const clearBtn = document.getElementById('clearBtn');
+//const circleBtn = document.getElementById('drawCircleBtn');
+const aboutBtn = document.getElementById('aboutBtn');
 const pedalDownCheckbox = document.getElementById('pedalDownCheckbox');
 
 const right_score = document.getElementById("right-score"); 
@@ -289,14 +289,15 @@ function OnStartStopBtn() {
 // 6. Event Listeners
 StartStopBtn.addEventListener('click', OnStartStopBtn);
 
-circleBtn.addEventListener('click', drawCircle);
+// circleBtn.addEventListener('click', drawCircle);
 
-clearBtn.addEventListener('click', () => {
-  const ctx = canvas_notes.getContext('2d');
-  ctx.clearRect(0, 0, ctx.width, ctx.height);
-  if (pedalDownCheckbox.checked == true) {
-    synth.triggerAttackRelease("C3", "8n");
-  }
+aboutBtn.addEventListener('click', () => {
+  window.location.href = 'about.html';
+  // const ctx = canvas_notes.getContext('2d');
+  // ctx.clearRect(0, 0, ctx.width, ctx.height);
+  // if (pedalDownCheckbox.checked == true) {
+  //   synth.triggerAttackRelease("C3", "8n");
+  // }
 
 });
 
