@@ -21,7 +21,9 @@ Piano Note isn't just about learning; it's a community effort! Here are some key
 Join us on this musical journey as we make piano learning accessible, fun, and subscription-free! Your feedback is invaluable in helping us improve our app for a better user experience. Let's play some tunes together! 🎹
 
 ## Links & Contact:
- - [Watch Video Demo](https://youtu.be/your_video_id)
+ - [Watch Video Demo](https://youtu.be/6u-p8tT6HJE)
+ - [Assista o video - Portugues](https://youtu.be/eDJUxV76xVA)
+
  - Source Code: [GitHub Repository](https://github.com/Varanda-Labs/piano-notes)
  - Inquiries: Feel free to reach out via Github [Issues](https://github.com/Varanda-Labs/piano-notes/issues)
 
