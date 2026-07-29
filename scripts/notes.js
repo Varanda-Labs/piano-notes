@@ -298,11 +298,7 @@ clearBtn.addEventListener('click', () => {
     synth.triggerAttackRelease("C3", "8n");
   }
 
-  // piano.keyDown('C4', '+1');
-
 });
-
-// piano.SetExpectedNextNote('C4');
 
 resizeCanvases();
 
