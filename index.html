@@ -16,24 +16,8 @@
     <!-- Row 1: Buttons + Select -->
     <div class="controls-row">
       <!-- <h3>Controls</h3> -->
-
-
-    <div class="score-container">
-      <p style="margin-right: 10px;">Score:</p>
-
-        <table>
-          <tr>
-            <th>Correct</th>
-            <th>Incorrect</th>
-            <th>Total</th>
-          </tr>
-          <tr>
-            <!-- Values with unique IDs -->
-            <td id="right-score" style="vertical-align: middle;">0</td> 
-            <td id="wrong-score" style="vertical-align: middle;">0</td> 
-            <td id="total-score" style="vertical-align: middle;">0</td> 
-          </tr>
-        </table>
+      <div class="status-bar" id="status">
+        Width: 0px | Height: 0px
       </div>
 
       <div>
@@ -41,8 +25,8 @@
          <div id="timerLabel">0</div>
         <!-- <button id="drawCircleBtn">Draw Circle</button>
         <button id="clearBtn">Clear All</button>  -->
-        <input type="checkbox" id="pedalDownCheckbox" name="pedalDownCheckbox" value="false">
-        <label for="pedalDownCheckbox">Pedal Down</label>
+        <!-- <input type="checkbox" id="pedalDownCheckbox" name="pedalDownCheckbox" value="false">
+        <label for="pedalDownCheckbox">Pedal Down</label> -->
 
         <!-- <select id="colorSelect">
           <option value="#000000">Black</option>
@@ -51,7 +35,29 @@
           <option value="#0000ff">Blue</option>
         </select> -->
       </div>
-      <div class="status-bar" id="status">Width: 0px | Height: 0px</div>
+
+      <div>
+        <label for="pedalDownCheckbox">Pedal Down</label>
+        <input type="checkbox" id="pedalDownCheckbox" name="pedalDownCheckbox" value="false">
+      </div>
+
+      <div class="score-container">
+        <p style="margin-right: 10px;">Score:</p>
+
+          <table>
+            <tr>
+              <th>Correct</th>
+              <th>Incorrect</th>
+              <th>Total</th>
+            </tr>
+            <tr>
+              <!-- Values with unique IDs -->
+              <td id="right-score" style="vertical-align: middle;">0</td> 
+              <td id="wrong-score" style="vertical-align: middle;">0</td> 
+              <td id="total-score" style="vertical-align: middle;">0</td> 
+            </tr>
+          </table>
+      </div>
     </div>
 
     <!-- Row 2: Canvas 1 -->

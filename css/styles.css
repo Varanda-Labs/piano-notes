@@ -103,9 +103,9 @@ canvas {
 }
 
 #timerLabel {
-    font-size: 32px;
+    font-size: 18px;
     margin-top: 0px;
-    font-weight: bold;
+    /* font-weight: bold; */
     color: #333;
 }
 

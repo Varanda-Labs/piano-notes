@@ -17,6 +17,7 @@ export { Sheet };
 import { Staff, G_CLEF, F_CLEF } from "./staff.js";
 
 const WIDTH_SCALE_REF = 1400;
+const ANIM_MAX_TIME = 1000;
 
 const GOOD_IMG_PATH = './res/emojis-up/';
 const BAD_IMG_PATH = './res/emojis-down/';
@@ -139,7 +140,7 @@ class Sheet {
                       140 * this.scale, 
                       140 * this.scale);
 
-      setTimeout(event =>this.goodAnimationDone(event), 1000);
+      setTimeout(event =>this.goodAnimationDone(event), ANIM_MAX_TIME);
 
     }
     this.goodImage.src = GOOD_IMG_PATH + emoji_good[this.getRandom(emoji_good.length)];

@@ -31,7 +31,7 @@ const BUTTON_STOP_TEXT = "⏹ Stop";
 const BACKGROUND_COLOR_PRACTICING = '#b8f9e9';
 const BACKGROUND_COLOR_IDLE = '#daf3fc';
 const BACKGROUND_COLOR_DOWN = '#fbc2c2';
-
+const PRACTICE_TIME = 180;
 
 const timerLabel = document.getElementById('timerLabel');
 
@@ -57,6 +57,8 @@ const sheet = new Sheet(canvas_notes, onGoodAnimationDone, onBadAnimationDone);
 StartStopBtn.textContent = BUTTON_START_TEXT;
 StartStopBtn.setAttribute('title', TOOLTIP_START_PRACTICE);
 
+statusDisplay.innerText = "";
+
 var scale;
 var current_note = "?"
 var noteAudioSample;
@@ -64,7 +66,6 @@ var audioSynth;
 var playingNote = '';
 
 var mode = 'Idle'; // modes: Idle, Practicing
-//var practicing_state = 'WaitingPlayerInput';
 
 var expectedNextNoteIndex = -1;
 var expectedNextIsFlat = false;
@@ -75,7 +76,7 @@ const canvasState = {
   height: 0
 };
 
-let countdown = 300;
+let countdown = 0;
 let intervalId = null;
 
 function score_reset() {
@@ -88,14 +89,11 @@ function score_reset() {
 
 function score_correct() {
   right_score_int += 1;
-  //right_wrong_int = 0;
   right_score.textContent = right_score_int;
-  //wrong_score.textContent = 0;
   total_score.textContent = right_score_int + right_wrong_int;
 }
 
 function score_incorrect() {
-  //right_score.textContent += 1;
   right_wrong_int += 1;
   wrong_score.textContent = right_wrong_int;
   total_score.textContent = right_score_int + right_wrong_int;
@@ -104,6 +102,7 @@ function score_incorrect() {
 function startCountDown() {
     mode = 'Practicing';
     score_reset();
+    statusDisplay.innerText = "";
     sheet.setBackgroundColor(BACKGROUND_COLOR_PRACTICING);
     StartStopBtn.textContent = BUTTON_STOP_TEXT;
     StartStopBtn.setAttribute('title', TOOLTIP_STOP_PRACTICE);
@@ -113,7 +112,7 @@ function startCountDown() {
 
     sheet.addNote(piano.expectedNextNote);
 
-    countdown = 300;
+    countdown = PRACTICE_TIME;
     timerLabel.textContent = countdown;
     if (intervalId) clearInterval(intervalId);
     intervalId = setInterval(() => {
@@ -145,10 +144,24 @@ function onGoodAnimationDone() {
   } else {
     sheet.addNote(NOTES_IN_STAFF_TABLE[expectedNextNoteIndex].note, expectedNextIsFlat);
   }
+  statusDisplay.innerText = "";
 }
 
 function onBadAnimationDone() {
-  
+  // do nothing for now
+}
+
+function noteStatus(i) {
+  const note_name = NOTES_TABLE[i].note;
+  const flat_note_name = NOTES_TABLE[i].flat;
+  const solfege_name = NOTES_TABLE[i].solfege;
+  const solfege_flat_note_name = NOTES_TABLE[i].solfege_flat;
+    if (NOTES_TABLE[i].is_black) {
+      statusDisplay.innerText =  `${note_name}, ${flat_note_name} (${solfege_name}, ${solfege_flat_note_name})`;
+    }
+    else {
+      statusDisplay.innerText =  `${note_name} (${solfege_name})`;
+    }
 }
 
 function onNoteStroke(note_name) {
@@ -164,6 +177,7 @@ function onNoteStroke(note_name) {
     sheet.setBackgroundColor(BACKGROUND_COLOR_PRACTICING);
     sheet.startGoodAnimation();
     score_correct();
+    noteStatus(expectedNextNoteIndex);
   }
   else {
     sheet.setBackgroundColor(BACKGROUND_COLOR_DOWN);
