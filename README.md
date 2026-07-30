@@ -3,9 +3,11 @@
 ## Video demos English/Portuguese:
 ### English
 
+<p align="center">
 <a href="https://odysee.com/@Varanda:0/Piano-notes-en-01-mp3:e">
    <img src="https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp" width="200" alt="Watch the video">
 </a>
+</p>
 
 
 
