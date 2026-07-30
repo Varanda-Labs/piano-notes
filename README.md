@@ -2,7 +2,12 @@
 
 ## Video demos English/Portuguese:
 ### English
- - [![Watch the video](https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp =x250)](https://odysee.com/@Varanda:0/Piano-notes-en-01-mp3:e)
+
+<a href="https://odysee.com/@Varanda:0/Piano-notes-en-01-mp3:e">
+   <img src="https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp" width="200" alt="Watch the video">
+</a>
+
+
 
 ### Portugues
  - [![Assista o video](https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp)](https://odysee.com/@Varanda:0/Piano-notes-br-01-mp3:0)
