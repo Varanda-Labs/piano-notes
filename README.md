@@ -5,16 +5,17 @@
 
 <p align="center">
 <a href="https://odysee.com/@Varanda:0/Piano-notes-en-01-mp3:e">
-   <img src="https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp" width="200" alt="Watch the video">
+   <img src="https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp" width="300" alt="Watch the video">
 </a>
 </p>
 
-<iframe id="odysee-iframe" style="width:100%; aspect-ratio:16 / 9;" src="https://odysee.com/%24/embed/%40Varanda%3A0%2FPiano-notes-en-01-mp3%3Ae?r=FrR44ru5wmf8aJDDRCzeM5FZ8X27Wgiw" allowfullscreen></iframe>
-
 ### Portugues
- - [![Assista o video](https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp)](https://odysee.com/@Varanda:0/Piano-notes-br-01-mp3:0)
 
-
+ <p align="center">
+<a href="https://odysee.com/@Varanda:0/Piano-notes-br-01-mp3:0">
+   <img src="https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp" width="300" alt="Assista o video">
+</a>
+</p>
 
 ## Published App:
 [https://varanda-labs.github.io/piano-notes](https://varanda-labs.github.io/piano-notes)
