@@ -134,18 +134,11 @@ class Piano extends Instrument{
         midi.inputs.forEach(port => {
           port.onmidimessage = message => {
             const [_command, note, velocity] = message.data;
-
             var command = _command & 0xF0;
 
-            // // Determine message type
-            // const commandType = (command & 0xF0) === 0x90 ? 'Note On' :
-            //                   (command & 0xF0) === 0x80 ? 'Note Off' :
-            //                   (command & 0xF0) === 0xA0 ? 'Aftertouch' :
-            //                   'Other';
-
-            //if ((command & 0xF0) !== 0x90) return; // only Note On with velocity > 0
             if (command == 0x90) { // if note on
-              var noteName = NOTES_TABLE[note - MIDI_FIRST_NOTE_OFFSET].note;
+              var i = note - MIDI_FIRST_NOTE_OFFSET;
+              var noteName = NOTES_TABLE[i].note;
 
               if (velocity == 0) { // some MIDI issue velocity = 0 rather than "Note Off" command
                   SAMPLER.triggerRelease(noteName);
@@ -155,12 +148,36 @@ class Piano extends Instrument{
                   );
               } 
               else {
-                this.drawNoteMark(noteName, '#ff404088');
-                this.playNote(noteName);
-
                 console.log(
                   `Note On: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
                 );
+
+                var display_text;
+                var note_name = NOTES_TABLE[i].note;
+                var flat_note_name = NOTES_TABLE[i].flat;
+                var solfege_name = NOTES_TABLE[i].solfege;
+                var solfege_flat_note_name = NOTES_TABLE[i].solfege_flat;
+                if (NOTES_TABLE[i].is_black) {
+                  display_text =  `${note_name}, ${flat_note_name} (${solfege_name}, ${solfege_flat_note_name})`;
+                }
+                else {
+                  display_text =  `${note_name} (${solfege_name})`;
+                }
+
+                if (noteName.length > 1) {
+                    var c = KEY_COLOR_GOOD;
+                    this.playNote(noteName);
+                    if (this.expectedNextNote.length > 1) {
+                      if (this.expectedNextNote != noteName) {
+                        c = KEY_COLOR_BAD;
+                        this.drawNoteMark(this.expectedNextNote, KEY_COLOR_GOOD);
+                      }
+                    }
+                    else {
+                      this.statusDisplay.innerText = display_text;
+                    }
+                    this.drawNoteMark(noteName, c);
+                }
               }
             }
 
@@ -172,7 +189,6 @@ class Piano extends Instrument{
                 `Note Off: ${noteName}, Pitch: ${note}, Velocity: ${velocity}`
               );
             }
-
           };
         });
 
