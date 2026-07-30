@@ -11,7 +11,7 @@
 
 ### Portugues
 
- <p align="center">
+<p align="center">
 <a href="https://odysee.com/@Varanda:0/Piano-notes-br-01-mp3:0">
    <img src="https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp" width="300" alt="Assista o video">
 </a>
@@ -19,6 +19,14 @@
 
 ## Published App:
 [https://varanda-labs.github.io/piano-notes](https://varanda-labs.github.io/piano-notes)
+
+<p align="center">
+<a href="https://varanda-labs.github.io/piano-notes">
+   <img src="Screenshot.png" alt="App link">
+</a>
+</p>
+
+Screenshot.png
 
 ## About Our Web App
 We're making easier to learn piano notes for aspiring musicians! Our mission is straightforward: offer a free, open-source platform without subscriptions so that anyone can learn and enjoy playing the piano.
