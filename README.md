@@ -22,7 +22,7 @@
 
 <p align="center">
 <a href="https://varanda-labs.github.io/piano-notes">
-   <img src="Screenshot.png" alt="App link">
+   <img src="res/Screenshot.png" alt="App link">
 </a>
 </p>
 
