@@ -1,8 +1,10 @@
 # Piano Notes
 
 ## Video demos English/Portuguese:
- - [![Watch the video](https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp)](https://odysee.com/@Varanda:0/Piano-notes-en-01-mp3:e)
+### English
+ - [![Watch the video](https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp =x250)](https://odysee.com/@Varanda:0/Piano-notes-en-01-mp3:e)
 
+### Portugues
  - [![Assista o video](https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp)](https://odysee.com/@Varanda:0/Piano-notes-br-01-mp3:0)
 
 
