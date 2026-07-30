@@ -1,5 +1,12 @@
 # Piano Notes
 
+## Video demos English/Portuguese:
+ - [![Watch the video](https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp)](https://odysee.com/@Varanda:0/Piano-notes-en-01-mp3:e)
+
+ - [![Assista o video](https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp)](https://odysee.com/@Varanda:0/Piano-notes-br-01-mp3:0)
+
+
+
 ## Published App:
 [https://varanda-labs.github.io/piano-notes](https://varanda-labs.github.io/piano-notes)
 
@@ -21,9 +28,6 @@ Piano Note isn't just about learning; it's a community effort! Here are some key
 Join us on this musical journey as we make piano learning accessible, fun, and subscription-free! Your feedback is invaluable in helping us improve our app for a better user experience. Let's play some tunes together! 🎹
 
 ## Links & Contact:
- - [Watch Video Demo](https://odysee.com/@Varanda:0/Piano-notes-en-01-mp3:e)
- - [Assista o video - Portugues](https://odysee.com/@Varanda:0/Piano-notes-br-01-mp3:0)
-
  - Source Code: [GitHub Repository](https://github.com/Varanda-Labs/piano-notes)
  - Inquiries: Feel free to reach out via Github [Issues](https://github.com/Varanda-Labs/piano-notes/issues)
 
