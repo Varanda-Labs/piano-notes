@@ -1,4 +1,13 @@
 # Piano Notes
+We're making easier to learn piano notes for aspiring musicians! Our mission is straightforward: offer a free, open-source platform without subscriptions so that anyone can learn and enjoy playing the piano.
+
+## Published App:
+
+<p align="center">
+<a href="https://varanda-labs.github.io/piano-notes">
+   <img src="res/Screenshot.png"  width="300" alt="App link">
+</a>
+</p>
 
 ## Video demos English/Portuguese:
 ### English
@@ -16,20 +25,6 @@
    <img src="https://thumbs.odycdn.com/9355fdbc313acfbf6bbd95b2d189cf47.webp" width="300" alt="Assista o video">
 </a>
 </p>
-
-## Published App:
-[https://varanda-labs.github.io/piano-notes](https://varanda-labs.github.io/piano-notes)
-
-<p align="center">
-<a href="https://varanda-labs.github.io/piano-notes">
-   <img src="res/Screenshot.png" alt="App link">
-</a>
-</p>
-
-Screenshot.png
-
-## About Our Web App
-We're making easier to learn piano notes for aspiring musicians! Our mission is straightforward: offer a free, open-source platform without subscriptions so that anyone can learn and enjoy playing the piano.
 
 ### Frustration with Subscription Models
 We understand the frustration of existing apps requiring subscriptions to access their features. That's why our app is completely subscription-free, ensuring music remains accessible to all without any financial barriers.
