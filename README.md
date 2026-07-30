@@ -27,6 +27,8 @@ Join us on this musical journey as we make piano learning accessible, fun, and s
  - Source Code: [GitHub Repository](https://github.com/Varanda-Labs/piano-notes)
  - Inquiries: Feel free to reach out via Github [Issues](https://github.com/Varanda-Labs/piano-notes/issues)
 
+## License
+ - Be free to host/modify the code. Read: [License details](https://github.com/Varanda-Labs/piano-notes/blob/main/LICENSE.md)
 --- 
 
 We hope you enjoy your time with Piano Note! If you have any suggestions or find issues, don't hesitate to contact us. Your feedback matters! 😊
